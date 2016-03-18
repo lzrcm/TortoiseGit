@@ -64,7 +64,7 @@ bool UnIgnoreCommand::Execute()
 			if (!props.Remove(L"svn:ignore"))
 			{
 				CString temp;
-				temp.Format(IDS_ERR_FAILEDUNIGNOREPROPERTY, (LPCTSTR)name);
+				temp.Format(IDS_ERR_FAILEDUNIGNOREPROPERTY, (LPCWSTR)name);
 				CMessageBox::Show(hwndExplorer, temp, L"TortoiseGit", MB_ICONERROR);
 				err = TRUE;
 				break;
@@ -75,7 +75,7 @@ bool UnIgnoreCommand::Execute()
 			if (!props.Add(L"svn:ignore", (LPCSTR)value))
 			{
 				CString temp;
-				temp.Format(IDS_ERR_FAILEDUNIGNOREPROPERTY, (LPCTSTR)name);
+				temp.Format(IDS_ERR_FAILEDUNIGNOREPROPERTY, (LPCWSTR)name);
 				CMessageBox::Show(hwndExplorer, temp, L"TortoiseGit", MB_ICONERROR);
 				err = TRUE;
 				break;
@@ -85,7 +85,7 @@ bool UnIgnoreCommand::Execute()
 	if (err == FALSE)
 	{
 		CString temp;
-		temp.Format(IDS_PROC_UNIGNORESUCCESS, (LPCTSTR)filelist);
+		temp.Format(IDS_PROC_UNIGNORESUCCESS, (LPCWSTR)filelist);
 		CMessageBox::Show(hwndExplorer, temp, L"TortoiseGit", MB_ICONINFORMATION);
 		return true;
 	}

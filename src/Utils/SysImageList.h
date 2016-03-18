@@ -89,7 +89,7 @@ private:
 	typedef std::map<CString, int> IconIndexMap;
 	mutable IconIndexMap m_indexCache;
 
-	int GetFileIcon(LPCTSTR file, DWORD attributes, UINT extraFlags) const;
+	int GetFileIcon(LPCWSTR file, DWORD attributes, UINT extraFlags) const;
 };
 
 

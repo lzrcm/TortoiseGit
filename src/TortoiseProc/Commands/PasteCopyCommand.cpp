@@ -62,7 +62,7 @@ bool PasteCopyCommand::Execute()
 			// Offer a rename
 			progress.Stop();
 			CRenameDlg dlg;
-			dlg.m_windowtitle.Format(IDS_PROC_NEWNAMECOPY, (LPCTSTR)sourcePath.GetUIFileOrDirectoryName());
+			dlg.m_windowtitle.Format(IDS_PROC_NEWNAMECOPY, (LPCWSTR)sourcePath.GetUIFileOrDirectoryName());
 			if (dlg.DoModal() != IDOK)
 				return FALSE;
 			// rebuild the progress dialog
@@ -86,7 +86,7 @@ bool PasteCopyCommand::Execute()
 			cmd.Format(L"git.exe add -- \"%s\"", fullDropPath.GetWinPath());
 			if (g_Git.Run(cmd, &output, CP_UTF8))
 			{
-				TRACE(L"%s\n", (LPCTSTR)output);
+				TRACE(L"%s\n", (LPCWSTR)output);
 				CMessageBox::Show(hwndExplorer, output, L"TortoiseGit", MB_ICONERROR);
 				return FALSE;		//get out of here
 			}
@@ -97,7 +97,7 @@ bool PasteCopyCommand::Execute()
 		//{
 		//	if (!svn.Copy(CTSVNPathList(sourcePath), fullDropPath, SVNRev::REV_WC, SVNRev()))
 		//	{
-		//		TRACE(L"%s\n", (LPCTSTR)svn.GetLastErrorMessage());
+		//		TRACE(L"%s\n", (LPCWSTR)svn.GetLastErrorMessage());
 		//		CMessageBox::Show(hwndExplorer, svn.GetLastErrorMessage(), L"TortoiseSVN", MB_ICONERROR);
 		//		return FALSE;		//get out of here
 		//	}

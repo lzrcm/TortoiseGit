@@ -45,7 +45,7 @@ bool RemoveCommand::Execute()
 		dlg.SetUUID(sUUID);
 		CString sHint;
 		if (pathList.GetCount() == 1)
-			sHint.Format(IDS_INPUT_REMOVEONE, (LPCTSTR)pathList[0].GetSVNPathString());
+			sHint.Format(IDS_INPUT_REMOVEONE, (LPCWSTR)pathList[0].GetSVNPathString());
 		else
 			sHint.Format(IDS_INPUT_REMOVEMORE, pathList.GetCount());
 		dlg.SetActionText(sHint);
@@ -64,7 +64,7 @@ bool RemoveCommand::Execute()
 	{
 		for (int nPath = 0; nPath < pathList.GetCount(); ++nPath)
 		{
-			CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) L": remove file %s\n", (LPCTSTR)pathList[nPath].GetUIPathString());
+			CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) L": remove file %s\n", (LPCWSTR)pathList[nPath].GetUIPathString());
 			// even though SVN::Remove takes a list of paths to delete at once
 			// we delete each item individually so we can prompt the user
 			// if something goes wrong or unversioned/modified items are
@@ -84,7 +84,7 @@ bool RemoveCommand::Execute()
 					if (pathList[nPath].IsDirectory())
 						msg.Format(IDS_PROC_REMOVEFORCEFOLDER, pathList[nPath].GetWinPath());
 					else
-						msg.Format(IDS_PROC_REMOVEFORCE, (LPCTSTR)svn.GetLastErrorMessage());
+						msg.Format(IDS_PROC_REMOVEFORCE, (LPCWSTR)svn.GetLastErrorMessage());
 					yes.LoadString(IDS_MSGBOX_YES);
 					no.LoadString(IDS_MSGBOX_NO);
 					yestoall.LoadString(IDS_PROC_YESTOALL);
@@ -134,7 +134,7 @@ bool RemoveCommand::Execute()
 	int nPath;
 	for (nPath = 0; nPath < pathList.GetCount(); ++nPath)
 	{
-		cmd.Format(format, (LPCTSTR)pathList[nPath].GetGitPathString());
+		cmd.Format(format, (LPCWSTR)pathList[nPath].GetGitPathString());
 		if (g_Git.Run(cmd, &output, CP_UTF8))
 		{
 			if (CMessageBox::Show(hwndExplorer, output, L"TortoiseGit", 2, IDI_ERROR, CString(MAKEINTRESOURCE(IDS_IGNOREBUTTON)), CString(MAKEINTRESOURCE(IDS_ABORTBUTTON))) == 2)

@@ -61,4 +61,4 @@ std::wstring UTF8ToWide(const std::string& multibyte);
 	std::string StringToUTF8(const std::wstring& string);
 #endif
 
-int LoadStringEx(HINSTANCE hInstance, UINT uID, LPTSTR lpBuffer, int nBufferMax, WORD wLanguage);
+int LoadStringEx(HINSTANCE hInstance, UINT uID, LPWSTR lpBuffer, int nBufferMax, WORD wLanguage);

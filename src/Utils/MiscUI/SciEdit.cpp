@@ -592,7 +592,7 @@ void CSciEdit::SuggestSpellingAlternatives()
 		CString suggestions;
 		for (int i=0; i < ns; i++)
 		{
-			suggestions.AppendFormat(L"%s%c%d%c", (LPCTSTR)GetWordFromSpellChecker(wlst[i]), m_typeSeparator, AUTOCOMPLETE_SPELLING, m_separator);
+			suggestions.AppendFormat(L"%s%c%d%c", (LPCWSTR)GetWordFromSpellChecker(wlst[i]), m_typeSeparator, AUTOCOMPLETE_SPELLING, m_separator);
 			free(wlst[i]);
 		}
 		free(wlst);
@@ -667,7 +667,7 @@ void CSciEdit::DoAutoCompletion(int nMinPrefixLength)
 	}
 
 	for (const auto& w : wordset)
-		sAutoCompleteList.AppendFormat(L"%s%c%d%c", (LPCTSTR)w.first, m_typeSeparator, w.second, m_separator);
+		sAutoCompleteList.AppendFormat(L"%s%c%d%c", (LPCWSTR)w.first, m_typeSeparator, w.second, m_separator);
 
 	sAutoCompleteList.TrimRight(m_separator);
 	if (sAutoCompleteList.IsEmpty())
@@ -925,7 +925,7 @@ void CSciEdit::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		if ((sWord.GetLength()<PDICT_MAX_WORD_LENGTH)&&((pChecker)&&(m_autolist.find(sWord) == m_autolist.end())&&(!pChecker->spell(worda)))&&
 			(!_istdigit(sWord.GetAt(0)))&&(!m_personalDict.FindWord(sWord)) && !bIsReadOnly)
 		{
-			sMenuItemText.Format(IDS_SCIEDIT_ADDWORD, (LPCTSTR)sWord);
+			sMenuItemText.Format(IDS_SCIEDIT_ADDWORD, (LPCWSTR)sWord);
 			popup.AppendMenu(uEnabledMenu, SCI_ADDWORD, sMenuItemText);
 			// another separator
 			popup.AppendMenu(MF_SEPARATOR);

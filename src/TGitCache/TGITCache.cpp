@@ -92,7 +92,7 @@ void DebugOutputLastError()
 		nullptr,
 		GetLastError(),
 		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-		(LPTSTR) &lpMsgBuf,
+		(LPWSTR) &lpMsgBuf,
 		0,
 		nullptr))
 	{
@@ -101,7 +101,7 @@ void DebugOutputLastError()
 
 	// Display the string.
 	OutputDebugStringA("TGitCache GetLastError(): ");
-	OutputDebugString((LPCTSTR)lpMsgBuf);
+	OutputDebugString((LPCWSTR)lpMsgBuf);
 	OutputDebugStringA("\n");
 
 	// Free the buffer.

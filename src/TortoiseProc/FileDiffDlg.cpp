@@ -262,7 +262,7 @@ BOOL CFileDiffDlg::OnInitDialog()
 		if (m_rev1.GetCommit(m_strRev1))
 		{
 			CString msg;
-			msg.Format(IDS_PROC_REFINVALID, (LPCTSTR)m_strRev1);
+			msg.Format(IDS_PROC_REFINVALID, (LPCWSTR)m_strRev1);
 			m_cFileList.ShowText(msg + L'\n' + m_rev1.GetLastErr());
 		}
 
@@ -276,7 +276,7 @@ BOOL CFileDiffDlg::OnInitDialog()
 		if (m_rev2.GetCommit(m_strRev2))
 		{
 			CString msg;
-			msg.Format(IDS_PROC_REFINVALID, (LPCTSTR)m_strRev2);
+			msg.Format(IDS_PROC_REFINVALID, (LPCWSTR)m_strRev2);
 			m_cFileList.ShowText(msg + L'\n' + m_rev1.GetLastErr());
 		}
 
@@ -554,12 +554,12 @@ void CFileDiffDlg::OnContextMenu(CWnd* pWnd, CPoint point)
 		{
 			if (!m_rev1.m_CommitHash.IsEmpty())
 			{
-				menuText.Format(IDS_FILEDIFF_POPREVERTTOREV, (LPCTSTR)m_rev1.m_CommitHash.ToString().Left(g_Git.GetShortHASHLength()));
+				menuText.Format(IDS_FILEDIFF_POPREVERTTOREV, (LPCWSTR)m_rev1.m_CommitHash.ToString().Left(g_Git.GetShortHASHLength()));
 				popup.AppendMenuIcon(ID_REVERT1, menuText, IDI_REVERT);
 			}
 			if (!m_rev2.m_CommitHash.IsEmpty())
 			{
-				menuText.Format(IDS_FILEDIFF_POPREVERTTOREV, (LPCTSTR)m_rev2.m_CommitHash.ToString().Left(g_Git.GetShortHASHLength()));
+				menuText.Format(IDS_FILEDIFF_POPREVERTTOREV, (LPCWSTR)m_rev2.m_CommitHash.ToString().Left(g_Git.GetShortHASHLength()));
 				popup.AppendMenuIcon(ID_REVERT2, menuText, IDI_REVERT);
 			}
 			popup.AppendMenu(MF_SEPARATOR, NULL);
@@ -668,9 +668,9 @@ void CFileDiffDlg::OnContextMenu(CWnd* pWnd, CPoint point)
 					{
 						CStdioFile file(savePath.GetWinPathString(), CFile::typeBinary | CFile::modeReadWrite | CFile::modeCreate);
 						if (m_path1.IsEmpty() && m_path2.IsEmpty())
-							temp.Format(IDS_FILEDIFF_CHANGEDLISTINTROROOT, (LPCTSTR)m_rev1.m_CommitHash.ToString(), (LPCTSTR)m_rev2.m_CommitHash.ToString());
+							temp.Format(IDS_FILEDIFF_CHANGEDLISTINTROROOT, (LPCWSTR)m_rev1.m_CommitHash.ToString(), (LPCWSTR)m_rev2.m_CommitHash.ToString());
 						else
-							temp.Format(IDS_FILEDIFF_CHANGEDLISTINTRO, (LPCTSTR)m_path1.GetGitPathString(), (LPCTSTR)m_rev1.m_CommitHash.ToString(), (LPCTSTR)m_path2.GetGitPathString(), (LPCTSTR)m_rev2.m_CommitHash.ToString());
+							temp.Format(IDS_FILEDIFF_CHANGEDLISTINTRO, (LPCWSTR)m_path1.GetGitPathString(), (LPCWSTR)m_rev1.m_CommitHash.ToString(), (LPCWSTR)m_path2.GetGitPathString(), (LPCWSTR)m_rev2.m_CommitHash.ToString());
 						file.WriteString(temp + L"\r\n");
 						POSITION pos = m_cFileList.GetFirstSelectedItemPosition();
 						while (pos)
@@ -730,7 +730,7 @@ void CFileDiffDlg::OnContextMenu(CWnd* pWnd, CPoint point)
 							if(g_Git.GetOneFile(m_rev1.m_CommitHash, *fd, filename))
 							{
 								CString out;
-								out.Format(IDS_STATUSLIST_CHECKOUTFILEFAILED, (LPCTSTR)fd->GetGitPathString(), (LPCTSTR)m_rev1.m_CommitHash.ToString(), (LPCTSTR)filename);
+								out.Format(IDS_STATUSLIST_CHECKOUTFILEFAILED, (LPCWSTR)fd->GetGitPathString(), (LPCWSTR)m_rev1.m_CommitHash.ToString(), (LPCWSTR)filename);
 								if (CMessageBox::Show(nullptr, g_Git.GetGitLastErr(out, CGit::GIT_CMD_GETONEFILE), L"TortoiseGit", 2, IDI_WARNING, CString(MAKEINTRESOURCE(IDS_IGNOREBUTTON)), CString(MAKEINTRESOURCE(IDS_ABORTBUTTON))) == 2)
 									return;
 							}
@@ -1140,7 +1140,7 @@ void CFileDiffDlg::OnTimer(UINT_PTR nIDEvent)
 		else
 		{
 			CString msg;
-			msg.Format(IDS_PROC_REFINVALID, (LPCTSTR)str);
+			msg.Format(IDS_PROC_REFINVALID, (LPCWSTR)str);
 			m_cFileList.ShowText(msg + L'\n' + gitrev.GetLastErr());
 		}
 
@@ -1154,7 +1154,7 @@ void CFileDiffDlg::OnTimer(UINT_PTR nIDEvent)
 		else
 		{
 			CString msg;
-			msg.Format(IDS_PROC_REFINVALID, (LPCTSTR)str);
+			msg.Format(IDS_PROC_REFINVALID, (LPCWSTR)str);
 			m_cFileList.ShowText(msg + L'\n' + gitrev.GetLastErr());
 		}
 
@@ -1271,7 +1271,7 @@ int CFileDiffDlg::RevertSelectedItemToVersion(CString rev)
 	{
 		CString cmd, out;
 		CTGitPath *fentry = (CTGitPath *)m_arFilteredList[index];
-		cmd.Format(L"git.exe checkout %s -- \"%s\"", (LPCTSTR)rev, (LPCTSTR)fentry->GetGitPathString());
+		cmd.Format(L"git.exe checkout %s -- \"%s\"", (LPCWSTR)rev, (LPCWSTR)fentry->GetGitPathString());
 		if (g_Git.Run(cmd, &out, CP_UTF8))
 		{
 			if (CMessageBox::Show(GetSafeHwnd(), out, L"TortoiseGit", 2, IDI_WARNING, CString(MAKEINTRESOURCE(IDS_IGNOREBUTTON)), CString(MAKEINTRESOURCE(IDS_ABORTBUTTON))) == 2)
@@ -1282,7 +1282,7 @@ int CFileDiffDlg::RevertSelectedItemToVersion(CString rev)
 	}
 
 	CString out;
-	out.Format(IDS_STATUSLIST_FILESREVERTED, count, (LPCTSTR)rev);
+	out.Format(IDS_STATUSLIST_FILESREVERTED, count, (LPCWSTR)rev);
 	CMessageBox::Show(GetSafeHwnd(), out, L"TortoiseGit", MB_OK);
 	return 0;
 }

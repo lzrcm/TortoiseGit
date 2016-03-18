@@ -126,11 +126,11 @@ BOOL CPullFetchDlg::OnInitDialog()
 
 	m_RemoteReg = CRegString(CString(L"Software\\TortoiseGit\\History\\PullRemote\\"+WorkingDir));
 	CString regkey;
-	regkey.Format(L"Software\\TortoiseGit\\TortoiseProc\\PullFetch\\%s_%d\\rebase", (LPCTSTR)WorkingDir, m_IsPull);
+	regkey.Format(L"Software\\TortoiseGit\\TortoiseProc\\PullFetch\\%s_%d\\rebase", (LPCWSTR)WorkingDir, m_IsPull);
 	m_regRebase=CRegDWORD(regkey,false);
-	regkey.Format(L"Software\\TortoiseGit\\TortoiseProc\\PullFetch\\%s_%d\\ffonly", (LPCTSTR)WorkingDir, m_IsPull);
+	regkey.Format(L"Software\\TortoiseGit\\TortoiseProc\\PullFetch\\%s_%d\\ffonly", (LPCWSTR)WorkingDir, m_IsPull);
 	m_regFFonly = CRegDWORD(regkey, false);
-	regkey.Format(L"Software\\TortoiseGit\\TortoiseProc\\PullFetch\\%s_%d\\autoload", (LPCTSTR)WorkingDir, m_IsPull);
+	regkey.Format(L"Software\\TortoiseGit\\TortoiseProc\\PullFetch\\%s_%d\\autoload", (LPCWSTR)WorkingDir, m_IsPull);
 
 	m_regAutoLoadPutty = CRegDWORD(regkey,this->m_bAutoLoad);
 	m_bAutoLoad = m_regAutoLoadPutty;
@@ -317,7 +317,7 @@ void CPullFetchDlg::OnCbnSelchangeRemote()
 	}
 
 	CString key;
-	key.Format(L"remote.%s.tagopt", (LPCTSTR)remote);
+	key.Format(L"remote.%s.tagopt", (LPCWSTR)remote);
 	CString tagopt = g_Git.GetConfigValue(key);
 	if (tagopt == "--no-tags")
 		tagopt.LoadString(IDS_NONE);
@@ -326,16 +326,16 @@ void CPullFetchDlg::OnCbnSelchangeRemote()
 	else
 		tagopt.LoadString(IDS_FETCH_REACHABLE);
 	CString value;
-	value.Format(L"%s: %s", (LPCTSTR)CString(MAKEINTRESOURCE(IDS_DEFAULT)), (LPCTSTR)tagopt);
+	value.Format(L"%s: %s", (LPCWSTR)CString(MAKEINTRESOURCE(IDS_DEFAULT)), (LPCWSTR)tagopt);
 	GetDlgItem(IDC_STATIC_TAGOPT)->SetWindowText(value);
 
-	key.Format(L"remote.%s.prune", (LPCTSTR)remote);
+	key.Format(L"remote.%s.prune", (LPCWSTR)remote);
 	CString prune = g_Git.GetConfigValue(key);
 	if (prune.IsEmpty())
 		prune = g_Git.GetConfigValue(L"fetch.prune");
 	if (!prune.IsEmpty())
 	{
-		value.Format(L"%s: %s", (LPCTSTR)CString(MAKEINTRESOURCE(IDS_DEFAULT)), (LPCTSTR)prune);
+		value.Format(L"%s: %s", (LPCWSTR)CString(MAKEINTRESOURCE(IDS_DEFAULT)), (LPCWSTR)prune);
 		GetDlgItem(IDC_STATIC_PRUNE)->SetWindowText(value);
 	}
 	else
@@ -430,7 +430,7 @@ void CPullFetchDlg::OnStnClickedRemoteManage()
 void CPullFetchDlg::OnBnClickedButtonBrowseRef()
 {
 	CString initialRef;
-	initialRef.Format(L"refs/remotes/%s/%s", (LPCTSTR)m_Remote.GetString(), (LPCTSTR)m_RemoteBranch.GetString());
+	initialRef.Format(L"refs/remotes/%s/%s", (LPCWSTR)m_Remote.GetString(), (LPCWSTR)m_RemoteBranch.GetString());
 	CString selectedRef = CBrowseRefsDlg::PickRef(false, initialRef, gPickRef_Remote);
 	if(selectedRef.Left(13) != "refs/remotes/")
 		return;

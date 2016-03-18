@@ -154,7 +154,7 @@ protected:
 			if (!set)
 				return CString();
 			CString temp;
-			temp.Format(L"%s <%s>", (LPCTSTR)name, (LPCTSTR)email);
+			temp.Format(L"%s <%s>", (LPCWSTR)name, (LPCWSTR)email);
 			return temp;
 		}
 
@@ -163,7 +163,7 @@ protected:
 			if (!set)
 				return CString();
 			CString temp;
-			temp.Format(L"--date=%s --author=\"%s\" ", (LPCTSTR)time.Format(L"%Y-%m-%dT%H:%M:%S"), (LPCTSTR)GetAuthor());
+			temp.Format(L"--date=%s --author=\"%s\" ", (LPCWSTR)time.Format(L"%Y-%m-%dT%H:%M:%S"), (LPCWSTR)GetAuthor());
 			return temp;
 		}
 	} m_SquashFirstMetaData;

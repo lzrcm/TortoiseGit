@@ -230,7 +230,7 @@ BOOL CSettingsUDiff::OnApply()
 	Store((m_cBackAddedColor.GetColor() == -1 ? m_cBackAddedColor.GetAutomaticColor() : m_cBackAddedColor.GetColor()), m_regBackAddedColor);
 	Store((m_cBackRemovedColor.GetColor() == -1 ? m_cBackRemovedColor.GetAutomaticColor() : m_cBackRemovedColor.GetColor()), m_regBackRemovedColor);
 
-	Store((LPCTSTR)m_sFontName, m_regFontName);
+	Store((LPCWSTR)m_sFontName, m_regFontName);
 	Store(m_dwFontSize, m_regFontSize);
 	Store(m_dwTabSize, m_regTabSize);
 

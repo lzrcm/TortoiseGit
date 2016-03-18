@@ -108,7 +108,7 @@ void CInputLogDlg::OnOK()
 	m_sLogMsg = m_cInput.GetText();
 
 	CString reg;
-	reg.Format(L"Software\\TortoiseGit\\History\\commit%s", (LPCTSTR)m_sUUID);
+	reg.Format(L"Software\\TortoiseGit\\History\\commit%s", (LPCWSTR)m_sUUID);
 
 	CRegHistory history;
 	history.Load(reg, L"logmsgs");
@@ -156,7 +156,7 @@ void CInputLogDlg::UpdateOKButton()
 void CInputLogDlg::OnBnClickedHistory()
 {
 	CString reg;
-	reg.Format(L"Software\\TortoiseGit\\History\\commit%s", (LPCTSTR)m_sUUID);
+	reg.Format(L"Software\\TortoiseGit\\History\\commit%s", (LPCWSTR)m_sUUID);
 	CRegHistory history;
 	history.Load(reg, L"logmsgs");
 	CHistoryDlg HistoryDlg;

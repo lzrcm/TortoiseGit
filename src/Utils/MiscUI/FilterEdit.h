@@ -29,7 +29,7 @@
 class IFilterEditValidator
 {
 public:
-	virtual bool	Validate(LPCTSTR string) = 0;
+	virtual bool	Validate(LPCWSTR string) = 0;
 };
 
 /**

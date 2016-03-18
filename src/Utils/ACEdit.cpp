@@ -133,10 +133,10 @@ void CACEdit::Init()
 
 /*********************************************************************/
 
-void CACEdit::AddSearchStrings(LPCTSTR Strings[])
+void CACEdit::AddSearchStrings(LPCWSTR Strings[])
 {
 	int i = 0;
-	LPCTSTR str;
+	LPCWSTR str;
 	if(m_iType == -1) {ASSERT(0); return;}
 
 	m_Liste.RemoveAll();
@@ -158,7 +158,7 @@ void CACEdit::AddSearchStrings(LPCTSTR Strings[])
 
 /*********************************************************************/
 
-void CACEdit::AddSearchString(LPCTSTR lpszString)
+void CACEdit::AddSearchString(LPCWSTR lpszString)
 {
 	if(m_iType == -1) {ASSERT(0); return;}
 
@@ -575,7 +575,7 @@ void CACEdit::ReadDirectory(CString m_Dir)
 
 /*********************************************************************/
 
-void CACEdit::SetStartDirectory(LPCTSTR lpszString)
+void CACEdit::SetStartDirectory(LPCWSTR lpszString)
 {
 	if(m_iType == -1) {ASSERT(0); return;}
 
@@ -588,7 +588,7 @@ void CACEdit::SetStartDirectory(LPCTSTR lpszString)
 ** NEW:V1.1
 *********************************************************************/
 
-int CACEdit::AddString( LPCTSTR lpszString )
+int CACEdit::AddString( LPCWSTR lpszString )
 {
 	if(m_iType == _COMBOBOX_)
 	{
@@ -610,7 +610,7 @@ int CACEdit::SetDroppedWidth( UINT nWidth )
 
 /*********************************************************************/
 
-int CACEdit::FindString( int nStartAfter, LPCTSTR lpszString )
+int CACEdit::FindString( int nStartAfter, LPCWSTR lpszString )
 {
 	if(m_iType == _COMBOBOX_)
 	{
@@ -621,7 +621,7 @@ int CACEdit::FindString( int nStartAfter, LPCTSTR lpszString )
 
 /*********************************************************************/
 
-int CACEdit::SelectString( int nStartAfter, LPCTSTR lpszString )
+int CACEdit::SelectString( int nStartAfter, LPCWSTR lpszString )
 {
 	if(m_iType == _COMBOBOX_)
 	{
@@ -663,7 +663,7 @@ int CACEdit::GetCurSel()
 
 /*********************************************************************/
 
-int CACEdit::GetLBText( int nIndex, LPTSTR lpszText )
+int CACEdit::GetLBText( int nIndex, LPWSTR lpszText )
 {
 	if(m_iType == _COMBOBOX_)
 	{

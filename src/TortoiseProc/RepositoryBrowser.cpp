@@ -617,11 +617,11 @@ void CRepositoryBrowser::UpdateInfoLabel()
 			int index = m_RepoList.GetNextSelectedItem(pos);
 			CShadowFilesTree *item = (CShadowFilesTree *)m_RepoList.GetItemData(index);
 			if (item->m_bSubmodule)
-				temp.FormatMessage(IDS_REPOBROWSE_INFOEXT, (LPCTSTR)m_RepoList.GetItemText(index, eCol_Name), item->m_hash.ToString());
+				temp.FormatMessage(IDS_REPOBROWSE_INFOEXT, (LPCWSTR)m_RepoList.GetItemText(index, eCol_Name), item->m_hash.ToString());
 			else if (item->m_bFolder)
-				temp.FormatMessage(IDS_REPOBROWSE_INFODIR, (LPCTSTR)m_RepoList.GetItemText(index, eCol_Name));
+				temp.FormatMessage(IDS_REPOBROWSE_INFODIR, (LPCWSTR)m_RepoList.GetItemText(index, eCol_Name));
 			else
-				temp.FormatMessage(IDS_REPOBROWSE_INFOFILE, (LPCTSTR)m_RepoList.GetItemText(index, eCol_Name), (LPCTSTR)m_RepoList.GetItemText(index, eCol_FileSize));
+				temp.FormatMessage(IDS_REPOBROWSE_INFOFILE, (LPCWSTR)m_RepoList.GetItemText(index, eCol_Name), (LPCWSTR)m_RepoList.GetItemText(index, eCol_FileSize));
 		}
 	}
 	else
@@ -640,7 +640,7 @@ void CRepositoryBrowser::UpdateInfoLabel()
 					if ((*itShadowTree).second.m_bSubmodule)
 						++submodules;
 				}
-				temp.FormatMessage(IDS_REPOBROWSE_INFO, (LPCTSTR)pTree->m_sName, files, submodules, pTree->m_ShadowTree.size() - files - submodules, pTree->m_ShadowTree.size());
+				temp.FormatMessage(IDS_REPOBROWSE_INFO, (LPCWSTR)pTree->m_sName, files, submodules, pTree->m_ShadowTree.size() - files - submodules, pTree->m_ShadowTree.size());
 			}
 		}
 	}
@@ -789,7 +789,7 @@ void CRepositoryBrowser::ShowContextMenu(CPoint point, TShadowFilesTreeList &sel
 				diffWith += L":" + m_sMarkForDiffVersion.ToString().Left(g_Git.GetShortHASHLength());
 			}
 			CString menuEntry;
-			menuEntry.Format(IDS_MENUDIFFNOW, (LPCTSTR)diffWith);
+			menuEntry.Format(IDS_MENUDIFFNOW, (LPCWSTR)diffWith);
 			popupMenu.AppendMenuIcon(eCmd_PrepareDiff_Compare, menuEntry, IDI_DIFF);
 		}
 		popupMenu.AppendMenu(MF_SEPARATOR);
@@ -808,7 +808,7 @@ void CRepositoryBrowser::ShowContextMenu(CPoint point, TShadowFilesTreeList &sel
 	case eCmd_ViewLogSubmodule:
 		{
 			CString sCmd;
-			sCmd.Format(L"/command:log /path:\"%s\"", (LPCTSTR)g_Git.CombinePath(selectedLeafs.at(0)->GetFullName()));
+			sCmd.Format(L"/command:log /path:\"%s\"", (LPCWSTR)g_Git.CombinePath(selectedLeafs.at(0)->GetFullName()));
 			if (cmd == eCmd_ViewLog && selectedLeafs.at(0)->m_bSubmodule)
 				sCmd += L" /submodule";
 			CAppUtils::RunTortoiseGitProc(sCmd);
@@ -851,7 +851,7 @@ void CRepositoryBrowser::ShowContextMenu(CPoint point, TShadowFilesTreeList &sel
 					break;
 			}
 			CString msg;
-			msg.Format(IDS_STATUSLIST_FILESREVERTED, count, (LPCTSTR)m_sRevision);
+			msg.Format(IDS_STATUSLIST_FILESREVERTED, count, (LPCWSTR)m_sRevision);
 			MessageBox(msg, L"TortoiseGit", MB_OK);
 		}
 		break;
@@ -1197,7 +1197,7 @@ void CRepositoryBrowser::FileSaveAs(const CString path)
 	}
 
 	CString filename;
-	filename.Format(L"%s-%s%s", (LPCTSTR)gitPath.GetBaseFilename(), (LPCTSTR)hash.ToString().Left(g_Git.GetShortHASHLength()), (LPCTSTR)gitPath.GetFileExtension());
+	filename.Format(L"%s-%s%s", (LPCWSTR)gitPath.GetBaseFilename(), (LPCWSTR)hash.ToString().Left(g_Git.GetShortHASHLength()), (LPCWSTR)gitPath.GetFileExtension());
 	CFileDialog dlg(FALSE, nullptr, filename, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, nullptr);
 
 	CString currentpath(g_Git.CombinePath(gitPath.GetContainingDirectory()));
@@ -1211,7 +1211,7 @@ void CRepositoryBrowser::FileSaveAs(const CString path)
 		filename = dlg.GetPathName();
 		if (g_Git.GetOneFile(m_sRevision, gitPath, filename))
 		{
-			out.Format(IDS_STATUSLIST_CHECKOUTFILEFAILED, (LPCTSTR)gitPath.GetGitPathString(), (LPCTSTR)m_sRevision, (LPCTSTR)filename);
+			out.Format(IDS_STATUSLIST_CHECKOUTFILEFAILED, (LPCWSTR)gitPath.GetGitPathString(), (LPCWSTR)m_sRevision, (LPCWSTR)filename);
 			MessageBox(g_Git.GetGitLastErr(out, CGit::GIT_CMD_GETONEFILE), L"TortoiseGit", MB_ICONERROR);
 			return;
 		}
@@ -1232,7 +1232,7 @@ void CRepositoryBrowser::OpenFile(const CString path, eOpenType mode, bool isSub
 		return;
 	}
 
-	file.Format(L"%s%s_%s%s", (LPCTSTR)temppath, (LPCTSTR)gitPath.GetBaseFilename(), (LPCTSTR)hash.ToString().Left(g_Git.GetShortHASHLength()), (LPCTSTR)gitPath.GetFileExtension());
+	file.Format(L"%s%s_%s%s", (LPCWSTR)temppath, (LPCWSTR)gitPath.GetBaseFilename(), (LPCWSTR)hash.ToString().Left(g_Git.GetShortHASHLength()), (LPCWSTR)gitPath.GetFileExtension());
 
 	if (isSubmodule)
 	{
@@ -1245,18 +1245,18 @@ void CRepositoryBrowser::OpenFile(const CString path, eOpenType mode, bool isSub
 			if (!repo || git_commit_lookup(commit.GetPointer(), repo, (const git_oid *)itemHash.m_hash))
 			{
 				CString out;
-				out.Format(IDS_REPOBROWSEASKSUBMODULEUPDATE, (LPCTSTR)itemHash.ToString(), (LPCTSTR)gitPath.GetGitPathString());
+				out.Format(IDS_REPOBROWSEASKSUBMODULEUPDATE, (LPCWSTR)itemHash.ToString(), (LPCWSTR)gitPath.GetGitPathString());
 				if (MessageBox(out, L"TortoiseGit", MB_YESNO | MB_ICONQUESTION) != IDYES)
 					return;
 
 				CString sCmd;
-				sCmd.Format(L"/command:subupdate /bkpath:\"%s\" /selectedpath:\"%s\"", (LPCTSTR)g_Git.m_CurrentDir, (LPCTSTR)gitPath.GetGitPathString());
+				sCmd.Format(L"/command:subupdate /bkpath:\"%s\" /selectedpath:\"%s\"", (LPCWSTR)g_Git.m_CurrentDir, (LPCWSTR)gitPath.GetGitPathString());
 				CAppUtils::RunTortoiseGitProc(sCmd);
 				return;
 			}
 
 			CString cmd;
-			cmd.Format(L"/command:repobrowser /path:\"%s\" /rev:%s", (LPCTSTR)g_Git.CombinePath(path), (LPCTSTR)itemHash.ToString());
+			cmd.Format(L"/command:repobrowser /path:\"%s\" /rev:%s", (LPCWSTR)g_Git.CombinePath(path), (LPCWSTR)itemHash.ToString());
 			CAppUtils::RunTortoiseGitProc(cmd);
 			return;
 		}
@@ -1269,7 +1269,7 @@ void CRepositoryBrowser::OpenFile(const CString path, eOpenType mode, bool isSub
 	else if (g_Git.GetOneFile(m_sRevision, gitPath, file))
 	{
 		CString out;
-		out.Format(IDS_STATUSLIST_CHECKOUTFILEFAILED, (LPCTSTR)gitPath.GetGitPathString(), (LPCTSTR)m_sRevision, (LPCTSTR)file);
+		out.Format(IDS_STATUSLIST_CHECKOUTFILEFAILED, (LPCWSTR)gitPath.GetGitPathString(), (LPCWSTR)m_sRevision, (LPCWSTR)file);
 		MessageBox(g_Git.GetGitLastErr(out, CGit::GIT_CMD_GETONEFILE), L"TortoiseGit", MB_ICONERROR);
 		return;
 	}
@@ -1290,7 +1290,7 @@ void CRepositoryBrowser::OpenFile(const CString path, eOpenType mode, bool isSub
 bool CRepositoryBrowser::RevertItemToVersion(const CString &path)
 {
 	CString cmd, out;
-	cmd.Format(L"git.exe checkout %s -- \"%s\"", (LPCTSTR)m_sRevision, (LPCTSTR)path);
+	cmd.Format(L"git.exe checkout %s -- \"%s\"", (LPCWSTR)m_sRevision, (LPCWSTR)path);
 	if (g_Git.Run(cmd, &out, CP_UTF8))
 	{
 		if (MessageBox(out, L"TortoiseGit", MB_ICONEXCLAMATION | MB_OKCANCEL) == IDCANCEL)

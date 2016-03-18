@@ -203,7 +203,7 @@ LRESULT CResolveDlg::OnFileDropped(WPARAM, LPARAM lParam)
 	// but only if it isn't already running - otherwise we
 	// restart the timer.
 	CTGitPath path;
-	path.SetFromWin((LPCTSTR)lParam);
+	path.SetFromWin((LPCWSTR)lParam);
 
 	if (!m_resolveListCtrl.HasPath(path))
 	{

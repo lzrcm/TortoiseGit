@@ -154,7 +154,7 @@ void CTGitPath::SetFromGit(const CString& sPath,CString *oldpath)
 		m_sOldFwdslashPath = *oldpath;
 }
 
-void CTGitPath::SetFromWin(LPCTSTR pPath)
+void CTGitPath::SetFromWin(LPCWSTR pPath)
 {
 	Reset();
 	m_sBackslashPath = pPath;
@@ -169,7 +169,7 @@ void CTGitPath::SetFromWin(const CString& sPath)
 	m_sBackslashPath.Replace(L"\\\\?\\", L"");
 	SanitizeRootPath(m_sBackslashPath, false);
 }
-void CTGitPath::SetFromWin(LPCTSTR pPath, bool bIsDirectory)
+void CTGitPath::SetFromWin(LPCWSTR pPath, bool bIsDirectory)
 {
 	Reset();
 	m_sBackslashPath = pPath;
@@ -197,7 +197,7 @@ void CTGitPath::SetFromUnknown(const CString& sPath)
 		SetFwdslashPath(sPath);
 }
 
-LPCTSTR CTGitPath::GetWinPath() const
+LPCWSTR CTGitPath::GetWinPath() const
 {
 	if(IsEmpty())
 		return L"";
@@ -458,7 +458,7 @@ CString CTGitPath::GetRootPathString() const
 {
 	EnsureBackslashPathSet();
 	CString workingPath = m_sBackslashPath;
-	LPTSTR pPath = workingPath.GetBuffer(MAX_PATH);		// MAX_PATH ok here.
+	LPWSTR pPath = workingPath.GetBuffer(MAX_PATH);		// MAX_PATH ok here.
 	ATLVERIFY(::PathStripToRoot(pPath));
 	workingPath.ReleaseBuffer();
 	return workingPath;
@@ -516,9 +516,9 @@ bool CTGitPath::ArePathStringsEqual(const CString& sP1, const CString& sP2)
 	}
 	// We work from the end of the strings, because path differences
 	// are more likely to occur at the far end of a string
-	LPCTSTR pP1Start = sP1;
-	LPCTSTR pP1 = pP1Start+(length-1);
-	LPCTSTR pP2 = ((LPCTSTR)sP2)+(length-1);
+	LPCWSTR pP1Start = sP1;
+	LPCWSTR pP1 = pP1Start + (length - 1);
+	LPCWSTR pP2 = ((LPCWSTR)sP2) + (length - 1);
 	while(length-- > 0)
 	{
 		if(_totlower(*pP1--) != _totlower(*pP2--))
@@ -537,9 +537,9 @@ bool CTGitPath::ArePathStringsEqualWithCase(const CString& sP1, const CString& s
 	}
 	// We work from the end of the strings, because path differences
 	// are more likely to occur at the far end of a string
-	LPCTSTR pP1Start = sP1;
-	LPCTSTR pP1 = pP1Start+(length-1);
-	LPCTSTR pP2 = ((LPCTSTR)sP2)+(length-1);
+	LPCWSTR pP1Start = sP1;
+	LPCWSTR pP1 = pP1Start + (length - 1);
+	LPCWSTR pP2 = ((LPCWSTR)sP2) + (length - 1);
 	while(length-- > 0)
 	{
 		if((*pP1--) != (*pP2--))
@@ -958,7 +958,7 @@ bool CTGitPath::IsValidOnWindows() const
 		std::tr1::wregex rx(sPattern, std::tr1::regex_constants::icase | std::tr1::regex_constants::ECMAScript);
 		std::tr1::wsmatch match;
 
-		std::wstring rmatch = std::wstring((LPCTSTR)sMatch);
+		std::wstring rmatch = std::wstring((LPCWSTR)sMatch);
 		if (std::tr1::regex_match(rmatch, match, rx))
 		{
 			if (std::wstring(match[0]).compare(sMatch)==0)
@@ -1070,7 +1070,7 @@ int CTGitPathList::FillUnRev(unsigned int action, CTGitPathList *list, CString *
 		}
 		else
 		{	cmd.Format(L"git.exe ls-files --exclude-standard --full-name --others -z%s -- \"%s\"",
-					(LPCTSTR)ignored,
+					(LPCWSTR)ignored,
 					(*list)[i].GetWinPath());
 		}
 
@@ -1546,11 +1546,11 @@ void CTGitPathList::DeleteAllFiles(bool bTrash, bool bFilesOnly, bool bShowError
 		return;
 	sPaths += '\0';
 	sPaths += '\0';
-	DeleteViaShell((LPCTSTR)sPaths, bTrash, bShowErrorUI);
+	DeleteViaShell((LPCWSTR)sPaths, bTrash, bShowErrorUI);
 	Clear();
 }
 
-bool CTGitPathList::DeleteViaShell(LPCTSTR path, bool bTrash, bool bShowErrorUI)
+bool CTGitPathList::DeleteViaShell(LPCWSTR path, bool bTrash, bool bShowErrorUI)
 {
 	SHFILEOPSTRUCT shop = {0};
 	shop.wFunc = FO_DELETE;

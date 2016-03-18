@@ -202,7 +202,7 @@ bool CRevisionGraphWnd::FetchRevisionData
 	this->m_logEntries.ClearAll();
 	CString range;
 	if (!m_ToRev.IsEmpty() && !m_FromRev.IsEmpty())
-		range.Format(L"%s..%s", (LPCTSTR)g_Git.FixBranchName(m_FromRev), (LPCTSTR)g_Git.FixBranchName(m_ToRev));
+		range.Format(L"%s..%s", (LPCWSTR)g_Git.FixBranchName(m_FromRev), (LPCWSTR)g_Git.FixBranchName(m_ToRev));
 	else if (!m_ToRev.IsEmpty())
 		range = m_ToRev;
 	else if (!m_FromRev.IsEmpty())
@@ -436,9 +436,9 @@ void CRevisionGraphWnd::CompareRevs(const CString& revTo)
 	CString sCmd;
 
 	sCmd.Format(L"/command:showcompare %s /revision1:%s /revision2:%s",
-			this->m_sPath.IsEmpty() ? L"" : (LPCTSTR)(L"/path:\"" + this->m_sPath + L'\"'),
-			(LPCTSTR)GetFriendRefName(m_SelectedEntry1),
-			!revTo.IsEmpty() ? (LPCTSTR)revTo : (LPCWSTR)GetFriendRefName(m_SelectedEntry2));
+			this->m_sPath.IsEmpty() ? L"" : (LPCWSTR)(L"/path:\"" + this->m_sPath + L'\"'),
+			(LPCWSTR)GetFriendRefName(m_SelectedEntry1),
+			!revTo.IsEmpty() ? (LPCWSTR)revTo : (LPCWSTR)GetFriendRefName(m_SelectedEntry2));
 
 	CAppUtils::RunTortoiseGitProc(sCmd);
 }

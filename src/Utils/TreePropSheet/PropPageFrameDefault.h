@@ -53,12 +53,12 @@ public:
 public:
 	virtual BOOL Create(DWORD dwWindowStyle, const RECT &rect, CWnd *pwndParent, UINT nID);
 	virtual CWnd* GetWnd();
-	virtual void SetCaption(LPCTSTR lpszCaption, HICON hIcon = nullptr);
+	virtual void SetCaption(LPCWSTR lpszCaption, HICON hIcon = nullptr);
 
 protected:
 	virtual CRect CalcMsgArea();
 	virtual CRect CalcCaptionArea();
-	virtual void DrawCaption(CDC *pDc, CRect rect, LPCTSTR lpszCaption, HICON hIcon);
+	virtual void DrawCaption(CDC *pDc, CRect rect, LPCWSTR lpszCaption, HICON hIcon);
 
 // Implementation helpers
 protected:

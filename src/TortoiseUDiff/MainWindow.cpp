@@ -152,7 +152,7 @@ LRESULT CALLBACK CMainWindow::WinMsgHandler(HWND hwnd, UINT uMsg, WPARAM wParam,
 			SendEditor(SCI_CHARRIGHT);
 			SendEditor(SCI_SEARCHANCHOR);
 			m_bMatchCase = !!wParam;
-			m_findtext = (LPCTSTR)lParam;
+			m_findtext = (LPCWSTR)lParam;
 			SendEditor(SCI_SEARCHNEXT, m_bMatchCase ? SCFIND_MATCHCASE : 0, (LPARAM)CUnicodeUtils::StdGetUTF8(m_findtext).c_str());
 			SendEditor(SCI_SCROLLCARET);
 		}
@@ -161,7 +161,7 @@ LRESULT CALLBACK CMainWindow::WinMsgHandler(HWND hwnd, UINT uMsg, WPARAM wParam,
 		{
 			SendEditor(SCI_SEARCHANCHOR);
 			m_bMatchCase = !!wParam;
-			m_findtext = (LPCTSTR)lParam;
+			m_findtext = (LPCWSTR)lParam;
 			SendEditor(SCI_SEARCHPREV, m_bMatchCase ? SCFIND_MATCHCASE : 0, (LPARAM)CUnicodeUtils::StdGetUTF8(m_findtext).c_str());
 			SendEditor(SCI_SCROLLCARET);
 		}
@@ -622,7 +622,7 @@ bool CMainWindow::LoadFile(HANDLE hFile)
 	return true;
 }
 
-bool CMainWindow::LoadFile(LPCTSTR filename)
+bool CMainWindow::LoadFile(LPCWSTR filename)
 {
 	InitEditor();
 	FILE *fp = NULL;
@@ -702,7 +702,7 @@ void CMainWindow::SetupWindow(bool bUTF8)
 	::ShowWindow(m_hWndEdit, SW_SHOW);
 }
 
-bool CMainWindow::SaveFile(LPCTSTR filename)
+bool CMainWindow::SaveFile(LPCWSTR filename)
 {
 	FILE *fp = NULL;
 	_tfopen_s(&fp, filename, L"w+b");
@@ -720,7 +720,7 @@ bool CMainWindow::SaveFile(LPCTSTR filename)
 	return true;
 }
 
-void CMainWindow::SetTitle(LPCTSTR title)
+void CMainWindow::SetTitle(LPCWSTR title)
 {
 	size_t len = wcslen(title);
 	auto pBuf = std::make_unique<TCHAR[]>(len + 40);

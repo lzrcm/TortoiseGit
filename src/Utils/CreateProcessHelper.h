@@ -27,23 +27,23 @@
 class CCreateProcessHelper
 {
 public:
-    static bool CreateProcess(LPCTSTR lpApplicationName,
-                    LPTSTR lpCommandLine,
-                    LPCTSTR lpCurrentDirectory,
+    static bool CreateProcess(LPCWSTR lpApplicationName,
+                    LPWSTR lpCommandLine,
+                    LPCWSTR lpCurrentDirectory,
                     LPPROCESS_INFORMATION lpProcessInformation);
-    static bool CreateProcess(LPCTSTR lpApplicationName,
-                    LPTSTR lpCommandLine,
+    static bool CreateProcess(LPCWSTR lpApplicationName,
+                    LPWSTR lpCommandLine,
                     LPPROCESS_INFORMATION lpProcessInformation);
 
-    static bool CreateProcessDetached(LPCTSTR lpApplicationName,
-                    LPTSTR lpCommandLine,
-                    LPCTSTR lpCurrentDirectory);
-    static bool CreateProcessDetached(LPCTSTR lpApplicationName,
-                    LPTSTR lpCommandLine);
+    static bool CreateProcessDetached(LPCWSTR lpApplicationName,
+                    LPWSTR lpCommandLine,
+                    LPCWSTR lpCurrentDirectory);
+    static bool CreateProcessDetached(LPCWSTR lpApplicationName,
+                    LPWSTR lpCommandLine);
 };
 
-inline bool CCreateProcessHelper::CreateProcess(LPCTSTR applicationName,
-    LPTSTR commandLine, LPCTSTR currentDirectory,
+inline bool CCreateProcessHelper::CreateProcess(LPCWSTR applicationName,
+    LPWSTR commandLine, LPCWSTR currentDirectory,
     LPPROCESS_INFORMATION processInfo)
 {
 	STARTUPINFO startupInfo = { 0 };
@@ -54,14 +54,14 @@ inline bool CCreateProcessHelper::CreateProcess(LPCTSTR applicationName,
     return result != 0;
 }
 
-inline bool CCreateProcessHelper::CreateProcess(LPCTSTR applicationName,
-    LPTSTR commandLine, LPPROCESS_INFORMATION processInformation)
+inline bool CCreateProcessHelper::CreateProcess(LPCWSTR applicationName,
+    LPWSTR commandLine, LPPROCESS_INFORMATION processInformation)
 {
     return CreateProcess( applicationName, commandLine, 0, processInformation );
 }
 
-inline bool CCreateProcessHelper::CreateProcessDetached(LPCTSTR lpApplicationName,
-    LPTSTR lpCommandLine, LPCTSTR lpCurrentDirectory)
+inline bool CCreateProcessHelper::CreateProcessDetached(LPCWSTR lpApplicationName,
+    LPWSTR lpCommandLine, LPCWSTR lpCurrentDirectory)
 {
     PROCESS_INFORMATION process;
     if (!CreateProcess(lpApplicationName, lpCommandLine, lpCurrentDirectory, &process))
@@ -72,8 +72,8 @@ inline bool CCreateProcessHelper::CreateProcessDetached(LPCTSTR lpApplicationNam
     return true;
 }
 
-inline bool CCreateProcessHelper::CreateProcessDetached(LPCTSTR lpApplicationName,
-    LPTSTR lpCommandLine)
+inline bool CCreateProcessHelper::CreateProcessDetached(LPCWSTR lpApplicationName,
+    LPWSTR lpCommandLine)
 {
     return CreateProcessDetached(lpApplicationName, lpCommandLine, 0);
 }

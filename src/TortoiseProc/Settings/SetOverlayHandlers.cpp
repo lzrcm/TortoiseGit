@@ -207,7 +207,7 @@ void CSetOverlayHandlers::UpdateInfoLabel()
 	if (!sInfo2.IsEmpty())
 	{
 		sInfo += L'\n';
-		sInfo.AppendFormat(IDS_SETTINGS_OVERLAYINFO2, (LPCTSTR)sInfo2);
+		sInfo.AppendFormat(IDS_SETTINGS_OVERLAYINFO2, (LPCWSTR)sInfo2);
 	}
 	SetDlgItemText(IDC_HANDLERHINT, sInfo);
 }

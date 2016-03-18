@@ -60,7 +60,7 @@ static void StorePuttyKey(const CString& repoRoot, const CString& remote, const 
 	if (git_repository_config(config.GetPointer(), repo))
 		goto error;
 
-	configName.Format(L"remote.%s.puttykeyfile", (LPCTSTR)remote);
+	configName.Format(L"remote.%s.puttykeyfile", (LPCWSTR)remote);
 
 	if (git_config_set_string(config, CUnicodeUtils::GetUTF8(configName), CUnicodeUtils::GetUTF8(keyFile)))
 		goto error;
@@ -155,14 +155,14 @@ bool CloneCommand::Execute()
 
 		CString cmd;
 		cmd.Format(L"git.exe clone --progress%s%s%s%s%s -v%s \"%s\" \"%s\"",
-						(LPCTSTR)nocheckoutStr,
-						(LPCTSTR)recursiveStr,
-						(LPCTSTR)bareStr,
-						(LPCTSTR)branchStr,
-						(LPCTSTR)originStr,
-						(LPCTSTR)depth,
-						(LPCTSTR)url,
-						(LPCTSTR)dir);
+						(LPCWSTR)nocheckoutStr,
+						(LPCWSTR)recursiveStr,
+						(LPCWSTR)bareStr,
+						(LPCWSTR)branchStr,
+						(LPCWSTR)originStr,
+						(LPCWSTR)depth,
+						(LPCWSTR)url,
+						(LPCWSTR)dir);
 
 		bool retry = false;
 		auto postCmdCallback = [&](DWORD status, PostCmdList& postCmdList)
@@ -193,7 +193,7 @@ bool CloneCommand::Execute()
 		{
 			//g_Git.m_CurrentDir=dlg.m_Directory;
 			cmd.Format(L"git.exe svn clone \"%s\" \"%s\"",
-				(LPCTSTR)url, (LPCTSTR)dlg.m_Directory);
+				(LPCWSTR)url, (LPCWSTR)dlg.m_Directory);
 
 			if (dlg.m_bOrigin)
 			{
@@ -201,7 +201,7 @@ bool CloneCommand::Execute()
 				if (dlg.m_strOrigin.IsEmpty())
 					str = L" --prefix \"\"";
 				else
-					str.Format(L" --prefix \"%s/\"", (LPCTSTR)dlg.m_strOrigin);
+					str.Format(L" --prefix \"%s/\"", (LPCWSTR)dlg.m_strOrigin);
 				cmd += str;
 			}
 

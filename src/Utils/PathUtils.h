@@ -30,8 +30,8 @@
 class CPathUtils
 {
 public:
-	static BOOL			MakeSureDirectoryPathExists(LPCTSTR path);
-	static void			ConvertToBackslash(LPTSTR dest, LPCTSTR src, size_t len);
+	static BOOL			MakeSureDirectoryPathExists(LPCWSTR path);
+	static void			ConvertToBackslash(LPWSTR dest, LPCWSTR src, size_t len);
 	/**
 	 * Replaces escaped sequences with the corresponding characters in a string.
 	 */

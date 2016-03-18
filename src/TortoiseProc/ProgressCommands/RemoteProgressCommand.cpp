@@ -99,7 +99,7 @@ RemoteProgressCommand::RefUpdateNotificationData::RefUpdateNotificationData(cons
 	m_NewHash = newOid->id;
 	m_OldHash = oldOid->id;
 	sActionColumnText.LoadString(IDS_GITACTION_UPDATE_REF);
-	sPathColumnText.Format(L"%s\t %s -> %s (%s)", (LPCTSTR)str, (LPCTSTR)m_OldHash.ToString().Left(g_Git.GetShortHASHLength()), (LPCTSTR)m_NewHash.ToString().Left(g_Git.GetShortHASHLength()), (LPCTSTR)change);
+	sPathColumnText.Format(L"%s\t %s -> %s (%s)", (LPCWSTR)str, (LPCWSTR)m_OldHash.ToString().Left(g_Git.GetShortHASHLength()), (LPCWSTR)m_NewHash.ToString().Left(g_Git.GetShortHASHLength()), (LPCWSTR)change);
 }
 
 void RemoteProgressCommand::RefUpdateNotificationData::GetContextMenu(CIconMenu& popup, CGitProgressList::ContextMenuActionList& actions)

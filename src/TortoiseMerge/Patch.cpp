@@ -365,7 +365,7 @@ BOOL CPatch::ParsePatchFile(CFileTextLines &PatchLines)
 	{
 		if (filenamesToPatch[m_arFileDiffs.GetAt(i)->sFilePath] > 1 && m_arFileDiffs.GetAt(i)->sFilePath != L"NUL")
 		{
-			m_sErrorMessage.Format(IDS_ERR_PATCH_FILENAMENOTUNIQUE, (LPCTSTR)m_arFileDiffs.GetAt(i)->sFilePath);
+			m_sErrorMessage.Format(IDS_ERR_PATCH_FILENAMENOTUNIQUE, (LPCWSTR)m_arFileDiffs.GetAt(i)->sFilePath);
 			FreeMemory();
 			return FALSE;
 		}
@@ -374,7 +374,7 @@ BOOL CPatch::ParsePatchFile(CFileTextLines &PatchLines)
 		{
 			if (filenamesToPatch[m_arFileDiffs.GetAt(i)->sFilePath2] > 1 && m_arFileDiffs.GetAt(i)->sFilePath2 != L"NUL")
 			{
-				m_sErrorMessage.Format(IDS_ERR_PATCH_FILENAMENOTUNIQUE, (LPCTSTR)m_arFileDiffs.GetAt(i)->sFilePath);
+				m_sErrorMessage.Format(IDS_ERR_PATCH_FILENAMENOTUNIQUE, (LPCWSTR)m_arFileDiffs.GetAt(i)->sFilePath);
 				FreeMemory();
 				return FALSE;
 			}
@@ -473,12 +473,12 @@ int CPatch::PatchFile(const int strip, int nIndex, const CString& sPatchPath, co
 	CString sPath = GetFullPath(sPatchPath, nIndex);
 	if (PathIsDirectory(sPath))
 	{
-		m_sErrorMessage.Format(IDS_ERR_PATCH_INVALIDPATCHFILE, (LPCTSTR)sPath);
+		m_sErrorMessage.Format(IDS_ERR_PATCH_INVALIDPATCHFILE, (LPCWSTR)sPath);
 		return FALSE;
 	}
 	if (nIndex < 0)
 	{
-		m_sErrorMessage.Format(IDS_ERR_PATCH_FILENOTINPATCH, (LPCTSTR)sPath);
+		m_sErrorMessage.Format(IDS_ERR_PATCH_FILENOTINPATCH, (LPCWSTR)sPath);
 		return FALSE;
 	}
 
@@ -526,19 +526,19 @@ int CPatch::PatchFile(const int strip, int nIndex, const CString& sPatchPath, co
 				{
 					if ((lAddLine > PatchLines.GetCount())||(PatchLines.GetCount()==0))
 					{
-						m_sErrorMessage.Format(IDS_ERR_PATCH_DOESNOTMATCH, L"", (LPCTSTR)sPatchLine);
+						m_sErrorMessage.Format(IDS_ERR_PATCH_DOESNOTMATCH, L"", (LPCWSTR)sPatchLine);
 						return FALSE;
 					}
 					if (lAddLine == 0)
 						lAddLine = 1;
 					if ((sPatchLine.Compare(PatchLines.GetAt(lAddLine-1))!=0)&&(!HasExpandedKeyWords(sPatchLine)))
 					{
-						m_sErrorMessage.Format(IDS_ERR_PATCH_DOESNOTMATCH, (LPCTSTR)sPatchLine, (LPCTSTR)PatchLines.GetAt(lAddLine-1));
+						m_sErrorMessage.Format(IDS_ERR_PATCH_DOESNOTMATCH, (LPCWSTR)sPatchLine, (LPCWSTR)PatchLines.GetAt(lAddLine-1));
 						return FALSE;
 					}
 					if (lAddLine > PatchLines.GetCount())
 					{
-						m_sErrorMessage.Format(IDS_ERR_PATCH_DOESNOTMATCH, (LPCTSTR)sPatchLine, L"");
+						m_sErrorMessage.Format(IDS_ERR_PATCH_DOESNOTMATCH, (LPCWSTR)sPatchLine, L"");
 						return FALSE;
 					}
 					PatchLines.RemoveAt(lAddLine-1);
@@ -570,7 +570,7 @@ int CPatch::PatchFile(const int strip, int nIndex, const CString& sPatchPath, co
 					{
 						if (k >= chunk->arLines.GetCount())
 							k = j;
-						m_sErrorMessage.Format(IDS_ERR_PATCH_DOESNOTMATCH, (LPCTSTR)PatchLines.GetAt(lAddLine - 1), (LPCTSTR)chunk->arLines.GetAt(k));
+						m_sErrorMessage.Format(IDS_ERR_PATCH_DOESNOTMATCH, (LPCWSTR)PatchLines.GetAt(lAddLine - 1), (LPCWSTR)chunk->arLines.GetAt(k));
 						return FALSE;
 					}
 				}
@@ -579,7 +579,7 @@ int CPatch::PatchFile(const int strip, int nIndex, const CString& sPatchPath, co
 				{
 					if (lAddLine > PatchLines.GetCount())
 					{
-						m_sErrorMessage.Format(IDS_ERR_PATCH_DOESNOTMATCH, L"", (LPCTSTR)sPatchLine);
+						m_sErrorMessage.Format(IDS_ERR_PATCH_DOESNOTMATCH, L"", (LPCWSTR)sPatchLine);
 						return FALSE;
 					}
 					if (lAddLine == 0)
@@ -599,7 +599,7 @@ int CPatch::PatchFile(const int strip, int nIndex, const CString& sPatchPath, co
 							++lRemoveLine;
 						else
 						{
-							m_sErrorMessage.Format(IDS_ERR_PATCH_DOESNOTMATCH, (LPCTSTR)sPatchLine, (LPCTSTR)PatchLines.GetAt(lAddLine-1));
+							m_sErrorMessage.Format(IDS_ERR_PATCH_DOESNOTMATCH, (LPCWSTR)sPatchLine, (LPCWSTR)PatchLines.GetAt(lAddLine-1));
 							return FALSE;
 						}
 					}

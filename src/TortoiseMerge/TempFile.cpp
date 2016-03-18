@@ -69,7 +69,7 @@ CTGitPath CTempFiles::ConstructTempPath(const CTGitPath& path)
 			// that's longer than MAX_PATH (in that case, we can't really do much to avoid longer paths)
 			do
 			{
-				possibletempfile.Format(L"%s%s.tsm%3.3x.tmp%s", temppath, (LPCTSTR)filename, i, (LPCTSTR)path.GetFileExtension());
+				possibletempfile.Format(L"%s%s.tsm%3.3x.tmp%s", temppath, (LPCWSTR)filename, i, (LPCWSTR)path.GetFileExtension());
 				tempfile.SetFromWin(possibletempfile);
 				filename = filename.Left(filename.GetLength()-1);
 			} while (   (filename.GetLength() > 4)
@@ -150,7 +150,7 @@ CTGitPath CTempFiles::GetTempDirPath(bool bRemoveAtEnd, const CTGitPath& path /*
 	return CreateTempPath (bRemoveAtEnd, path, true);
 }
 
-void CTempFiles::DeleteOldTempFiles(LPCTSTR wildCard)
+void CTempFiles::DeleteOldTempFiles(LPCWSTR wildCard)
 {
 	DWORD len = ::GetTempPath(0, NULL);
 	auto path = std::make_unique<TCHAR[]>(len + 100);

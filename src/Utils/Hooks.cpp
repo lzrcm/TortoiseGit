@@ -144,7 +144,7 @@ bool CHooks::Remove(const hookkey &key)
 	return (erase(key) > 0);
 }
 
-void CHooks::Add(hooktype ht, const CTGitPath& Path, LPCTSTR szCmd, bool bWait, bool bShow)
+void CHooks::Add(hooktype ht, const CTGitPath& Path, LPCWSTR szCmd, bool bWait, bool bShow)
 {
 	hookkey key;
 	key.htype = ht;
@@ -217,7 +217,7 @@ void CHooks::AddErrorParam(CString& sCmd, const CString& error)
 {
 	CTGitPath tempPath;
 	tempPath = CTempFiles::Instance().GetTempFilePath(true);
-	CStringUtils::WriteStringToTextFile(tempPath.GetWinPath(), (LPCTSTR)error);
+	CStringUtils::WriteStringToTextFile(tempPath.GetWinPath(), (LPCWSTR)error);
 	AddParam(sCmd, tempPath.GetWinPathString());
 }
 
@@ -225,7 +225,7 @@ CTGitPath CHooks::AddMessageFileParam(CString& sCmd, const CString& message)
 {
 	CTGitPath tempPath;
 	tempPath = CTempFiles::Instance().GetTempFilePath(true);
-	CStringUtils::WriteStringToTextFile(tempPath.GetWinPath(), (LPCTSTR)message);
+	CStringUtils::WriteStringToTextFile(tempPath.GetWinPath(), (LPCWSTR)message);
 	AddParam(sCmd, tempPath.GetWinPathString());
 	return tempPath;
 }
@@ -332,7 +332,7 @@ const_hookiterator CHooks::FindItem(hooktype t, const CString& workingTree) cons
 	return end();
 }
 
-DWORD CHooks::RunScript(CString cmd, LPCTSTR currentDir, CString& error, bool bWait, bool bShow)
+DWORD CHooks::RunScript(CString cmd, LPCWSTR currentDir, CString& error, bool bWait, bool bShow)
 {
 	DWORD exitcode = 0;
 	SECURITY_ATTRIBUTES sa = { 0 };

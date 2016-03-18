@@ -111,7 +111,7 @@ public:
 	/**
 	 * Adds a new hook script. To make the change persistent, call Save().
 	 */
-	void				Add(hooktype ht, const CTGitPath& Path, LPCTSTR szCmd,
+	void				Add(hooktype ht, const CTGitPath& Path, LPCWSTR szCmd,
 							bool bWait, bool bShow);
 
 	/// returns the string representation of the hook type.
@@ -187,7 +187,7 @@ private:
 	 * \param bShow set to true if the process should be started visible.
 	 * \return the exit code of the process if \c bWait is true, zero otherwise.
 	 */
-	static DWORD		RunScript(CString cmd, LPCTSTR currentDir, CString& error, bool bWait, bool bShow);
+	static DWORD		RunScript(CString cmd, LPCWSTR currentDir, CString& error, bool bWait, bool bShow);
 	/**
 	 * Find the hook script information for the hook type \c t which matches the
 	 * path in \c workingTree.

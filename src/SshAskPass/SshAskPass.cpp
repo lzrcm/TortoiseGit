@@ -44,7 +44,7 @@ INT_PTR CALLBACK PasswdDlg(HWND, UINT, WPARAM, LPARAM);
 
 int APIENTRY _tWinMain(HINSTANCE	/*hInstance*/,
 					 HINSTANCE		/*hPrevInstance*/,
-					 LPTSTR			lpCmdLine,
+					 LPWSTR			lpCmdLine,
 					 int			/*nCmdShow*/)
 {
 	SetDllDirectory(L"");
@@ -87,7 +87,7 @@ int APIENTRY _tWinMain(HINSTANCE	/*hInstance*/,
 	{
 		if (DialogBox(hInst, MAKEINTRESOURCE(IDD_ASK_PASSWORD), nullptr, PasswdDlg) == IDOK)
 		{
-			wprintf(L"%s\n", (LPCTSTR)g_PassWord);
+			wprintf(L"%s\n", (LPCWSTR)g_PassWord);
 			return 0;
 		}
 		wprintf(L"\n");

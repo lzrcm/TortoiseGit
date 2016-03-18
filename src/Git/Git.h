@@ -109,7 +109,7 @@ public:
 	void AddToPath(CString value);
 	void clear();
 	bool empty();
-	operator LPTSTR();
+	operator LPWSTR();
 	operator LPWSTR*();
 	LPWSTR baseptr;
 	CEnvironment(CEnvironment&& env) = delete;
@@ -429,7 +429,7 @@ public:
 		return (time_t)winTime;
 	}
 
-	static int GetFileModifyTime(LPCTSTR filename, __int64* time, bool* isDir = nullptr, __int64* size = nullptr)
+	static int GetFileModifyTime(LPCWSTR filename, __int64* time, bool* isDir = nullptr, __int64* size = nullptr)
 	{
 		WIN32_FILE_ATTRIBUTE_DATA fdata;
 		if (GetFileAttributesEx(filename, GetFileExInfoStandard, &fdata))
@@ -496,6 +496,6 @@ public:
 };
 extern void GetTempPath(CString &path);
 extern CString GetTempFile();
-extern DWORD GetTortoiseGitTempPath(DWORD nBufferLength, LPTSTR lpBuffer);
+extern DWORD GetTortoiseGitTempPath(DWORD nBufferLength, LPWSTR lpBuffer);
 
 extern CGit g_Git;

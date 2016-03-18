@@ -596,7 +596,7 @@ void CShellExt::InsertGitMenu(BOOL istop, HMENU menu, UINT pos, UINT_PTR id, UIN
 				sBranchName = sBranchName.Left(64) + L"...";
 
 			// scan to before "..."
-			LPTSTR s = menutextbuffer + wcslen(menutextbuffer)-1;
+			LPWSTR s = menutextbuffer + wcslen(menutextbuffer)-1;
 			if (s > menutextbuffer)
 			{
 				while (s > menutextbuffer)
@@ -1167,7 +1167,7 @@ void CShellExt::TweakMenu(HMENU hMenu)
 	SetMenuInfo(hMenu, &MenuInfo);
 }
 
-void CShellExt::AddPathCommand(tstring& gitCmd, LPCTSTR command, bool bFilesAllowed)
+void CShellExt::AddPathCommand(tstring& gitCmd, LPCWSTR command, bool bFilesAllowed)
 {
 	gitCmd += command;
 	gitCmd += L" /path:\"";
@@ -1178,7 +1178,7 @@ void CShellExt::AddPathCommand(tstring& gitCmd, LPCTSTR command, bool bFilesAllo
 	gitCmd += L'\"';
 }
 
-void CShellExt::AddPathFileCommand(tstring& gitCmd, LPCTSTR command)
+void CShellExt::AddPathFileCommand(tstring& gitCmd, LPCWSTR command)
 {
 	tstring tempfile = WriteFileListToTempFile();
 	gitCmd += command;
@@ -1188,7 +1188,7 @@ void CShellExt::AddPathFileCommand(tstring& gitCmd, LPCTSTR command)
 	gitCmd += L" /deletepathfile";
 }
 
-void CShellExt::AddPathFileDropCommand(tstring& gitCmd, LPCTSTR command)
+void CShellExt::AddPathFileDropCommand(tstring& gitCmd, LPCWSTR command)
 {
 	tstring tempfile = WriteFileListToTempFile();
 	gitCmd += command;
@@ -1814,7 +1814,7 @@ STDMETHODIMP CShellExt::HandleMenuMsg2_Wrap(UINT uMsg, WPARAM wParam, LPARAM lPa
 		break;
 	case WM_DRAWITEM:
 		{
-			LPCTSTR resource;
+			LPCWSTR resource;
 			DRAWITEMSTRUCT* lpdis = (DRAWITEMSTRUCT*)lParam;
 			if (!lpdis || lpdis->CtlType != ODT_MENU)
 				return S_OK;		//not for a menu
@@ -1846,7 +1846,7 @@ STDMETHODIMP CShellExt::HandleMenuMsg2_Wrap(UINT uMsg, WPARAM wParam, LPARAM lPa
 			std::vector<UINT_PTR> accmenus;
 			for (auto It = mySubMenuMap.cbegin(); It != mySubMenuMap.cend(); ++It)
 			{
-				LPCTSTR resource = GetMenuTextFromResource((int)mySubMenuMap[It->first]);
+				LPCWSTR resource = GetMenuTextFromResource((int)mySubMenuMap[It->first]);
 				if (!resource)
 					continue;
 				szItem = stringtablebuffer;
@@ -1909,10 +1909,10 @@ STDMETHODIMP CShellExt::HandleMenuMsg2_Wrap(UINT uMsg, WPARAM wParam, LPARAM lPa
 	return S_OK;
 }
 
-LPCTSTR CShellExt::GetMenuTextFromResource(int id)
+LPCWSTR CShellExt::GetMenuTextFromResource(int id)
 {
 	TCHAR textbuf[255] = { 0 };
-	LPCTSTR resource = nullptr;
+	LPCWSTR resource = nullptr;
 	unsigned __int64 layout = g_ShellCache.GetMenuLayout();
 	space = 6;
 
@@ -2178,7 +2178,7 @@ bool CShellExt::InsertIgnoreSubmenus(UINT &idCmd, UINT idCmdFirst, HMENU hMenu, 
 	return bShowIgnoreMenu;
 }
 
-void CShellExt::RunCommand(const tstring& path, const tstring& command, LPCTSTR errorMessage)
+void CShellExt::RunCommand(const tstring& path, const tstring& command, LPCWSTR errorMessage)
 {
 	if (CCreateProcessHelper::CreateProcessDetached(path.c_str(), const_cast<TCHAR*>(command.c_str())))
 	{

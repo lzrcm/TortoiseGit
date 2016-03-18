@@ -110,7 +110,7 @@ void LoadLangDll()
 			};
 
 			DWORD dwReserved,dwBufferSize;
-			dwBufferSize = GetFileVersionInfoSize((LPTSTR)langDll,&dwReserved);
+			dwBufferSize = GetFileVersionInfoSize((LPWSTR)langDll,&dwReserved);
 
 			if (dwBufferSize > 0)
 			{
@@ -125,7 +125,7 @@ void LoadLangDll()
 					TRANSARRAY* lpTransArray;
 					TCHAR       strLangProductVersion[MAX_PATH] = {0};
 
-					if (GetFileVersionInfo((LPTSTR)langDll,
+					if (GetFileVersionInfo((LPWSTR)langDll,
 						dwReserved,
 						dwBufferSize,
 						pBuffer))
@@ -142,11 +142,11 @@ void LoadLangDll()
 								lpTransArray[0].wLanguageID, lpTransArray[0].wCharacterSet);
 
 							if (VerQueryValue(pBuffer,
-								(LPTSTR)strLangProductVersion,
+								(LPWSTR)strLangProductVersion,
 								(LPVOID *)&lpVersion,
 								&nInfoSize))
 							{
-								versionmatch = (wcscmp((LPCTSTR)lpVersion, _T(STRPRODUCTVER)) == 0);
+								versionmatch = (wcscmp((LPCWSTR)lpVersion, _T(STRPRODUCTVER)) == 0);
 							}
 
 						}
@@ -252,7 +252,7 @@ STDMETHODIMP CShellExt::Load(LPCOLESTR /*pszFileName*/, DWORD /*dwMode*/)
 }
 
 // ICopyHook member
-UINT __stdcall CShellExt::CopyCallback(HWND hWnd, UINT wFunc, UINT wFlags, LPCTSTR pszSrcFile, DWORD dwSrcAttribs, LPCTSTR pszDestFile, DWORD dwDestAttribs)
+UINT __stdcall CShellExt::CopyCallback(HWND hWnd, UINT wFunc, UINT wFlags, LPCWSTR pszSrcFile, DWORD dwSrcAttribs, LPCWSTR pszDestFile, DWORD dwDestAttribs)
 {
 	__try
 	{
@@ -264,7 +264,7 @@ UINT __stdcall CShellExt::CopyCallback(HWND hWnd, UINT wFunc, UINT wFlags, LPCTS
 	return IDYES;
 }
 
-UINT __stdcall CShellExt::CopyCallback_Wrap(HWND /*hWnd*/, UINT wFunc, UINT /*wFlags*/, LPCTSTR pszSrcFile, DWORD /*dwSrcAttribs*/, LPCTSTR /*pszDestFile*/, DWORD /*dwDestAttribs*/)
+UINT __stdcall CShellExt::CopyCallback_Wrap(HWND /*hWnd*/, UINT wFunc, UINT /*wFlags*/, LPCWSTR pszSrcFile, DWORD /*dwSrcAttribs*/, LPCWSTR /*pszDestFile*/, DWORD /*dwDestAttribs*/)
 {
 	switch (wFunc)
 	{

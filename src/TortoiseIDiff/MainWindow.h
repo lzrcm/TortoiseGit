@@ -71,7 +71,7 @@ public:
         , resolveMsgLParam(NULL)
         , resolveMsgWParam(NULL)
     {
-        SetWindowTitle((LPCTSTR)ResString(hResource, IDS_APP_TITLE));
+        SetWindowTitle((LPCWSTR)ResString(hResource, IDS_APP_TITLE));
     };
 
     /**

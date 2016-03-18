@@ -158,7 +158,7 @@ DWORD CRegistryKey::createKey()
 DWORD CRegistryKey::removeKey()
 {
     RegOpenKeyEx(m_base, m_path, 0, KEY_WRITE|m_sam, &m_hKey);
-    return SHDeleteKey(m_base, (LPCTSTR)m_path);
+    return SHDeleteKey(m_base, (LPCWSTR)m_path);
 }
 
 bool CRegistryKey::getValues(CStringList& values)

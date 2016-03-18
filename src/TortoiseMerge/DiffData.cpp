@@ -105,7 +105,7 @@ bool CDiffData::HandleSvnError(svn_error_t * svnerr)
 		sMsg += CStringA(svnerr->message);
 	}
 	CString readableMsg = CUnicodeUtils::GetUnicode(sMsg);
-	m_sError.Format(IDS_ERR_DIFF_DIFF, (LPCTSTR)readableMsg);
+	m_sError.Format(IDS_ERR_DIFF_DIFF, (LPCWSTR)readableMsg);
 	svn_error_clear(svnerr);
 	return false;
 }

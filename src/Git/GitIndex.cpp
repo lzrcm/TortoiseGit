@@ -46,8 +46,8 @@ int CGitIndex::Print()
 	wprintf(L"0x%08X  0x%08X %s %s\n",
 		(int)this->m_ModifyTime,
 		this->m_Flags,
-		(LPCTSTR)this->m_IndexHash.ToString(),
-		(LPCTSTR)this->m_FileName);
+		(LPCWSTR)this->m_IndexHash.ToString(),
+		(LPCWSTR)this->m_FileName);
 
 	return 0;
 }

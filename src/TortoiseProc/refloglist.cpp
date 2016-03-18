@@ -108,15 +108,15 @@ void CRefLogList::OnLvnGetdispinfoLoglist(NMHDR *pNMHDR, LRESULT *pResult)
 		break;
 	case REFLOG_ACTION:
 		if (pLogEntry)
-			lstrcpyn(pItem->pszText, (LPCTSTR)pLogEntry->m_RefAction, pItem->cchTextMax - 1);
+			lstrcpyn(pItem->pszText, (LPCWSTR)pLogEntry->m_RefAction, pItem->cchTextMax - 1);
 		break;
 	case REFLOG_MESSAGE:
 		if (pLogEntry)
-			lstrcpyn(pItem->pszText, (LPCTSTR)pLogEntry->GetSubject().Trim(), pItem->cchTextMax - 1);
+			lstrcpyn(pItem->pszText, (LPCWSTR)pLogEntry->GetSubject().Trim(), pItem->cchTextMax - 1);
 		break;
 	case REFLOG_DATE:
 		if (pLogEntry)
-			lstrcpyn(pItem->pszText, (LPCTSTR)CLoglistUtils::FormatDateAndTime(pLogEntry->GetCommitterDate(), m_DateFormat, true, m_bRelativeTimes), pItem->cchTextMax - 1);
+			lstrcpyn(pItem->pszText, (LPCWSTR)CLoglistUtils::FormatDateAndTime(pLogEntry->GetCommitterDate(), m_DateFormat, true, m_bRelativeTimes), pItem->cchTextMax - 1);
 		break;
 
 	default:

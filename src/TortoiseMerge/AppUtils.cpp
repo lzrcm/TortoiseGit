@@ -61,7 +61,7 @@ BOOL CAppUtils::GetVersionedFile(CString sPath, CString sVersion, CString sSaveP
 	sSCMPath.Replace(L"%4", sTemp);
 	// start the external SCM program to fetch the specific version of the file
 	PROCESS_INFORMATION process;
-	if (!CCreateProcessHelper::CreateProcess(nullptr, (LPTSTR)(LPCTSTR)sSCMPath, &process))
+	if (!CCreateProcessHelper::CreateProcess(nullptr, (LPWSTR)(LPCWSTR)sSCMPath, &process))
 	{
 		CFormatMessageWrapper errorDetails;
 		MessageBox(nullptr, errorDetails, L"TortoiseGitMerge", MB_OK | MB_ICONERROR);
@@ -90,7 +90,7 @@ bool CAppUtils::CreateUnifiedDiff(const CString& orig, const CString& modified, 
 	if (contextsize >= 0)
 		diffContext.Format(L"--unified=%d", contextsize);
 	CString cmd, err;
-	cmd.Format(L"git.exe diff --no-index %s -- \"%s\" \"%s\"", (LPCTSTR)diffContext, (LPCTSTR)orig, (LPCTSTR)modified);
+	cmd.Format(L"git.exe diff --no-index %s -- \"%s\" \"%s\"", (LPCWSTR)diffContext, (LPCWSTR)orig, (LPCWSTR)modified);
 
 	int result = g_Git.RunLogFile(cmd, output, &err);
 	if (result != 0 && result != 1 && bShowError)

@@ -344,7 +344,7 @@ public:
 		DriveValid();
 		return (driveunknown);
 	}
-	BOOL IsContextPathAllowed(LPCTSTR path)
+	BOOL IsContextPathAllowed(LPCWSTR path)
 	{
 		Locker lock(m_critSec);
 		ExcludeContextValid();
@@ -363,7 +363,7 @@ public:
 		}
 		return TRUE;
 	}
-	BOOL IsPathAllowed(LPCTSTR path)
+	BOOL IsPathAllowed(LPCWSTR path)
 	{
 		Locker lock(m_critSec);
 		IncludeListValid();
@@ -469,7 +469,7 @@ public:
 		}
 		return (langid);
 	}
-	BOOL HasGITAdminDir(LPCTSTR path, BOOL bIsDir, CString* ProjectTopDir = nullptr)
+	BOOL HasGITAdminDir(LPCWSTR path, BOOL bIsDir, CString* ProjectTopDir = nullptr)
 	{
 		size_t len = wcslen(path);
 		auto buf = std::make_unique<TCHAR[]>(len + 1);

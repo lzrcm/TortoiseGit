@@ -65,7 +65,7 @@ void RunTortoiseGitProcWithCurrentRev(const CString& command, const GitRev* pRev
 {
 	ASSERT(pRev);
 	CString  procCmd;
-	procCmd.Format(L"/command:%s /path:\"%s\" /rev:%s", (LPCTSTR)command, (LPCTSTR)path, (LPCTSTR)pRev->m_CommitHash.ToString());
+	procCmd.Format(L"/command:%s /path:\"%s\" /rev:%s", (LPCWSTR)command, (LPCWSTR)path, (LPCWSTR)pRev->m_CommitHash.ToString());
 	CCommonAppUtils::RunTortoiseGitProc(procCmd);
 }
 
@@ -148,7 +148,7 @@ void CGitBlameLogList::ContextMenuAction(int cmd, int /*FirstSelect*/, int /*Las
 		case ID_LOG:
 			{
 				CString procCmd;
-				procCmd.Format(L"/command:log /path:\"%s\" /endrev:%s /rev:%s", (LPCTSTR)((CMainFrame*)::AfxGetApp()->GetMainWnd())->GetActiveView()->GetDocument()->GetPathName(), (LPCTSTR)pRev->m_CommitHash.ToString(), (LPCTSTR)pRev->m_CommitHash.ToString());
+				procCmd.Format(L"/command:log /path:\"%s\" /endrev:%s /rev:%s", (LPCWSTR)((CMainFrame*)::AfxGetApp()->GetMainWnd())->GetActiveView()->GetDocument()->GetPathName(), (LPCWSTR)pRev->m_CommitHash.ToString(), (LPCWSTR)pRev->m_CommitHash.ToString());
 				CCommonAppUtils::RunTortoiseGitProc(procCmd);
 			}
 			break;

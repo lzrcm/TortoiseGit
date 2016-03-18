@@ -138,8 +138,8 @@ public: // methods
 	void			SetInlineWordDiff(bool bWord) {m_bInlineWordDiff = bWord;}
 	void			SetInlineDiff(bool bDiff) {m_bShowInlineDiff = bDiff;}
 	void			SetMarkedWord(const CString& word) {m_sMarkedWord = word; BuildMarkedWordArray();}
-	LPCTSTR			GetMarkedWord() {return (LPCTSTR)m_sMarkedWord;}
-	LPCTSTR			GetFindString() {return (LPCTSTR)m_sFindText;}
+	LPCWSTR			GetMarkedWord() {return (LPCWSTR)m_sMarkedWord;}
+	LPCWSTR			GetFindString() {return (LPCWSTR)m_sFindText;}
 
 	// Selection methods; all public methods dealing with selection go here
 	static void		ClearSelection();

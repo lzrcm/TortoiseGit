@@ -27,7 +27,7 @@ CUtils::~CUtils(void)
 {
 }
 
-void CUtils::StringExtend(LPTSTR str)
+void CUtils::StringExtend(LPWSTR str)
 {
 	TCHAR * cPos = str;
 	do
@@ -90,7 +90,7 @@ void CUtils::StringExtend(LPTSTR str)
 	} while (cPos);
 }
 
-void CUtils::StringCollapse(LPTSTR str)
+void CUtils::StringCollapse(LPWSTR str)
 {
 	TCHAR * cPos = str;
 	do
@@ -132,7 +132,7 @@ void CUtils::Error()
 {
 	CFormatMessageWrapper errorDetails;
 	if (errorDetails)
-		_ftprintf (stderr, L"%s\n", (LPCTSTR)errorDetails);
+		_ftprintf(stderr, L"%s\n", (LPCWSTR)errorDetails);
 }
 
 void CUtils::SearchReplace(std::wstring& str, const std::wstring& toreplace, const std::wstring& replacewith)

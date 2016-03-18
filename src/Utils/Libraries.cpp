@@ -73,11 +73,11 @@ void EnsureGitLibrary(bool bCreate /* = true*/)
         if (appDir.GetLength() < MAX_PATH)
         {
             TCHAR buf[MAX_PATH] = {0};
-            PathCanonicalize(buf, (LPCTSTR)appDir);
+            PathCanonicalize(buf, (LPCWSTR)appDir);
             appDir = buf;
         }
-        path.Format(L"%s%s,-%d", (LPCTSTR)appDir, L"TortoiseGitProc.exe", SysInfo::Instance().IsWin10() ? IDI_LIBRARY_WIN10 : IDI_LIBRARY);
-        pLibrary->SetIcon((LPCTSTR)path);
+        path.Format(L"%s%s,-%d", (LPCWSTR)appDir, L"TortoiseGitProc.exe", SysInfo::Instance().IsWin10() ? IDI_LIBRARY_WIN10 : IDI_LIBRARY);
+        pLibrary->SetIcon((LPCWSTR)path);
         pLibrary->Commit();
     }
 }

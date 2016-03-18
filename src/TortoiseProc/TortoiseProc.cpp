@@ -123,7 +123,7 @@ BOOL CTortoiseProcApp::InitInstance()
 	langpath += "Languages";
 	do
 	{
-		langDll.Format(L"%sLanguages\\TortoiseProc%ld.dll", (LPCTSTR)CPathUtils::GetAppParentDirectory(), langId);
+		langDll.Format(L"%sLanguages\\TortoiseProc%ld.dll", (LPCWSTR)CPathUtils::GetAppParentDirectory(), langId);
 
 		CString sVer = _T(STRPRODUCTVER);
 		CString sFileVer = CPathUtils::GetVersionFromFile(langDll);
@@ -292,7 +292,7 @@ BOOL CTortoiseProcApp::InitInstance()
 			return FALSE;
 		}
 		CString newCmd;
-		newCmd.Format(L"/command:clone /url:\"%s\" /hasurlhandler", (LPCTSTR)url);
+		newCmd.Format(L"/command:clone /url:\"%s\" /hasurlhandler", (LPCWSTR)url);
 		parser = CCmdLineParser(newCmd);
 	}
 
@@ -545,7 +545,7 @@ void CTortoiseProcApp::CheckUpgrade()
 {
 	CRegString regVersion = CRegString(L"Software\\TortoiseGit\\CurrentVersion");
 	CString sVersion = regVersion;
-	CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) L": Current TGit Version %s\n", (LPCTSTR)sVersion);
+	CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) L": Current TGit Version %s\n", (LPCWSTR)sVersion);
 	if (sVersion.Compare(_T(STRPRODUCTVER))==0)
 		return;
 	// we're starting the first time with a new version!
@@ -706,14 +706,14 @@ void CTortoiseProcApp::DoInitializeJumpList(const CString& appid)
 	CStringUtils::RemoveAccelerators(sTemp);
 
 	ATL::CComPtr<IShellLink> psl;
-	hr = CreateShellLink(L"/command:settings", (LPCTSTR)sTemp, 20, &psl);
+	hr = CreateShellLink(L"/command:settings", (LPCWSTR)sTemp, 20, &psl);
 	if (SUCCEEDED(hr)) {
 		poc->AddObject(psl);
 	}
 	sTemp = CString(MAKEINTRESOURCE(IDS_MENUHELP));
 	CStringUtils::RemoveAccelerators(sTemp);
 	psl.Release(); // Need to release the object before calling operator&()
-	hr = CreateShellLink(L"/command:help", (LPCTSTR)sTemp, 19, &psl);
+	hr = CreateShellLink(L"/command:help", (LPCWSTR)sTemp, 19, &psl);
 	if (SUCCEEDED(hr)) {
 		poc->AddObject(psl);
 	}
@@ -721,7 +721,7 @@ void CTortoiseProcApp::DoInitializeJumpList(const CString& appid)
 	ATL::CComPtr<IObjectArray> poa;
 	hr = poc.QueryInterface(&poa);
 	if (SUCCEEDED(hr)) {
-		pcdl->AppendCategory((LPCTSTR)CString(MAKEINTRESOURCE(IDS_PROC_TASKS)), poa);
+		pcdl->AppendCategory((LPCWSTR)CString(MAKEINTRESOURCE(IDS_PROC_TASKS)), poa);
 		pcdl->CommitList();
 	}
 }

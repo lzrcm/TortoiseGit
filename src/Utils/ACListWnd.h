@@ -36,11 +36,11 @@ public:
 	void Init(CWnd *pWnd);
 	bool EnsureVisible(int item,bool m_bWait);
 	bool SelectItem(int item);
-	int FindString(int nStartAfter, LPCTSTR lpszString, bool m_bDisplayOnly = false);
-	int FindStringExact( int nIndexStart, LPCTSTR lpszFind );
-	int SelectString(LPCTSTR lpszString );
+	int FindString(int nStartAfter, LPCWSTR lpszString, bool m_bDisplayOnly = false);
+	int FindStringExact( int nIndexStart, LPCWSTR lpszFind );
+	int SelectString(LPCWSTR lpszString );
 	bool GetText(int item, CString& m_Text);
-	void AddSearchString(LPCTSTR lpszString){m_SearchList.Add(lpszString);}
+	void AddSearchString(LPCWSTR lpszString){m_SearchList.Add(lpszString);}
 	void RemoveAll(){m_SearchList.RemoveAll(); m_DisplayList.RemoveAll();}
 	CString GetString();
 	CString GetNextString(int m_iChar);

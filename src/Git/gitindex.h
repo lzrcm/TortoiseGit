@@ -346,7 +346,7 @@ public:
 };
 
 template<class T>
-int GetRangeInSortVector(const T &vector, LPCTSTR pstr, int len, int *start, int *end, int pos)
+int GetRangeInSortVector(const T &vector, LPCWSTR pstr, int len, int *start, int *end, int pos)
 {
 	if( pos < 0)
 		return -1;
@@ -390,7 +390,7 @@ int GetRangeInSortVector(const T &vector, LPCTSTR pstr, int len, int *start, int
 }
 
 template<class T>
-int SearchInSortVector(const T &vector, LPCTSTR pstr, int len)
+int SearchInSortVector(const T &vector, LPCWSTR pstr, int len)
 {
 	int end = (int)vector.size() - 1;
 	int start = 0;

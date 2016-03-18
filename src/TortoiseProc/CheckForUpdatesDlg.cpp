@@ -229,7 +229,7 @@ UINT CCheckForUpdatesDlg::CheckThread()
 		if (CRegDWORD(L"Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\GlobalUserOffline", 0))
 			errorText.LoadString(IDS_OFFLINEMODE); // offline mode enabled
 		else
-			errorText.Format(IDS_CHECKNEWER_NETERROR_FORMAT, (LPCTSTR)(GetWinINetError(ret) + L" URL: " + sCheckURL), ret);
+			errorText.Format(IDS_CHECKNEWER_NETERROR_FORMAT, (LPCWSTR)(GetWinINetError(ret) + L" URL: " + sCheckURL), ret);
 		SetDlgItemText(IDC_CHECKRESULT, errorText);
 		goto finish;
 	}
@@ -297,7 +297,7 @@ UINT CCheckForUpdatesDlg::CheckThread()
 		versionstr.Format(L"%u.%u.%u.%u", major, minor, micro, build);
 		if (versionstr != ver)
 			versionstr += L" (" + ver + L")";
-		temp.Format(IDS_CHECKNEWER_CURRENTVERSION, (LPCTSTR)versionstr);
+		temp.Format(IDS_CHECKNEWER_CURRENTVERSION, (LPCWSTR)versionstr);
 		SetDlgItemText(IDC_CURRENTVERSION, temp);
 
 		if (bNewer)
@@ -371,7 +371,7 @@ void CCheckForUpdatesDlg::FillDownloads(CAutoConfig& versioncheck, const CString
 
 	versioncheck.GetString(L"tortoisegit.baseurl", m_sFilesURL);
 	if (m_sFilesURL.IsEmpty())
-		m_sFilesURL.Format(L"http://updater.download.tortoisegit.org/tgit/%s/", (LPCTSTR)version);
+		m_sFilesURL.Format(L"http://updater.download.tortoisegit.org/tgit/%s/", (LPCWSTR)version);
 
 	bool isHotfix = false;
 	versioncheck.GetBool(L"tortoisegit.hotfix", isHotfix);
@@ -511,7 +511,7 @@ void CCheckForUpdatesDlg::FillChangelog(CAutoConfig& versioncheck, bool official
 	if ((err = m_updateDownloader->DownloadFile(sChangelogURL, tempchangelogfile, false)) != ERROR_SUCCESS)
 	{
 		CString msg = L"Could not load changelog.\r\nError: " + GetWinINetError(err) + L" (on " + sChangelogURL + L")";
-		::SendMessage(m_hWnd, WM_USER_FILLCHANGELOG, 0, reinterpret_cast<LPARAM>((LPCTSTR)msg));
+		::SendMessage(m_hWnd, WM_USER_FILLCHANGELOG, 0, reinterpret_cast<LPARAM>((LPCWSTR)msg));
 		return;
 	}
 	if (official)
@@ -522,7 +522,7 @@ void CCheckForUpdatesDlg::FillChangelog(CAutoConfig& versioncheck, bool official
 			CString error = L"Could not verify digital signature.";
 			if (err)
 				error += L"\r\nError: " + GetWinINetError(err) + L" (on " + sChangelogURL + SIGNATURE_FILE_ENDING + L")";
-			::SendMessage(m_hWnd, WM_USER_FILLCHANGELOG, 0, reinterpret_cast<LPARAM>((LPCTSTR)error));
+			::SendMessage(m_hWnd, WM_USER_FILLCHANGELOG, 0, reinterpret_cast<LPARAM>((LPCWSTR)error));
 			DeleteUrlCacheEntry(sChangelogURL);
 			DeleteUrlCacheEntry(sChangelogURL + SIGNATURE_FILE_ENDING);
 			return;
@@ -540,7 +540,7 @@ void CCheckForUpdatesDlg::FillChangelog(CAutoConfig& versioncheck, bool official
 	}
 	else
 		temp = L"Could not open downloaded changelog file.";
-	::SendMessage(m_hWnd, WM_USER_FILLCHANGELOG, 0, reinterpret_cast<LPARAM>((LPCTSTR)temp));
+	::SendMessage(m_hWnd, WM_USER_FILLCHANGELOG, 0, reinterpret_cast<LPARAM>((LPCWSTR)temp));
 }
 
 void CCheckForUpdatesDlg::OnTimer(UINT_PTR nIDEvent)
@@ -777,7 +777,7 @@ LRESULT CCheckForUpdatesDlg::OnFillChangelog(WPARAM, LPARAM lParam)
 {
 	ASSERT(lParam);
 
-	LPCTSTR changelog = reinterpret_cast<LPCTSTR>(lParam);
+	LPCWSTR changelog = reinterpret_cast<LPCWSTR>(lParam);
 	m_cLogMessage.Call(SCI_SETREADONLY, FALSE);
 	m_cLogMessage.SetText(changelog);
 	m_cLogMessage.Call(SCI_SETREADONLY, TRUE);
@@ -834,8 +834,8 @@ CString CCheckForUpdatesDlg::GetWinINetError(DWORD err)
 	{
 		for (const CString& module : { L"wininet.dll", L"urlmon.dll" })
 		{
-			LPTSTR buffer;
-			FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_HMODULE, GetModuleHandle(module), err, 0, (LPTSTR)&buffer, 0, nullptr);
+			LPWSTR buffer;
+			FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_HMODULE, GetModuleHandle(module), err, 0, (LPWSTR)&buffer, 0, nullptr);
 			readableError = buffer;
 			LocalFree(buffer);
 			if (!readableError.IsEmpty())

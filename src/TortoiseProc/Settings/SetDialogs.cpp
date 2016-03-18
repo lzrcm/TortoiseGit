@@ -273,7 +273,7 @@ void CSetDialogs::OnCbnSelchangeDefaultlogscale()
 {
 	UpdateData();
 	int sel = m_cDefaultLogsScale.GetCurSel();
-	if (sel > 1 && (m_sDefaultLogs.IsEmpty() || _wtol((LPCTSTR)m_sDefaultLogs) == 0))
+	if (sel > 1 && (m_sDefaultLogs.IsEmpty() || _wtol((LPCWSTR)m_sDefaultLogs) == 0))
 		m_sDefaultLogs.Format(L"%ld", (DWORD)m_regDefaultLogs);
 	else if (sel <= 1)
 		m_sDefaultLogs.Empty();
@@ -298,7 +298,7 @@ BOOL CSetDialogs::OnApply()
 	int sel = m_cDefaultLogsScale.GetCurSel();
 	Store(sel > 0 ? sel : 0, m_regDefaultLogsScale);
 
-	int val = _wtol((LPCTSTR)m_sDefaultLogs);
+	int val = _wtol((LPCWSTR)m_sDefaultLogs);
 	if (sel > 1 && val > 0)
 		Store(val, m_regDefaultLogs);
 

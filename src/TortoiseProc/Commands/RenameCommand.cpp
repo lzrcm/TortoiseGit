@@ -54,9 +54,9 @@ bool RenameCommand::Execute()
 	CString cmd;
 	CString output;
 	cmd.Format(L"git.exe mv %s-- \"%s\" \"%s\"",
-					(LPCTSTR)force,
-					(LPCTSTR)cmdLinePath.GetGitPathString(),
-					(LPCTSTR)sNewName);
+					(LPCWSTR)force,
+					(LPCWSTR)cmdLinePath.GetGitPathString(),
+					(LPCWSTR)sNewName);
 
 	if (g_Git.Run(cmd, &output, CP_UTF8))
 	{

@@ -257,7 +257,7 @@ protected:
 		m_nResizeBlock = block;
 	}
 
-	void EnableSaveRestore(LPCTSTR pszSection, bool bRectOnly = FALSE)
+	void EnableSaveRestore(LPCWSTR pszSection, bool bRectOnly = FALSE)
 	{
 		// call the base method with the bHorzResize and bVertResize parameters
 		// figured out from the resize block flags.
@@ -319,7 +319,7 @@ public:
 	, m_bEnableSaveRestore(false)
 	, m_bRectOnly(false)
 	{}
-	CStateDialog(LPCTSTR lpszTemplateName, CWnd* pParentWnd = nullptr)
+	CStateDialog(LPCWSTR lpszTemplateName, CWnd* pParentWnd = nullptr)
 	: CDialog(lpszTemplateName, pParentWnd)
 	, m_bEnableSaveRestore(false)
 	, m_bRectOnly(false)
@@ -338,7 +338,7 @@ protected:
 	// overloaded method, but since this dialog class is for non-resizable dialogs,
 	// the bHorzResize and bVertResize params are ignored and passed as false
 	// to the base method.
-	void EnableSaveRestore(LPCTSTR pszSection, bool bRectOnly = FALSE, BOOL bHorzResize = TRUE, BOOL bVertResize = TRUE)
+	void EnableSaveRestore(LPCWSTR pszSection, bool bRectOnly = FALSE, BOOL bHorzResize = TRUE, BOOL bVertResize = TRUE)
 	{
 		UNREFERENCED_PARAMETER(bHorzResize);
 		UNREFERENCED_PARAMETER(bVertResize);

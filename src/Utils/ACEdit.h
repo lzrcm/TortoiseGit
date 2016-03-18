@@ -50,7 +50,7 @@ class CACEdit : public CWnd //CEdit
 public:
 	CACEdit();
 	void SetMode(int iMode=_MODE_STANDARD_);
-	void SetSeparator(LPCTSTR lpszString,TCHAR lpszPrefixChar = 0)
+	void SetSeparator(LPCWSTR lpszString,TCHAR lpszPrefixChar = 0)
 	{
 		m_SeparationStr = lpszString;
 		m_Liste.m_PrefixChar = m_PrefixChar = lpszPrefixChar;
@@ -58,22 +58,22 @@ public:
 	}
 
 	// CComboBox
-	int AddString( LPCTSTR lpszString);
-	int GetLBText( int nIndex, LPTSTR lpszText );
+	int AddString( LPCWSTR lpszString);
+	int GetLBText( int nIndex, LPWSTR lpszText );
 	void GetLBText( int nIndex, CString& rString );
 	int SetDroppedWidth(UINT nWidth);
-	int FindString( int nStartAfter, LPCTSTR lpszString );
-	int SelectString( int nStartAfter, LPCTSTR lpszString );
+	int FindString( int nStartAfter, LPCWSTR lpszString );
+	int SelectString( int nStartAfter, LPCWSTR lpszString );
 	void ShowDropDown(BOOL bShowIt = TRUE );
 	void ResetContent();
 	int GetCurSel();
 	// Attribute
 public:
 	void Init();
-	void AddSearchString(LPCTSTR lpszString);
-	void AddSearchStrings(LPCTSTR Strings[]);
+	void AddSearchString(LPCWSTR lpszString);
+	void AddSearchStrings(LPCWSTR Strings[]);
 	void RemoveSearchAll();
-	void SetStartDirectory(LPCTSTR lpszString);
+	void SetStartDirectory(LPCWSTR lpszString);
 	// Operationen
 public:
 

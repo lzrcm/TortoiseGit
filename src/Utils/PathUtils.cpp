@@ -21,7 +21,7 @@
 #include "PathUtils.h"
 #include <memory>
 
-BOOL CPathUtils::MakeSureDirectoryPathExists(LPCTSTR path)
+BOOL CPathUtils::MakeSureDirectoryPathExists(LPCWSTR path)
 {
 	size_t len = wcslen(path) + 10;
 	auto buf = std::make_unique<TCHAR[]>(len);
@@ -178,7 +178,7 @@ static const char uri_char_validity[256] = {
 };
 
 
-void CPathUtils::ConvertToBackslash(LPTSTR dest, LPCTSTR src, size_t len)
+void CPathUtils::ConvertToBackslash(LPWSTR dest, LPCWSTR src, size_t len)
 {
 	wcscpy_s(dest, len, src);
 	TCHAR * p = dest;
@@ -409,7 +409,7 @@ CString CPathUtils::GetVersionFromFile(const CString & p_strFilename)
 
 	CString strReturn;
 	DWORD dwReserved = 0;
-	DWORD dwBufferSize = GetFileVersionInfoSize((LPTSTR)(LPCTSTR)p_strFilename,&dwReserved);
+	DWORD dwBufferSize = GetFileVersionInfoSize((LPWSTR)(LPCWSTR)p_strFilename,&dwReserved);
 
 	if (dwBufferSize > 0)
 	{
@@ -424,7 +424,7 @@ CString CPathUtils::GetVersionFromFile(const CString & p_strFilename)
 			TRANSARRAY* lpTransArray;
 			CString     strLangProductVersion;
 
-			GetFileVersionInfo((LPTSTR)(LPCTSTR)p_strFilename,
+			GetFileVersionInfo((LPWSTR)(LPCWSTR)p_strFilename,
 				dwReserved,
 				dwBufferSize,
 				pBuffer.get());
@@ -440,11 +440,11 @@ CString CPathUtils::GetVersionFromFile(const CString & p_strFilename)
 				lpTransArray[0].wLanguageID, lpTransArray[0].wCharacterSet);
 
 			VerQueryValue(pBuffer.get(),
-				(LPTSTR)(LPCTSTR)strLangProductVersion,
+				(LPWSTR)(LPCWSTR)strLangProductVersion,
 				(LPVOID *)&lpVersion,
 				&nInfoSize);
 			if (nInfoSize && lpVersion)
-				strReturn = (LPCTSTR)lpVersion;
+				strReturn = (LPCWSTR)lpVersion;
 		}
 	}
 

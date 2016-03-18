@@ -1048,7 +1048,7 @@ void CRevisionGraphWnd::SaveGraphAs(CString sSavePath)
 						bitmap.Save(tfile, &encoderClsid, nullptr);
 					}
 					else
-						sErrormessage.Format(IDS_REVGRAPH_ERR_NOENCODER, (LPCTSTR)CPathUtils::GetFileExtFromPath(sSavePath));
+						sErrormessage.Format(IDS_REVGRAPH_ERR_NOENCODER, (LPCWSTR)CPathUtils::GetFileExtFromPath(sSavePath));
 				}
 				else
 					sErrormessage.LoadString(IDS_REVGRAPH_ERR_NOBITMAP);
@@ -1281,12 +1281,12 @@ void CRevisionGraphWnd::DoShowLog()
 	if(m_SelectedEntry2)
 		sCmd.Format(L"/command:log %s /startrev:%s /endrev:%s",
 			this->m_sPath.IsEmpty() ? L"" : (LPCWSTR)(L"/path:\"" + this->m_sPath + L'\"'),
-			(LPCTSTR)this->m_logEntries[m_SelectedEntry1->index()].ToString(),
-			(LPCTSTR)this->m_logEntries[m_SelectedEntry2->index()].ToString());
+			(LPCWSTR)this->m_logEntries[m_SelectedEntry1->index()].ToString(),
+			(LPCWSTR)this->m_logEntries[m_SelectedEntry2->index()].ToString());
 	else
 		sCmd.Format(L"/command:log %s /endrev:%s",
-			(LPCTSTR)this->m_sPath.IsEmpty() ? L"" : (L"/path:\"" + this->m_sPath + L'\"'),
-			(LPCTSTR)this->m_logEntries[m_SelectedEntry1->index()].ToString());
+			(LPCWSTR)this->m_sPath.IsEmpty() ? L"" : (L"/path:\"" + this->m_sPath + L'\"'),
+			(LPCWSTR)this->m_logEntries[m_SelectedEntry1->index()].ToString());
 
 	CAppUtils::RunTortoiseGitProc(sCmd);
 }
@@ -1364,8 +1364,8 @@ void CRevisionGraphWnd::DoBrowseRepo()
 
 	CString sCmd;
 	sCmd.Format(L"/command:repobrowser %s /rev:%s",
-		this->m_sPath.IsEmpty() ? L"" : (LPCTSTR)(L"/path:\"" + this->m_sPath + L'\"'),
-		(LPCTSTR)GetFriendRefName(m_SelectedEntry1));
+		this->m_sPath.IsEmpty() ? L"" : (LPCWSTR)(L"/path:\"" + this->m_sPath + L'\"'),
+		(LPCWSTR)GetFriendRefName(m_SelectedEntry1));
 
 	CAppUtils::RunTortoiseGitProc(sCmd);
 }
@@ -1443,7 +1443,7 @@ void CRevisionGraphWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		if (branchNames.size() == 1)
 		{
 			CString text;
-			text.Format(L"%s \"%s\"", (LPCTSTR)CString(MAKEINTRESOURCE(IDS_SWITCH_BRANCH)), (LPCTSTR)branchNames[0]);
+			text.Format(L"%s \"%s\"", (LPCWSTR)CString(MAKEINTRESOURCE(IDS_SWITCH_BRANCH)), (LPCWSTR)branchNames[0]);
 			AppendMenu(popup, text, ID_SWITCH, &branchNames[0]);
 		}
 		else if (branchNames.size() > 1)
@@ -1659,7 +1659,7 @@ BOOL CRevisionGraphWnd::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
 	CRect viewRect = GetViewRect();
 
-	LPTSTR cursorID = IDC_ARROW;
+	LPWSTR cursorID = IDC_ARROW;
 	HINSTANCE resourceHandle = nullptr;
 
 	if ((nHitTest == HTCLIENT)&&(pWnd == this)&&(viewRect.Width())&&(viewRect.Height())&&(message))
@@ -1746,7 +1746,7 @@ void CRevisionGraphWnd::SetDlgTitle (bool /*offline*/)
 
 	CString newTitle;
 	if (offline)
-		newTitle.Format (IDS_REVGRAPH_DLGTITLEOFFLINE, (LPCTSTR)m_sTitle);
+		newTitle.Format (IDS_REVGRAPH_DLGTITLEOFFLINE, (LPCWSTR)m_sTitle);
 	else
 		newTitle = m_sTitle;
 

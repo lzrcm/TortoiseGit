@@ -89,7 +89,7 @@ struct FontSpec *fontspec_new(const char *name,
  *  - GET_WINDOWS_FUNCTION_PP allows "name" to be redirected via
  *    preprocessor definitions like "#define foo bar"; this is principally
  *    intended for the ANSI/Unicode DoSomething/DoSomethingA/DoSomethingW.
- *    If your function has an argument of type "LPTSTR" or similar, this
+ *    If your function has an argument of type "LPWSTR" or similar, this
  *    is the variant to use.
  *    (However, it can't always be used, as it trips over more complicated
  *    macro trickery such as the WspiapiGetAddrInfo wrapper for getaddrinfo.)
@@ -287,7 +287,7 @@ typedef struct filereq_tag filereq; /* cwd for file requester */
 BOOL request_file(filereq *state, OPENFILENAME *of, int preserve, int save);
 filereq *filereq_new(void);
 void filereq_free(filereq *state);
-int message_box(LPCTSTR text, LPCTSTR caption, DWORD style, DWORD helpctxid);
+int message_box(LPCWSTR text, LPCWSTR caption, DWORD style, DWORD helpctxid);
 char *GetDlgItemText_alloc(HWND hwnd, int id);
 void split_into_argv(char *, int *, char ***, char ***);
 

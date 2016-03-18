@@ -60,7 +60,7 @@ bool PasteMoveCommand::Execute()
 			progress.Stop();
 			CRenameDlg dlg;
 			dlg.m_name = name;
-			dlg.m_windowtitle.Format(IDS_PROC_NEWNAMEMOVE, (LPCTSTR)name);
+			dlg.m_windowtitle.Format(IDS_PROC_NEWNAMEMOVE, (LPCWSTR)name);
 			if (dlg.DoModal() != IDOK)
 				return FALSE;
 			destPath.SetFromWin(sDroppath + L'\\' + dlg.m_name);
@@ -78,7 +78,7 @@ bool PasteMoveCommand::Execute()
 			if (g_Git.Run(cmd, &output, CP_UTF8))
 			//if (!Git.Add(CTGitorgPathList(destPath), &props, Git_depth_infinity, true, false, true))
 			{
-				TRACE(L"%s\n", (LPCTSTR)output);
+				TRACE(L"%s\n", (LPCWSTR)output);
 				CMessageBox::Show(hwndExplorer, output, L"TortoiseGit", MB_ICONERROR);
 				return FALSE;		//get out of here
 			}
@@ -87,7 +87,7 @@ bool PasteMoveCommand::Execute()
 		else
 		{
 			CString cmd,output;
-			cmd.Format(L"git.exe mv \"%s\" \"%s\"", (LPCTSTR)orgPathList[nPath].GetGitPathString(), (LPCTSTR)destPath.GetGitPathString());
+			cmd.Format(L"git.exe mv \"%s\" \"%s\"", (LPCWSTR)orgPathList[nPath].GetGitPathString(), (LPCWSTR)destPath.GetGitPathString());
 			if (g_Git.Run(cmd, &output, CP_UTF8))
 			//if (!Git.Move(CTGitorgPathList(orgPathList[nPath]), destPath, FALSE))
 			{
@@ -113,7 +113,7 @@ bool PasteMoveCommand::Execute()
 				else
 #endif
 				{
-					TRACE(L"%s\n", (LPCTSTR)output);
+					TRACE(L"%s\n", (LPCWSTR)output);
 					CMessageBox::Show(hwndExplorer, output, L"TortoiseGit", MB_ICONERROR);
 					return FALSE;		//get out of here
 				}

@@ -86,14 +86,14 @@ bool DropMoveCommand::Execute()
 			progress.Stop();
 			CRenameDlg dlg;
 			dlg.m_name = name;
-			dlg.m_windowtitle.Format(IDS_PROC_NEWNAMEMOVE, (LPCTSTR)name);
+			dlg.m_windowtitle.Format(IDS_PROC_NEWNAMEMOVE, (LPCWSTR)name);
 			if (dlg.DoModal() != IDOK)
 				return FALSE;
 			destPath.SetFromWin(droppath + dlg.m_name);
 		}
 		CString cmd,out;
 
-		cmd.Format(L"git.exe mv -- \"%s\" \"%s\"", (LPCTSTR)pathList[nPath].GetGitPathString(), (LPCTSTR)destPath.GetGitPathString());
+		cmd.Format(L"git.exe mv -- \"%s\" \"%s\"", (LPCWSTR)pathList[nPath].GetGitPathString(), (LPCWSTR)destPath.GetGitPathString());
 		if (g_Git.Run(cmd, &out, CP_UTF8))
 		{
 			if (CMessageBox::Show(hwndExplorer, out, L"TortoiseGit", 2, IDI_EXCLAMATION, CString(MAKEINTRESOURCE(IDS_IGNOREBUTTON)), CString(MAKEINTRESOURCE(IDS_ABORTBUTTON))) == 1)

@@ -87,7 +87,7 @@ bool CMassiveGitTaskBase::ExecuteCommands(volatile BOOL& cancel)
 			}
 
 			CString cmd, out;
-			cmd.Format(L"git.exe %s %s%s", (LPCTSTR)m_sParams, m_bIsPath ? L"--" : L"", (LPCTSTR)add);
+			cmd.Format(L"git.exe %s %s%s", (LPCWSTR)m_sParams, m_bIsPath ? L"--" : L"", (LPCWSTR)add);
 			int exitCode = g_Git.Run(cmd, &out, CP_UTF8);
 			if (exitCode && !m_bIgnoreErrors)
 			{

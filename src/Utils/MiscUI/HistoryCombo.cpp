@@ -160,7 +160,7 @@ int CHistoryCombo::InsertEntry(const CString& combostring, INT_PTR pos)
 	cbei.mask = CBEIF_TEXT;
 	cbei.iItem = pos;
 
-	cbei.pszText = const_cast<LPTSTR>(combostring.GetString());
+	cbei.pszText = const_cast<LPWSTR>(combostring.GetString());
 
 #ifdef HISTORYCOMBO_WITH_SYSIMAGELIST
 	if (m_bURLHistory)
@@ -220,7 +220,7 @@ void CHistoryCombo::SetList(const STRING_VECTOR& list)
 	}
 }
 
-CString CHistoryCombo::LoadHistory(LPCTSTR lpszSection, LPCTSTR lpszKeyPrefix)
+CString CHistoryCombo::LoadHistory(LPCWSTR lpszSection, LPCWSTR lpszKeyPrefix)
 {
 	if (!lpszSection || !lpszKeyPrefix || *lpszSection == '\0')
 		return L"";
@@ -234,7 +234,7 @@ CString CHistoryCombo::LoadHistory(LPCTSTR lpszSection, LPCTSTR lpszKeyPrefix)
 	{
 		//keys are of form <lpszKeyPrefix><entrynumber>
 		CString sKey;
-		sKey.Format(L"%s\\%s%d", (LPCTSTR)m_sSection, (LPCTSTR)m_sKeyPrefix, n++);
+		sKey.Format(L"%s\\%s%d", (LPCWSTR)m_sSection, (LPCWSTR)m_sKeyPrefix, n++);
 		sText = CRegString(sKey);
 		if (!sText.IsEmpty())
 			AddString(sText);
@@ -270,7 +270,7 @@ void CHistoryCombo::SaveHistory()
 	for (int n = 0; n < nMax; n++)
 	{
 		CString sKey;
-		sKey.Format(L"%s\\%s%d", (LPCTSTR)m_sSection, (LPCTSTR)m_sKeyPrefix, n);
+		sKey.Format(L"%s\\%s%d", (LPCWSTR)m_sSection, (LPCWSTR)m_sKeyPrefix, n);
 		CRegString regkey(sKey);
 		regkey = m_arEntries.GetAt(n);
 	}
@@ -278,7 +278,7 @@ void CHistoryCombo::SaveHistory()
 	for (int n = nMax; ; n++)
 	{
 		CString sKey;
-		sKey.Format(L"%s\\%s%d", (LPCTSTR)m_sSection, (LPCTSTR)m_sKeyPrefix, n);
+		sKey.Format(L"%s\\%s%d", (LPCWSTR)m_sSection, (LPCWSTR)m_sKeyPrefix, n);
 		CRegString regkey(sKey);
 		CString sText = regkey;
 		if (sText.IsEmpty())
@@ -296,7 +296,7 @@ void CHistoryCombo::ClearHistory(BOOL bDeleteRegistryEntries/*=TRUE*/)
 		CString sKey;
 		for (int n = 0; ; n++)
 		{
-			sKey.Format(L"%s\\%s%d", (LPCTSTR)m_sSection, (LPCTSTR)m_sKeyPrefix, n);
+			sKey.Format(L"%s\\%s%d", (LPCWSTR)m_sSection, (LPCWSTR)m_sKeyPrefix, n);
 			CRegString regkey(sKey);
 			CString sText = regkey;
 			if (sText.IsEmpty())
@@ -306,7 +306,7 @@ void CHistoryCombo::ClearHistory(BOOL bDeleteRegistryEntries/*=TRUE*/)
 	}
 }
 
-void CHistoryCombo::RemoveEntryFromHistory(LPCTSTR lpszSection, LPCTSTR lpszKeyPrefix, const CString& entryToRemove)
+void CHistoryCombo::RemoveEntryFromHistory(LPCWSTR lpszSection, LPCWSTR lpszKeyPrefix, const CString& entryToRemove)
 {
 	if (entryToRemove.IsEmpty())
 		return;
@@ -497,7 +497,7 @@ void CHistoryCombo::OnMouseMove(UINT nFlags, CPoint point)
 		ClientToScreen(&rectClient);
 
 		m_ToolText = GetString();
-		m_ToolInfo.lpszText = (LPTSTR)(LPCTSTR)m_ToolText;
+		m_ToolInfo.lpszText = (LPWSTR)(LPCWSTR)m_ToolText;
 
 		HDC hDC = ::GetDC(m_hWnd);
 
@@ -630,7 +630,7 @@ int CHistoryCombo::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-int CHistoryCombo::FindStringExactCaseSensitive(int nIndexStart, LPCTSTR lpszFind)
+int CHistoryCombo::FindStringExactCaseSensitive(int nIndexStart, LPCWSTR lpszFind)
 {
 	nIndexStart = max(0, nIndexStart);
 	for (int i = nIndexStart; i < GetCount(); i++)

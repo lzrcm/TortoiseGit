@@ -40,7 +40,7 @@ bool ResolveCommand::Execute()
 				for (int i = 0; i < dlg.m_pathList.GetCount(); ++i)
 				{
 					CString cmd, out;
-					cmd.Format(L"git.exe add -f -- \"%s\"", (LPCTSTR)dlg.m_pathList[i].GetGitPathString());
+					cmd.Format(L"git.exe add -f -- \"%s\"", (LPCWSTR)dlg.m_pathList[i].GetGitPathString());
 					if (g_Git.Run(cmd, &out, CP_UTF8))
 					{
 						MessageBox(hwndExplorer, out, L"TortoiseGit", MB_OK | MB_ICONERROR);

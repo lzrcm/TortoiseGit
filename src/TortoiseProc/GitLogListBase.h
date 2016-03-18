@@ -416,7 +416,7 @@ public:
 	CLogDataVector		m_logEntries;
 	void RemoveFilter();
 	void StartFilter();
-	bool ValidateRegexp(LPCTSTR regexp_str, std::tr1::wregex& pat, bool bMatchCase = false );
+	bool ValidateRegexp(LPCWSTR regexp_str, std::tr1::wregex& pat, bool bMatchCase = false );
 	CString				m_sFilterText;
 
 	CFilterData			m_Filter;

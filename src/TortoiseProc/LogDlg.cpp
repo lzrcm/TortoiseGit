@@ -449,11 +449,11 @@ BOOL CLogDlg::OnInitDialog()
 
 	m_History.SetMaxHistoryItems((LONG)CRegDWORD(L"Software\\TortoiseGit\\MaxRefHistoryItems", 5));
 	CString reg;
-	reg.Format(L"Software\\TortoiseGit\\History\\log-refs\\%s", (LPCTSTR)g_Git.m_CurrentDir);
+	reg.Format(L"Software\\TortoiseGit\\History\\log-refs\\%s", (LPCWSTR)g_Git.m_CurrentDir);
 	reg.Replace(L':',L'_');
 	m_History.Load(reg, L"ref");
 
-	reg.Format(L"Software\\TortoiseGit\\History\\LogDlg_Limits\\%s\\FromDate", (LPCTSTR)g_Git.m_CurrentDir);
+	reg.Format(L"Software\\TortoiseGit\\History\\LogDlg_Limits\\%s\\FromDate", (LPCWSTR)g_Git.m_CurrentDir);
 	reg.Replace(L':', L'_');
 	m_regLastSelectedFromDate = CRegString(reg);
 
@@ -1000,9 +1000,9 @@ void CLogDlg::FillPatchView(bool onlySetTimer)
 			{
 				CString cmd;
 				if (pLogEntry->m_CommitHash.IsEmpty())
-					cmd.Format(L"git.exe diff HEAD -- \"%s\"", (LPCTSTR)p->GetGitPathString());
+					cmd.Format(L"git.exe diff HEAD -- \"%s\"", (LPCWSTR)p->GetGitPathString());
 				else
-					cmd.Format(L"git.exe diff %s^%d..%s -- \"%s\"", (LPCTSTR)pLogEntry->m_CommitHash.ToString(), p->m_ParentNo + 1, (LPCTSTR)pLogEntry->m_CommitHash.ToString(), (LPCTSTR)p->GetGitPathString());
+					cmd.Format(L"git.exe diff %s^%d..%s -- \"%s\"", (LPCWSTR)pLogEntry->m_CommitHash.ToString(), p->m_ParentNo + 1, (LPCWSTR)pLogEntry->m_CommitHash.ToString(), (LPCWSTR)p->GetGitPathString());
 				g_Git.Run(cmd, &out, CP_UTF8);
 			}
 		}
@@ -1152,12 +1152,12 @@ void CLogDlg::GoBackForward(bool select, bool bForward)
 		if (i == (int)m_LogList.m_arShownList.size())
 		{
 			CString msg;
-			msg.Format(IDS_LOG_NOT_VISIBLE, (LPCTSTR)gotoHash.ToString());
+			msg.Format(IDS_LOG_NOT_VISIBLE, (LPCWSTR)gotoHash.ToString());
 			MessageBox(msg, L"TortoiseGit", MB_OK | MB_ICONINFORMATION);
 			return;
 		}
 	}
-	PlaySound((LPCTSTR)SND_ALIAS_SYSTEMASTERISK, nullptr, SND_ASYNC | SND_ALIAS_ID);
+	PlaySound((LPCWSTR)SND_ALIAS_SYSTEMASTERISK, nullptr, SND_ASYNC | SND_ALIAS_ID);
 }
 
 void CLogDlg::OnBnClickedRefresh()
@@ -1399,7 +1399,7 @@ void CLogDlg::OnContextMenu(CWnd* pWnd, CPoint point)
 			CString number;
 			number.Format(L"%ld", m_LogList.m_Filter.m_NumberOfLogs);
 			CString item;
-			item.Format(strScale, (LPCTSTR)number);
+			item.Format(strScale, (LPCWSTR)number);
 			popup.AppendMenuIcon(++cnt, item);
 		}
 
@@ -2290,7 +2290,7 @@ void CLogDlg::SetFilterCueText()
 	m_cFilter.SetCueBanner(temp.TrimRight());
 }
 
-bool CLogDlg::Validate(LPCTSTR string)
+bool CLogDlg::Validate(LPCWSTR string)
 {
 	if (!m_bFilterWithRegex)
 		return true;
@@ -2817,7 +2817,7 @@ void CLogDlg::UpdateLogInfoLabel()
 	CString sTemp;
 	sTemp.Format(IDS_PROC_LOG_STATS,
 		count - start,
-		(LPCTSTR)rev2.ToString().Left(g_Git.GetShortHASHLength()), (LPCTSTR)rev1.ToString().Left(g_Git.GetShortHASHLength()), selectedrevs, selectedfiles);
+		(LPCWSTR)rev2.ToString().Left(g_Git.GetShortHASHLength()), (LPCWSTR)rev1.ToString().Left(g_Git.GetShortHASHLength()), selectedrevs, selectedfiles);
 
 	if(selectedrevs == 1)
 	{
@@ -2877,7 +2877,7 @@ CString CLogDlg::GetAbsoluteUrlFromRelativeUrl(const CString& url)
 		CString url1 = m_sRepositoryRoot + url.Mid(1);
 		TCHAR buf[INTERNET_MAX_URL_LENGTH] = { 0 };
 		DWORD len = url.GetLength();
-		if (UrlCanonicalize((LPCTSTR)url1, buf, &len, 0) == S_OK)
+		if (UrlCanonicalize((LPCWSTR)url1, buf, &len, 0) == S_OK)
 			return CString(buf, len);
 		return url1;
 	}
@@ -2893,7 +2893,7 @@ CString CLogDlg::GetAbsoluteUrlFromRelativeUrl(const CString& url)
 			CString url1 = sHost + url;
 			TCHAR buf[INTERNET_MAX_URL_LENGTH] = { 0 };
 			DWORD len = url.GetLength();
-			if (UrlCanonicalize((LPCTSTR)url, buf, &len, 0) == S_OK)
+			if (UrlCanonicalize((LPCWSTR)url, buf, &len, 0) == S_OK)
 				return CString(buf, len);
 			return url1;
 		}

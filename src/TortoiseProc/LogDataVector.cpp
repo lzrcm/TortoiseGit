@@ -318,7 +318,7 @@ void CLogDataVector::updateLanes(GitRevLoglist& c, Lanes& lns, CGitHash& sha)
 		lns.changeActiveLane(sha); // uses previous isBoundary state
 
 	lns.setBoundary(c.IsBoundary() == TRUE); // update must be here
-	TRACE(L"%s %d", (LPCTSTR)c.m_CommitHash.ToString(), c.IsBoundary());
+	TRACE(L"%s %d", (LPCWSTR)c.m_CommitHash.ToString(), c.IsBoundary());
 
 	if (isFork)
 		lns.setFork(sha);

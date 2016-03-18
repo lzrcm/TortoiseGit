@@ -127,7 +127,7 @@ bool SVNRebaseCommand::Execute()
 	if(g_Git.IsFastForward(CString(L"HEAD"),out))
 	{
 		CProgressDlg progressReset;
-		cmd.Format(L"git.exe reset --hard %s --", (LPCTSTR)out);
+		cmd.Format(L"git.exe reset --hard %s --", (LPCWSTR)out);
 		progressReset.m_GitCmd = cmd;
 		progressReset.m_AutoClose = AUTOCLOSE_IF_NO_ERRORS;
 

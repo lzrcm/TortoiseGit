@@ -253,7 +253,7 @@ void CSetSavedDataPage::OnBnClickedRepologclear()
 {
 	CString path = CPathUtils::GetAppDataDirectory()+L"logcache";
 	TCHAR pathbuf[MAX_PATH] = {0};
-	wcscpy_s(pathbuf, MAX_PATH, (LPCTSTR)path);
+	wcscpy_s(pathbuf, MAX_PATH, (LPCWSTR)path);
 
 	DeleteViaShell(pathbuf, IDS_SETTINGS_DELCACHE);
 
@@ -327,7 +327,7 @@ BOOL CSetSavedDataPage::OnApply()
 	return ISettingsPropPage::OnApply();
 }
 
-void CSetSavedDataPage::DeleteViaShell(LPCTSTR path, UINT progressText)
+void CSetSavedDataPage::DeleteViaShell(LPCWSTR path, UINT progressText)
 {
 	CString p(path);
 	p += L"||";

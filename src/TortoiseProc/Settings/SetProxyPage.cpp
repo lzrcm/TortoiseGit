@@ -114,7 +114,7 @@ BOOL CSetProxyPage::OnInitDialog()
 	{
 		TCHAR sPlink[MAX_PATH] = {0};
 		GetModuleFileName(nullptr, sPlink, _countof(sPlink));
-		LPTSTR ptr = wcsrchr(sPlink, L'\\');
+		LPWSTR ptr = wcsrchr(sPlink, L'\\');
 		if (ptr)
 		{
 			wcscpy_s(ptr + 1, MAX_PATH - (ptr - sPlink + 1), L"TortoiseGitPlink.exe");
@@ -122,7 +122,7 @@ BOOL CSetProxyPage::OnInitDialog()
 		}
 	}
 	m_serveraddress = m_regServeraddress;
-	m_serverport = _wtoi((LPCTSTR)(CString)m_regServerport);
+	m_serverport = _wtoi((LPCWSTR)(CString)m_regServerport);
 	m_username = m_regUsername;
 	m_password = m_regPassword;
 

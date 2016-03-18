@@ -54,7 +54,7 @@ protected:
     virtual void PreSubclassWindow();
 
 protected:
-    HINSTANCE	GotoURL(LPCTSTR url);
+    HINSTANCE	GotoURL(LPCWSTR url);
     void		SetDefaultCursor();
 
 protected:

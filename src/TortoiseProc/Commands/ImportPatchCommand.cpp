@@ -39,7 +39,7 @@ bool ImportPatchCommand::Execute()
 		if (!CTGitPath(droppath).HasAdminDir(&g_Git.m_CurrentDir))
 		{
 			CString err;
-			err.Format(IDS_ERR_NOT_REPOSITORY, (LPCTSTR)g_Git.m_CurrentDir);
+			err.Format(IDS_ERR_NOT_REPOSITORY, (LPCWSTR)g_Git.m_CurrentDir);
 			MessageBox(hwndExplorer, err, L"TortoiseGit", MB_OK | MB_ICONERROR);
 			return FALSE;
 		}
@@ -56,7 +56,7 @@ bool ImportPatchCommand::Execute()
 		if(!path.HasAdminDir())
 		{
 			CString err;
-			err.Format(IDS_ERR_NOT_REPOSITORY, (LPCTSTR)str);
+			err.Format(IDS_ERR_NOT_REPOSITORY, (LPCWSTR)str);
 			MessageBox(hwndExplorer, err, L"TortoiseGit", MB_OK | MB_ICONERROR);
 			return FALSE;
 		}

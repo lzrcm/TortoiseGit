@@ -61,7 +61,7 @@ BOOL CCachedDirectory::SaveToDisk(FILE * pFile)
 		WRITEVALUETOFILE(value);
 		if (value)
 		{
-			if (fwrite((LPCTSTR)key, sizeof(TCHAR), value, pFile)!=value)
+			if (fwrite((LPCWSTR)key, sizeof(TCHAR), value, pFile)!=value)
 				return false;
 			if (!entry.second.SaveToDisk(pFile))
 				return false;
@@ -76,7 +76,7 @@ BOOL CCachedDirectory::SaveToDisk(FILE * pFile)
 		WRITEVALUETOFILE(value);
 		if (value)
 		{
-			if (fwrite((LPCTSTR)path, sizeof(TCHAR), value, pFile)!=value)
+			if (fwrite((LPCWSTR)path, sizeof(TCHAR), value, pFile)!=value)
 				return false;
 			git_wc_status_kind status = entry.second;
 			WRITEVALUETOFILE(status);
@@ -623,7 +623,7 @@ BOOL CCachedDirectory::GetStatusCallback(const CString & path, git_wc_status_kin
 				{
 					if( ::PathFileExists(path+L"\\.git"))
 					{ // this is submodule
-						CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) L": skip submodule %s\n", (LPCTSTR)path);
+						CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) L": skip submodule %s\n", (LPCWSTR)path);
 						return FALSE;
 					}
 				}

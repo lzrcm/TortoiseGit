@@ -46,7 +46,7 @@ protected:
      * String type specific operations.
      */
 
-    virtual LPCTSTR GetPlainString (const S& s) const = 0;
+    virtual LPCWSTR GetPlainString (const S& s) const = 0;
     virtual DWORD GetLength (const S& s) const = 0;
 
 public: //methods
@@ -84,7 +84,7 @@ public: //methods
     virtual S getErrorString()
     {
         CFormatMessageWrapper errorMessage(LastError);
-        S result ((LPCTSTR)errorMessage);
+        S result ((LPCWSTR)errorMessage);
         return result;
     }
 
@@ -177,7 +177,7 @@ protected:
      * String type specific operations.
      */
 
-    virtual LPCTSTR GetPlainString (const CString& s) const {return (LPCTSTR)s;}
+    virtual LPCWSTR GetPlainString (const CString& s) const {return (LPCWSTR)s;}
     virtual DWORD GetLength (const CString& s) const {return s.GetLength();}
 
 public: //methods
@@ -201,7 +201,7 @@ public: //methods
         CString error = CRegBaseCommon<CString>::getErrorString();
 #if defined IDS_REG_ERROR
         CString sTemp;
-        sTemp.FormatMessage(IDS_REG_ERROR, (LPCTSTR)m_key, (LPCTSTR)error);
+        sTemp.FormatMessage(IDS_REG_ERROR, (LPCWSTR)m_key, (LPCWSTR)error);
         return sTemp;
 #else
         return error;
@@ -225,7 +225,7 @@ protected:
      * String type specific operations.
      */
 
-    virtual LPCTSTR GetPlainString (const tstring& s) const {return s.c_str();}
+    virtual LPCWSTR GetPlainString (const tstring& s) const {return s.c_str();}
     virtual DWORD GetLength (const tstring& s) const {return static_cast<DWORD>(s.size());}
 
 public: //methods

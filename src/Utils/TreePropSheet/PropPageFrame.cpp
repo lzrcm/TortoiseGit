@@ -67,7 +67,7 @@ BOOL CPropPageFrame::GetShowCaption() const
 }
 
 
-void CPropPageFrame::SetCaption(LPCTSTR lpszCaption, HICON hIcon /*= nullptr*/)
+void CPropPageFrame::SetCaption(LPCWSTR lpszCaption, HICON hIcon /*= nullptr*/)
 {
 	m_strCaption = lpszCaption;
 	m_hCaptionIcon = hIcon;
@@ -96,7 +96,7 @@ int CPropPageFrame::GetCaptionHeight() const
 }
 
 
-void CPropPageFrame::SetMsgText(LPCTSTR lpszMsg)
+void CPropPageFrame::SetMsgText(LPCWSTR lpszMsg)
 {
 	m_strMsg = lpszMsg;
 	SafeUpdateWindow(CalcMsgArea());
@@ -146,7 +146,7 @@ CRect CPropPageFrame::CalcMsgArea()
 }
 
 
-void CPropPageFrame::DrawMsg(CDC *pDc, CRect rect, LPCTSTR /*lpszMsg*/, DWORD /*dwFormat*/)
+void CPropPageFrame::DrawMsg(CDC *pDc, CRect rect, LPCWSTR /*lpszMsg*/, DWORD /*dwFormat*/)
 {
 	CFont	*pPrevFont = dynamic_cast<CFont*>(pDc->SelectStockObject(DEFAULT_GUI_FONT));
 	int		nPrevBkMode = pDc->SetBkMode(TRANSPARENT);
@@ -173,7 +173,7 @@ CRect	CPropPageFrame::CalcCaptionArea()
 }
 
 
-void CPropPageFrame::DrawCaption(CDC * /*pDc*/, CRect /*rect*/, LPCTSTR /*lpszCaption*/, HICON /*hIcon*/)
+void CPropPageFrame::DrawCaption(CDC * /*pDc*/, CRect /*rect*/, LPCWSTR /*lpszCaption*/, HICON /*hIcon*/)
 {
 	// should be implemented by specialized classes
 }

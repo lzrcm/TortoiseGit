@@ -46,8 +46,8 @@ public:
 	CPOFile();
 	~CPOFile(void);
 
-	BOOL ParseFile(LPCTSTR szPath, BOOL bUpdateExisting, bool bAdjustEOLs);
-	BOOL SaveFile(LPCTSTR szPath, LPCTSTR lpszHeaderFile);
+	BOOL ParseFile(LPCWSTR szPath, BOOL bUpdateExisting, bool bAdjustEOLs);
+	BOOL SaveFile(LPCWSTR szPath, LPCWSTR lpszHeaderFile);
 	void SetQuiet(BOOL bQuiet = TRUE) {m_bQuiet = bQuiet;}
 
 private:

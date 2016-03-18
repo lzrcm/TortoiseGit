@@ -72,7 +72,7 @@ bool DropCopyCommand::Execute()
 			// Offer a rename
 			progress.Stop();
 			CRenameDlg dlg;
-			dlg.m_windowtitle.Format(IDS_PROC_NEWNAMECOPY, (LPCTSTR)sourcePath.GetUIFileOrDirectoryName());
+			dlg.m_windowtitle.Format(IDS_PROC_NEWNAMECOPY, (LPCWSTR)sourcePath.GetUIFileOrDirectoryName());
 			if (dlg.DoModal() != IDOK)
 				return FALSE;
 			// rebuild the progress dialog

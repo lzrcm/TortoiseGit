@@ -37,7 +37,7 @@ public:
 	 * sets the title of the progress dialog box.
 	 * \param szTitle pointer to a nullptr-terminated string that contains the dialog box title
 	 */
-	void SetTitle ( LPCTSTR szTitle );
+	void SetTitle ( LPCWSTR szTitle );
 	/**
 	* sets the title of the progress dialog box to a string resource value.
 	*/
@@ -52,7 +52,7 @@ public:
 	 * \remark This call should be made *after* the dialog has been shown - this allows
 	 * the system to measure the space available for the text, and do path compaction properly
 	 */
-	void SetLine ( DWORD dwLine, LPCTSTR szText, bool bCompactPath = false );
+	void SetLine ( DWORD dwLine, LPCWSTR szText, bool bCompactPath = false );
 
 #ifdef _MFC_VER
 	/**
@@ -80,7 +80,7 @@ public:
 	 * the progress dialog box will be closed shortly. It is typically is set to
 	 * something like "Please wait while ...".
 	 */
-	void SetCancelMsg ( LPCTSTR szMessage );
+	void SetCancelMsg ( LPCWSTR szMessage );
 #ifdef _MFC_VER
 	void SetCancelMsg ( UINT idMessage );
 	/**

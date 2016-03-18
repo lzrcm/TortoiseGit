@@ -79,7 +79,7 @@ bool DaemonCommand::Execute()
 		basePath += L"\\.";
 
 	CString cmd;
-	cmd.Format(L"git.exe daemon --verbose --export-all --base-path=\"%s\"", (LPCTSTR)basePath);
+	cmd.Format(L"git.exe daemon --verbose --export-all --base-path=\"%s\"", (LPCWSTR)basePath);
 	CProgressDlg progDlg;
 	progDlg.m_GitCmd = cmd;
 	if (ips.empty())

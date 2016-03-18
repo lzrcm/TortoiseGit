@@ -49,7 +49,7 @@ CBrowseFolder::~CBrowseFolder(void)
 }
 
 //show the dialog
-CBrowseFolder::retVal CBrowseFolder::Show(HWND parent, LPTSTR path, size_t pathlen, LPCTSTR szDefaultPath /* = nullptr */)
+CBrowseFolder::retVal CBrowseFolder::Show(HWND parent, LPWSTR path, size_t pathlen, LPCWSTR szDefaultPath /* = nullptr */)
 {
 	CString temp;
 	temp = path;
@@ -166,7 +166,7 @@ CBrowseFolder::retVal CBrowseFolder::Show(HWND parent, CString& path, const CStr
 	return OK;
 }
 
-void CBrowseFolder::SetInfo(LPCTSTR title)
+void CBrowseFolder::SetInfo(LPCWSTR title)
 {
 	ASSERT(title);
 
@@ -174,7 +174,7 @@ void CBrowseFolder::SetInfo(LPCTSTR title)
 		wcscpy_s(m_title, title);
 }
 
-void CBrowseFolder::SetCheckBoxText(LPCTSTR checktext)
+void CBrowseFolder::SetCheckBoxText(LPCWSTR checktext)
 {
 	ASSERT(checktext);
 
@@ -182,7 +182,7 @@ void CBrowseFolder::SetCheckBoxText(LPCTSTR checktext)
 		wcscpy_s(m_CheckText, checktext);
 }
 
-void CBrowseFolder::SetCheckBoxText2(LPCTSTR checktext)
+void CBrowseFolder::SetCheckBoxText2(LPCWSTR checktext)
 {
 	ASSERT(checktext);
 
@@ -190,7 +190,7 @@ void CBrowseFolder::SetCheckBoxText2(LPCTSTR checktext)
 		wcscpy_s(m_CheckText2, checktext);
 }
 
-void CBrowseFolder::SetFont(HWND hwnd,LPTSTR FontName,int FontSize)
+void CBrowseFolder::SetFont(HWND hwnd,LPWSTR FontName,int FontSize)
 {
 	HFONT hf;
 	LOGFONT lf={0};
@@ -319,7 +319,7 @@ int CBrowseFolder::BrowseCallBackProc(HWND hwnd, UINT uMsg, LPARAM lParam, LPARA
 		}
 
 		// now set the default directory
-		SendMessage(hwnd, BFFM_SETSELECTION, TRUE, (LPARAM)(LPCTSTR)m_sDefaultPath);
+		SendMessage(hwnd, BFFM_SETSELECTION, TRUE, (LPARAM)(LPCWSTR)m_sDefaultPath);
 	}
 	if (uMsg == BFFM_SELCHANGED)
 	{

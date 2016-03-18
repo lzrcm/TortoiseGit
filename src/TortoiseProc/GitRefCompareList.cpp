@@ -231,12 +231,12 @@ void CGitRefCompareList::OnContextMenuList(CWnd * /*pWnd*/, CPoint point)
 	CString logStr;
 	if (!oldHash.IsEmpty())
 	{
-		logStr.Format(IDS_SHOWLOG_OF, (LPCTSTR)oldHash);
+		logStr.Format(IDS_SHOWLOG_OF, (LPCWSTR)oldHash);
 		popup.AppendMenuIcon(IDGITRCL_OLDLOG, logStr, IDI_LOG);
 	}
 	if (!newHash.IsEmpty() && oldHash != newHash)
 	{
-		logStr.Format(IDS_SHOWLOG_OF, (LPCTSTR)newHash);
+		logStr.Format(IDS_SHOWLOG_OF, (LPCWSTR)newHash);
 		popup.AppendMenuIcon(IDGITRCL_NEWLOG, logStr, IDI_LOG);
 	}
 	if (!oldHash.IsEmpty() && !newHash.IsEmpty() && oldHash != newHash)
@@ -251,21 +251,21 @@ void CGitRefCompareList::OnContextMenuList(CWnd * /*pWnd*/, CPoint point)
 		case IDGITRCL_NEWLOG:
 		{
 			CString sCmd;
-			sCmd.Format(L"/command:log /path:\"%s\" /endrev:\"%s\"", (LPCTSTR)g_Git.m_CurrentDir, cmd == IDGITRCL_OLDLOG ? (LPCTSTR)oldHash : (LPCTSTR)newHash);
+			sCmd.Format(L"/command:log /path:\"%s\" /endrev:\"%s\"", (LPCWSTR)g_Git.m_CurrentDir, cmd == IDGITRCL_OLDLOG ? (LPCWSTR)oldHash : (LPCWSTR)newHash);
 			CAppUtils::RunTortoiseGitProc(sCmd);
 			break;
 		}
 		case IDGITRCL_COMPARE:
 		{
 			CString sCmd;
-			sCmd.Format(L"/command:showcompare /path:\"%s\" /revision1:\"%s\" /revision2:\"%s\"", (LPCTSTR)g_Git.m_CurrentDir, (LPCTSTR)oldHash, (LPCTSTR)newHash);
+			sCmd.Format(L"/command:showcompare /path:\"%s\" /revision1:\"%s\" /revision2:\"%s\"", (LPCWSTR)g_Git.m_CurrentDir, (LPCWSTR)oldHash, (LPCWSTR)newHash);
 			CAppUtils::RunTortoiseGitProc(sCmd);
 			break;
 		}
 		case IDGITRCL_REFLOG:
 		{
 			CString sCmd;
-			sCmd.Format(L"/command:reflog /path:\"%s\" /ref:\"%s\"", (LPCTSTR)g_Git.m_CurrentDir, (LPCTSTR)refName);
+			sCmd.Format(L"/command:reflog /path:\"%s\" /ref:\"%s\"", (LPCWSTR)g_Git.m_CurrentDir, (LPCWSTR)refName);
 			CAppUtils::RunTortoiseGitProc(sCmd);
 			break;
 		}

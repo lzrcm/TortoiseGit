@@ -59,9 +59,9 @@ CTGitPath CTempFiles::GetTempFilePath(bool bRemoveAtEnd, const CTGitPath& path /
 		do
 		{
 			if (!((GitRev&)revision).m_CommitHash.IsEmpty())
-				possibletempfile.Format(L"%s%s-rev%s.git%3.3x.tmp%s", temppath.get(), (LPCTSTR)path.GetFileOrDirectoryName(), (LPCTSTR)((GitRev&)revision).m_CommitHash.ToString().Left(7), i, (LPCTSTR)path.GetFileExtension());
+				possibletempfile.Format(L"%s%s-rev%s.git%3.3x.tmp%s", temppath.get(), (LPCWSTR)path.GetFileOrDirectoryName(), (LPCWSTR)((GitRev&)revision).m_CommitHash.ToString().Left(7), i, (LPCWSTR)path.GetFileExtension());
 			else
-				possibletempfile.Format(L"%s%s.git%3.3x.tmp%s", temppath.get(), (LPCTSTR)path.GetFileOrDirectoryName(), i, (LPCTSTR)path.GetFileExtension());
+				possibletempfile.Format(L"%s%s.git%3.3x.tmp%s", temppath.get(), (LPCWSTR)path.GetFileOrDirectoryName(), i, (LPCWSTR)path.GetFileExtension());
 			tempfile.SetFromWin(possibletempfile);
 			++i;
 		} while (PathFileExists(tempfile.GetWinPath()));

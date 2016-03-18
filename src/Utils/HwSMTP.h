@@ -66,32 +66,32 @@ class CHwSMTP
 public:
 	CString GetLastErrorText();
 	BOOL SendEmail (
-		LPCTSTR lpszSmtpSrvHost,
-		LPCTSTR lpszUserName,
-		LPCTSTR lpszPasswd,
+		LPCWSTR lpszSmtpSrvHost,
+		LPCWSTR lpszUserName,
+		LPCWSTR lpszPasswd,
 		BOOL bMustAuth,
-		LPCTSTR lpszAddrFrom,
-		LPCTSTR lpszAddrTo,
-		LPCTSTR lpszSubject,
-		LPCTSTR lpszBody,
-		LPCTSTR lpszCharSet,						// 字符集类型，例如：繁体中文这里应输入"big5"，简体中文时输入"gb2312"
+		LPCWSTR lpszAddrFrom,
+		LPCWSTR lpszAddrTo,
+		LPCWSTR lpszSubject,
+		LPCWSTR lpszBody,
+		LPCWSTR lpszCharSet,						// 字符集类型，例如：繁体中文这里应输入"big5"，简体中文时输入"gb2312"
 		CStringArray* pStrAryAttach = nullptr,
-		LPCTSTR pStrAryCC = nullptr,
+		LPCWSTR pStrAryCC = nullptr,
 		UINT nSmtpSrvPort=25,
-		LPCTSTR pSend = nullptr,
-		LPCTSTR pToList = nullptr,
+		LPCWSTR pSend = nullptr,
+		LPCWSTR pToList = nullptr,
 		DWORD secLevel = SECURITY_LEVEL::none
 		);
 	BOOL SendSpeedEmail
 		(
-			LPCTSTR lpszAddrFrom,
-			LPCTSTR lpszAddrTo,
-			LPCTSTR lpszSubject,
-			LPCTSTR lpszBody,
-			LPCTSTR lpszCharSet,						// 字符集类型，例如：繁体中文这里应输入"big5"，简体中文时输入"gb2312"
+			LPCWSTR lpszAddrFrom,
+			LPCWSTR lpszAddrTo,
+			LPCWSTR lpszSubject,
+			LPCWSTR lpszBody,
+			LPCWSTR lpszCharSet,						// 字符集类型，例如：繁体中文这里应输入"big5"，简体中文时输入"gb2312"
 			CStringArray* pStrAryAttach = nullptr,
-			LPCTSTR pStrAryCC = nullptr,
-			LPCTSTR pSend = nullptr
+			LPCWSTR pStrAryCC = nullptr,
+			LPCWSTR pSend = nullptr
 		);
 	CHwSMTP();
 	virtual ~CHwSMTP();
@@ -137,7 +137,7 @@ private:
 	CString m_csCharSet;
 
 	CString m_csLastError;
-	BOOL SendOnAttach(LPCTSTR lpszFileName);
+	BOOL SendOnAttach(LPCWSTR lpszFileName);
 	BOOL SendAttach();
 	BOOL SendBody();
 	CString m_csMIMEContentType;

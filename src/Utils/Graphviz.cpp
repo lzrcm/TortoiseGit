@@ -26,10 +26,10 @@ void Graphviz::DrawNode(CString id, CString text, CString fontName, int fontSize
 	content.Append(L"\t");
 	content.Append(id);
 
-	content.AppendFormat(L" [label=\"%s\"", (LPCTSTR)text);
+	content.AppendFormat(L" [label=\"%s\"", (LPCWSTR)text);
 
 	if (m_defaultFontName != fontName)
-		content.AppendFormat(L", fontname=\"%s\"", (LPCTSTR)fontName);
+		content.AppendFormat(L", fontname=\"%s\"", (LPCWSTR)fontName);
 
 
 	if (m_defaultFontSize != fontSize)
@@ -52,7 +52,7 @@ void Graphviz::BeginDrawTableNode(CString id, CString fontName, int fontSize, in
 	bool hasAttr = false;
 	if (m_defaultFontName != fontName)
 	{
-		content.AppendFormat(L"fontname=\"%s\"", (LPCTSTR)fontName);
+		content.AppendFormat(L"fontname=\"%s\"", (LPCWSTR)fontName);
 		hasAttr = true;
 	}
 
@@ -73,7 +73,7 @@ void Graphviz::BeginDrawTableNode(CString id, CString fontName, int fontSize, in
 
 void Graphviz::DrawTableNode(CString text, Gdiplus::Color backColor)
 {
-	content.AppendFormat(L"\t<tr><td port=\"f%d\" bgcolor=\"#%06X\">%s</td></tr>\r\n", m_tableNodeNum++, backColor.GetValue() & 0xffffff, (LPCTSTR)text);
+	content.AppendFormat(L"\t<tr><td port=\"f%d\" bgcolor=\"#%06X\">%s</td></tr>\r\n", m_tableNodeNum++, backColor.GetValue() & 0xffffff, (LPCWSTR)text);
 }
 
 void Graphviz::EndDrawTableNode()

@@ -1380,7 +1380,7 @@ bool CPicWindow::CreateButtons()
 
     hwndLeftBtn = CreateWindowEx(0,
                                 L"BUTTON",
-                                (LPCTSTR)NULL,
+                                (LPCWSTR)NULL,
                                 WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_ICON | BS_FLAT,
                                 0, 0, 0, 0,
                                 (HWND)*this,
@@ -1393,7 +1393,7 @@ bool CPicWindow::CreateButtons()
     SendMessage(hwndLeftBtn, BM_SETIMAGE, (WPARAM)IMAGE_ICON, (LPARAM)hLeft);
     hwndRightBtn = CreateWindowEx(0,
                                 L"BUTTON",
-                                (LPCTSTR)NULL,
+                                (LPCWSTR)NULL,
                                 WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_ICON | BS_FLAT,
                                 0, 0, 0, 0,
                                 *this,
@@ -1406,7 +1406,7 @@ bool CPicWindow::CreateButtons()
     SendMessage(hwndRightBtn, BM_SETIMAGE, (WPARAM)IMAGE_ICON, (LPARAM)hRight);
     hwndPlayBtn = CreateWindowEx(0,
                                 L"BUTTON",
-                                (LPCTSTR)NULL,
+                                (LPCWSTR)NULL,
                                 WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_ICON | BS_FLAT,
                                 0, 0, 0, 0,
                                 *this,
@@ -1420,7 +1420,7 @@ bool CPicWindow::CreateButtons()
     SendMessage(hwndPlayBtn, BM_SETIMAGE, (WPARAM)IMAGE_ICON, (LPARAM)hPlay);
     hwndAlphaToggleBtn = CreateWindowEx(0,
                                 L"BUTTON",
-                                (LPCTSTR)NULL,
+                                (LPCWSTR)NULL,
                                 WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_ICON | BS_FLAT | BS_NOTIFY | BS_PUSHLIKE,
                                 0, 0, 0, 0,
                                 (HWND)*this,

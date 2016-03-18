@@ -115,7 +115,7 @@ protected:
 		CString text;
 		ASSERT_TRUE(CStringUtils::ReadStringFromTextFile(configFile, text));
 		text += L"\n[core]\n  autocrlf = false\n[user]\n  name = User\n  email = user@example.com\n";
-		EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCTSTR)configFile, (LPCTSTR)text));
+		EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCWSTR)configFile, (LPCWSTR)text));
 	}
 	CString prefix;
 };
@@ -133,7 +133,7 @@ protected:
 		CString text;
 		ASSERT_TRUE(CStringUtils::ReadStringFromTextFile(configFile, text));
 		EXPECT_EQ(1, text.Replace(L"bare = false", L"bare = true"));
-		EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCTSTR)configFile, (LPCTSTR)text));
+		EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCWSTR)configFile, (LPCWSTR)text));
 	}
 };
 

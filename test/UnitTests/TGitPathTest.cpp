@@ -850,7 +850,7 @@ TEST(CTGitPath, FillBasedOnIndexFlags)
 	for (const CString& filename : filenames)
 	{
 		CString filenameWithPath = tmpDir.GetTempDir() + L"\\" + filename;
-		EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCTSTR)filenameWithPath, L"something"));
+		EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCWSTR)filenameWithPath, L"something"));
 		EXPECT_TRUE(git_index_add_bypath(gitindex, CUnicodeUtils::GetUTF8(filename)) == 0);
 	}
 
@@ -1050,7 +1050,7 @@ TEST(CTGitPath, FillUnRev)
 	EXPECT_EQ(0, testList.GetCount());
 
 	CString fileOne = tmpDir.GetTempDir() + L"\\one";
-	EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCTSTR)fileOne, L"something"));
+	EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCWSTR)fileOne, L"something"));
 
 	EXPECT_EQ(0, testList.FillUnRev(0));
 	EXPECT_EQ(1, testList.GetCount());
@@ -1070,7 +1070,7 @@ TEST(CTGitPath, FillUnRev)
 	EXPECT_EQ(0, testList.GetCount());
 
 	CString gitIgnore = tmpDir.GetTempDir() + L"\\.gitignore";
-	EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCTSTR)gitIgnore, L""));
+	EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCWSTR)gitIgnore, L""));
 
 	EXPECT_EQ(0, testList.FillUnRev(0));
 	EXPECT_EQ(2, testList.GetCount());
@@ -1087,7 +1087,7 @@ TEST(CTGitPath, FillUnRev)
 	EXPECT_EQ(0, testList.FillUnRev(CTGitPath::LOGACTIONS_IGNORE, &selectList));
 	EXPECT_EQ(0, testList.GetCount());
 
-	EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCTSTR)gitIgnore, L"/one"));
+	EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCWSTR)gitIgnore, L"/one"));
 
 	EXPECT_EQ(0, testList.FillUnRev(0));
 	EXPECT_EQ(1, testList.GetCount());
@@ -1114,7 +1114,7 @@ TEST(CTGitPath, FillUnRev)
 	EXPECT_EQ(0, testList.GetCount());
 
 	fileOne = tmpDir.GetTempDir() + L"\\subdir\\one";
-	EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCTSTR)fileOne, L"something"));
+	EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCWSTR)fileOne, L"something"));
 
 	EXPECT_EQ(0, testList.FillUnRev(0));
 	EXPECT_EQ(2, testList.GetCount());
@@ -1132,7 +1132,7 @@ TEST(CTGitPath, FillUnRev)
 	EXPECT_EQ(0, testList.FillUnRev(CTGitPath::LOGACTIONS_IGNORE, &selectList));
 	EXPECT_EQ(0, testList.GetCount());
 
-	EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCTSTR)gitIgnore, L"one"));
+	EXPECT_TRUE(CStringUtils::WriteStringToTextFile((LPCWSTR)gitIgnore, L"one"));
 
 	EXPECT_EQ(0, testList.FillUnRev(0));
 	EXPECT_EQ(1, testList.GetCount());

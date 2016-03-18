@@ -25,7 +25,7 @@ ISettingsPropPage::ISettingsPropPage() : CPropertyPage()
 {
 }
 
-ISettingsPropPage::ISettingsPropPage(LPCTSTR lpszTemplateName, UINT nIDCaption, UINT nIDHeaderTitle, UINT nIDHeaderSubTitle /* = 0 */, DWORD dwSize /* = sizeof */)
+ISettingsPropPage::ISettingsPropPage(LPCWSTR lpszTemplateName, UINT nIDCaption, UINT nIDHeaderTitle, UINT nIDHeaderSubTitle /* = 0 */, DWORD dwSize /* = sizeof */)
 : CPropertyPage(lpszTemplateName, nIDCaption, nIDHeaderTitle, nIDHeaderSubTitle, dwSize)
 , m_restart(Restart_None)
 {
@@ -37,7 +37,7 @@ ISettingsPropPage::ISettingsPropPage(UINT nIDTemplate, UINT nIDCaption, UINT nID
 {
 }
 
-ISettingsPropPage::ISettingsPropPage(LPCTSTR lpszTemplateName, UINT nIDCaption /* = 0 */, DWORD dwSize /* = sizeof */)
+ISettingsPropPage::ISettingsPropPage(LPCWSTR lpszTemplateName, UINT nIDCaption /* = 0 */, DWORD dwSize /* = sizeof */)
 : CPropertyPage(lpszTemplateName, nIDCaption, dwSize)
 , m_restart(Restart_None)
 {

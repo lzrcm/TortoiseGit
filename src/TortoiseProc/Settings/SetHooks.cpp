@@ -114,7 +114,7 @@ void CSetHooks::OnBnClickedRemovebutton()
 		if (m_cHookList.GetItemState(index, LVIS_SELECTED) & LVIS_SELECTED)
 		{
 			hookkey key;
-			key.htype = CHooks::GetHookType((LPCTSTR)m_cHookList.GetItemText(index, 0));
+			key.htype = CHooks::GetHookType((LPCWSTR)m_cHookList.GetItemText(index, 0));
 			key.path = CTGitPath(m_cHookList.GetItemText(index, 1));
 			CHooks::Instance().Remove(key);
 			m_cHookList.DeleteItem(index);
@@ -133,7 +133,7 @@ void CSetHooks::OnBnClickedEditbutton()
 	{
 		CSetHooksAdv dlg;
 		int index = m_cHookList.GetNextSelectedItem(pos);
-		dlg.key.htype = CHooks::GetHookType((LPCTSTR)m_cHookList.GetItemText(index, 0));
+		dlg.key.htype = CHooks::GetHookType((LPCWSTR)m_cHookList.GetItemText(index, 0));
 		dlg.key.path = CTGitPath(m_cHookList.GetItemText(index, 1));
 		dlg.cmd.commandline = m_cHookList.GetItemText(index, 2);
 		dlg.cmd.bWait = (m_cHookList.GetItemText(index, 3).Compare(L"true")==0);
@@ -192,7 +192,7 @@ void CSetHooks::OnBnClickedHookcopybutton()
 	{
 		CSetHooksAdv dlg;
 		int index = m_cHookList.GetNextSelectedItem(pos);
-		dlg.key.htype = CHooks::GetHookType((LPCTSTR)m_cHookList.GetItemText(index, 0));
+		dlg.key.htype = CHooks::GetHookType((LPCWSTR)m_cHookList.GetItemText(index, 0));
 		dlg.cmd.commandline = m_cHookList.GetItemText(index, 2);
 		dlg.cmd.bWait = (m_cHookList.GetItemText(index, 3).Compare(L"true")==0);
 		dlg.cmd.bShow = (m_cHookList.GetItemText(index, 4).Compare(L"show")==0);

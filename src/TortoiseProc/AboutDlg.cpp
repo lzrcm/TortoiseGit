@@ -97,8 +97,8 @@ BOOL CAboutDlg::OnInitDialog()
 	}
 
 	CString tortoisegitprocpath;
-	tortoisegitprocpath.Format(L"(%s)", (LPCTSTR)CPathUtils::GetAppDirectory().TrimRight(L'\\'));
-	temp.Format(IDS_ABOUTVERSION, TGIT_VERMAJOR, TGIT_VERMINOR, TGIT_VERMICRO, TGIT_VERBUILD, (LPCTSTR)tortoisegitprocpath, (LPCTSTR)out);
+	tortoisegitprocpath.Format(L"(%s)", (LPCWSTR)CPathUtils::GetAppDirectory().TrimRight(L'\\'));
+	temp.Format(IDS_ABOUTVERSION, TGIT_VERMAJOR, TGIT_VERMINOR, TGIT_VERMICRO, TGIT_VERBUILD, (LPCWSTR)tortoisegitprocpath, (LPCWSTR)out);
 	SetDlgItemText(IDC_VERSIONABOUT, Lf2Crlf(temp));
 
 	this->SetWindowText(L"TortoiseGit");

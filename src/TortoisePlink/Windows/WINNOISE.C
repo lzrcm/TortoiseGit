@@ -12,7 +12,7 @@
 #include <wincrypt.h>
 
 DECL_WINDOWS_FUNCTION(static, BOOL, CryptAcquireContextA,
-                      (HCRYPTPROV *, LPCTSTR, LPCTSTR, DWORD, DWORD));
+                      (HCRYPTPROV *, LPCWSTR, LPCWSTR, DWORD, DWORD));
 DECL_WINDOWS_FUNCTION(static, BOOL, CryptGenRandom,
                       (HCRYPTPROV, DWORD, BYTE *));
 DECL_WINDOWS_FUNCTION(static, BOOL, CryptReleaseContext,

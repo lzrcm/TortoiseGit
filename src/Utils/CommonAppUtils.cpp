@@ -59,7 +59,7 @@ bool CCommonAppUtils::LaunchApplication(const CString& sCommandLine, UINT idErrM
 				if (idErrMessageFormat != 0)
 				{
 					CString temp;
-					temp.Format(idErrMessageFormat, (LPCTSTR)CFormatMessageWrapper());
+					temp.Format(idErrMessageFormat, (LPCWSTR)CFormatMessageWrapper());
 					MessageBox(nullptr, temp, L"TortoiseGit", MB_OK | MB_ICONINFORMATION);
 				}
 				return false;
@@ -85,7 +85,7 @@ bool CCommonAppUtils::LaunchApplication(const CString& sCommandLine, UINT idErrM
 			if (idErrMessageFormat != 0)
 			{
 				CString temp;
-				temp.Format(idErrMessageFormat, (LPCTSTR)CFormatMessageWrapper());
+				temp.Format(idErrMessageFormat, (LPCWSTR)CFormatMessageWrapper());
 				MessageBox(nullptr, temp, L"TortoiseGit", MB_OK | MB_ICONINFORMATION);
 			}
 			return false;
@@ -104,12 +104,12 @@ bool CCommonAppUtils::LaunchApplication(const CString& sCommandLine, UINT idErrM
 	startup.cb = sizeof(startup);
 
 	CString cleanCommandLine(sCommandLine);
-	if (CreateProcess(nullptr, const_cast<TCHAR*>((LPCTSTR)cleanCommandLine), nullptr, nullptr, FALSE, CREATE_UNICODE_ENVIRONMENT, nullptr, theCWD, &startup, &process) == 0)
+	if (CreateProcess(nullptr, const_cast<TCHAR*>((LPCWSTR)cleanCommandLine), nullptr, nullptr, FALSE, CREATE_UNICODE_ENVIRONMENT, nullptr, theCWD, &startup, &process) == 0)
 	{
 		if (idErrMessageFormat)
 		{
 			CString temp;
-			temp.Format(idErrMessageFormat, (LPCTSTR)CFormatMessageWrapper());
+			temp.Format(idErrMessageFormat, (LPCWSTR)CFormatMessageWrapper());
 			MessageBox(nullptr, temp, L"TortoiseGit", MB_OK | MB_ICONINFORMATION);
 		}
 		return false;
@@ -130,12 +130,12 @@ bool CCommonAppUtils::RunTortoiseGitProc(const CString& sCommandLine, bool uac, 
 {
 	CString pathToExecutable = CPathUtils::GetAppDirectory() + L"TortoiseGitProc.exe";
 	CString sCmd;
-	sCmd.Format(L"\"%s\" %s", (LPCTSTR)pathToExecutable, (LPCTSTR)sCommandLine);
+	sCmd.Format(L"\"%s\" %s", (LPCWSTR)pathToExecutable, (LPCWSTR)sCommandLine);
 	if (AfxGetMainWnd()->GetSafeHwnd() && (sCommandLine.Find(L"/hwnd:") < 0))
 	{
 		CString sCmdLine;
-		sCmdLine.Format(L"%s /hwnd:%p", (LPCTSTR)sCommandLine, (void*)AfxGetMainWnd()->GetSafeHwnd());
-		sCmd.Format(L"\"%s\" %s", (LPCTSTR)pathToExecutable, (LPCTSTR)sCmdLine);
+		sCmdLine.Format(L"%s /hwnd:%p", (LPCWSTR)sCommandLine, (void*)AfxGetMainWnd()->GetSafeHwnd());
+		sCmd.Format(L"\"%s\" %s", (LPCWSTR)pathToExecutable, (LPCWSTR)sCmdLine);
 	}
 	if (!g_sGroupingUUID.IsEmpty() && includeGroupingUUID)
 	{
@@ -219,7 +219,7 @@ bool CCommonAppUtils::SetListCtrlBackgroundImage(HWND hListCtrl, UINT nID, int w
 	return true;
 }
 
-bool CCommonAppUtils::FileOpenSave(CString& path, int * filterindex, UINT title, UINT filter, bool bOpen, HWND hwndOwner, LPCTSTR defaultExt)
+bool CCommonAppUtils::FileOpenSave(CString& path, int * filterindex, UINT title, UINT filter, bool bOpen, HWND hwndOwner, LPCWSTR defaultExt)
 {
 	OPENFILENAME ofn = {0};				// common dialog box structure
 	TCHAR szFile[MAX_PATH] = {0};		// buffer for file name. Explorer can't handle paths longer than MAX_PATH.
@@ -242,7 +242,7 @@ bool CCommonAppUtils::FileOpenSave(CString& path, int * filterindex, UINT title,
 		wcscat_s(szFile, MAX_PATH, remain);
 	}
 	else
-		wcscpy_s(szFile, MAX_PATH, (LPCTSTR)path);
+		wcscpy_s(szFile, MAX_PATH, (LPCWSTR)path);
 	ofn.lpstrFile = szFile;
 	ofn.nMaxFile = _countof(szFile);
 

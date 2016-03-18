@@ -97,7 +97,7 @@ public:
 protected:
 	//implement the virtual methods from Git base class
 	virtual BOOL Cancel();
-	virtual bool Validate(LPCTSTR string);
+	virtual bool Validate(LPCWSTR string);
 
 	virtual void DoDataExchange(CDataExchange* pDX); // DDX/DDV support
 
@@ -195,7 +195,7 @@ private:
 	void EnableOKButton();
 
 	void SaveSplitterPos();
-	bool ValidateRegexp(LPCTSTR regexp_str, std::tr1::wregex& pat, bool bMatchCase);
+	bool ValidateRegexp(LPCWSTR regexp_str, std::tr1::wregex& pat, bool bMatchCase);
 	void CheckRegexpTooltip();
 	void SetDlgTitle();
 	CString GetAbsoluteUrlFromRelativeUrl(const CString& url);

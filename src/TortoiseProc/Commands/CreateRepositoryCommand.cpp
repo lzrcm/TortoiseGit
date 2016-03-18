@@ -64,7 +64,7 @@ bool CreateRepositoryCommand::Execute()
 	if (CheckSpecialFolder(folder))
 	{
 		CString message;
-		message.Format(IDS_WARN_GITINIT_SPECIALFOLDER, (LPCTSTR)folder);
+		message.Format(IDS_WARN_GITINIT_SPECIALFOLDER, (LPCWSTR)folder);
 		if (CMessageBox::Show(hwndExplorer, message, L"TortoiseGit", 1, IDI_ERROR, CString(MAKEINTRESOURCE(IDS_ABORTBUTTON)), CString(MAKEINTRESOURCE(IDS_PROCEEDBUTTON))) == 1)
 			return false;
 	}
@@ -74,7 +74,7 @@ bool CreateRepositoryCommand::Execute()
 	if(dlg.DoModal() == IDOK)
 	{
 		CString message;
-		message.Format(IDS_WARN_GITINIT_FOLDERNOTEMPTY, (LPCTSTR)folder);
+		message.Format(IDS_WARN_GITINIT_FOLDERNOTEMPTY, (LPCWSTR)folder);
 		if (dlg.m_bBare && PathIsDirectory(folder) && !PathIsDirectoryEmpty(folder) && CMessageBox::Show(hwndExplorer, message, L"TortoiseGit", 1, IDI_ERROR, CString(MAKEINTRESOURCE(IDS_ABORTBUTTON)), CString(MAKEINTRESOURCE(IDS_PROCEEDBUTTON))) == 1)
 			return false;
 
@@ -91,7 +91,7 @@ bool CreateRepositoryCommand::Execute()
 		if (!dlg.m_bBare)
 			CShellUpdater::Instance().AddPathForUpdate(orgCmdLinePath);
 		CString str;
-		str.Format(IDS_PROC_REPOCREATED, (LPCTSTR)folder);
+		str.Format(IDS_PROC_REPOCREATED, (LPCWSTR)folder);
 		CMessageBox::Show(hwndExplorer, str, L"TortoiseGit", MB_OK | MB_ICONINFORMATION);
 		return true;
 	}

@@ -114,7 +114,7 @@ int ProjectProperties::ReadProps()
 			lProjectLanguage = -1;
 		if (!val.IsEmpty())
 		{
-			LPTSTR strEnd;
+			LPWSTR strEnd;
 			lProjectLanguage = wcstol(val, &strEnd, 0);
 		}
 	}
@@ -434,7 +434,7 @@ BOOL ProjectProperties::HasBugID(const CString& sMsg)
 		try
 		{
 			AutoUpdateRegex();
-			return std::tr1::regex_search((LPCTSTR)sMsg, regCheck);
+			return std::tr1::regex_search((LPCWSTR)sMsg, regCheck);
 		}
 		catch (std::exception) {}
 	}

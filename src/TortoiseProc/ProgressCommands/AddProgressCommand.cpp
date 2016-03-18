@@ -94,7 +94,7 @@ bool AddProgressCommand::Run(CGitProgressList* list, CString& sWindowTitle, int&
 		postCmdList.emplace_back(IDI_COMMIT, IDS_MENUCOMMIT, []
 		{
 			CString sCmd;
-			sCmd.Format(L"/command:commit /path:\"%s\"", (LPCTSTR)g_Git.m_CurrentDir);
+			sCmd.Format(L"/command:commit /path:\"%s\"", (LPCWSTR)g_Git.m_CurrentDir);
 			CAppUtils::RunTortoiseGitProc(sCmd);
 		});
 	};

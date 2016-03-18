@@ -51,7 +51,7 @@ bool IgnoreCommand::Execute()
 		int nPath;
 		for (nPath = 0; nPath < pathList.GetCount(); ++nPath)
 		{
-			cmd.Format(format, (LPCTSTR)pathList[nPath].GetGitPathString());
+			cmd.Format(format, (LPCWSTR)pathList[nPath].GetGitPathString());
 			if (g_Git.Run(cmd, &output, CP_UTF8))
 			{
 				key = MessageBox(hwndExplorer, output, L"TortoiseGit", MB_ICONERROR | MB_OKCANCEL);

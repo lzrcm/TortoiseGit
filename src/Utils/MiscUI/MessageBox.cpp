@@ -44,7 +44,7 @@ CMessageBox::~CMessageBox(void)
 		::DestroyIcon(m_hIcon);
 }
 
-UINT CMessageBox::ShowCheck(HWND hWnd, UINT nMessage, UINT nCaption, int nDef, LPCTSTR icon, UINT nButton1, UINT nButton2, UINT nButton3, LPCTSTR lpRegistry, UINT nCheckMessage/* = nullptr*/, BOOL* bChecked)
+UINT CMessageBox::ShowCheck(HWND hWnd, UINT nMessage, UINT nCaption, int nDef, LPCWSTR icon, UINT nButton1, UINT nButton2, UINT nButton3, LPCWSTR lpRegistry, UINT nCheckMessage/* = nullptr*/, BOOL* bChecked)
 {
 	CString sButton1;
 	CString sButton2;
@@ -61,7 +61,7 @@ UINT CMessageBox::ShowCheck(HWND hWnd, UINT nMessage, UINT nCaption, int nDef, L
 	return CMessageBox::ShowCheck(hWnd, sMessage, sCaption, nDef, icon, sButton1, sButton2, sButton3, lpRegistry, nCheckMsg, bChecked);
 }
 
-UINT CMessageBox::ShowCheck(HWND hWnd, LPCTSTR lpMessage, LPCTSTR lpCaption, int nDef, LPCTSTR icon, LPCTSTR lpButton1, LPCTSTR lpButton2, LPCTSTR lpButton3, LPCTSTR lpRegistry, LPCTSTR lpCheckMessage/* = nullptr*/, BOOL* bChecked)
+UINT CMessageBox::ShowCheck(HWND hWnd, LPCWSTR lpMessage, LPCWSTR lpCaption, int nDef, LPCWSTR icon, LPCWSTR lpButton1, LPCWSTR lpButton2, LPCWSTR lpButton3, LPCWSTR lpRegistry, LPCWSTR lpCheckMessage/* = nullptr*/, BOOL* bChecked)
 {
 	//check the registry if we have to show the box or just return with the last used return value
 	//this would be the case if the user pressed "do not show again".
@@ -123,7 +123,7 @@ UINT CMessageBox::ShowCheck(HWND hWnd, LPCTSTR lpMessage, LPCTSTR lpCaption, int
 	return result;
 }
 
-UINT CMessageBox::Show(HWND hWnd, LPCTSTR lpMessage, LPCTSTR lpCaption, int nDef, LPCTSTR icon, LPCTSTR lpButton1, LPCTSTR lpButton2/* = nullptr*/, LPCTSTR lpButton3/* = nullptr*/)
+UINT CMessageBox::Show(HWND hWnd, LPCWSTR lpMessage, LPCWSTR lpCaption, int nDef, LPCWSTR icon, LPCWSTR lpButton1, LPCWSTR lpButton2/* = nullptr*/, LPCWSTR lpButton3/* = nullptr*/)
 {
 	CMessageBox box;
 	box.m_sButton1 = lpButton1;
@@ -139,7 +139,7 @@ UINT CMessageBox::Show(HWND hWnd, LPCTSTR lpMessage, LPCTSTR lpCaption, int nDef
 	return box.GoModal(CWnd::FromHandle(hWnd), lpCaption, lpMessage, nDef);
 }
 
-UINT CMessageBox::Show(HWND hWnd, UINT nMessage, UINT nCaption, int nDef, LPCTSTR icon, UINT nButton1, UINT nButton2, UINT nButton3)
+UINT CMessageBox::Show(HWND hWnd, UINT nMessage, UINT nCaption, int nDef, LPCWSTR icon, UINT nButton1, UINT nButton2, UINT nButton3)
 {
 	CString sButton1;
 	CString sButton2;
@@ -154,7 +154,7 @@ UINT CMessageBox::Show(HWND hWnd, UINT nMessage, UINT nCaption, int nDef, LPCTST
 	return CMessageBox::Show(hWnd, sMessage, sCaption, nDef, icon, sButton1, sButton2, sButton3);
 }
 
-UINT CMessageBox::ShowCheck(HWND hWnd, UINT nMessage, UINT nCaption, UINT uType, LPCTSTR lpRegistry, UINT nCheckMessage, BOOL *bChecked)
+UINT CMessageBox::ShowCheck(HWND hWnd, UINT nMessage, UINT nCaption, UINT uType, LPCWSTR lpRegistry, UINT nCheckMessage, BOOL *bChecked)
 {
 	CString sMessage;
 	CString sCaption;
@@ -165,7 +165,7 @@ UINT CMessageBox::ShowCheck(HWND hWnd, UINT nMessage, UINT nCaption, UINT uType,
 	return CMessageBox::ShowCheck(hWnd, sMessage, sCaption, uType, lpRegistry, sCheckMsg, bChecked);
 }
 
-UINT CMessageBox::ShowCheck(HWND hWnd, LPCTSTR lpMessage, LPCTSTR lpCaption, UINT uType, LPCTSTR lpRegistry, LPCTSTR lpCheckMessage, BOOL *bChecked)
+UINT CMessageBox::ShowCheck(HWND hWnd, LPCWSTR lpMessage, LPCWSTR lpCaption, UINT uType, LPCWSTR lpRegistry, LPCWSTR lpCheckMessage, BOOL *bChecked)
 {
 	//check the registry if we have to show the box or just return with the last used return value
 	//this would be the case if the user pressed "do not show again".
@@ -219,7 +219,7 @@ UINT CMessageBox::ShowCheck(HWND hWnd, LPCTSTR lpMessage, LPCTSTR lpCaption, UIN
 	return result;
 }
 
-UINT CMessageBox::Show(HWND hWnd, UINT nMessage, UINT nCaption, UINT uType, LPCTSTR sHelpPath)
+UINT CMessageBox::Show(HWND hWnd, UINT nMessage, UINT nCaption, UINT uType, LPCWSTR sHelpPath)
 {
 	CString sMessage;
 	CString sCaption;
@@ -228,7 +228,7 @@ UINT CMessageBox::Show(HWND hWnd, UINT nMessage, UINT nCaption, UINT uType, LPCT
 	return CMessageBox::Show(hWnd, sMessage, sCaption, uType, sHelpPath);
 }
 
-UINT CMessageBox::Show(HWND hWnd, LPCTSTR lpMessage, LPCTSTR lpCaption, UINT uType, LPCTSTR sHelpPath)
+UINT CMessageBox::Show(HWND hWnd, LPCWSTR lpMessage, LPCWSTR lpCaption, UINT uType, LPCWSTR sHelpPath)
 {
 	CMessageBox box;
 
@@ -254,7 +254,7 @@ UINT CMessageBox::Show(HWND hWnd, UINT nMessage, UINT nCaption, UINT uType, UINT
 	return box.GoModal(CWnd::FromHandle(hWnd), sCaption, sMessage, box.FillBoxStandard(uType));
 }
 
-bool CMessageBox::RemoveRegistryKey(LPCTSTR lpRegistry)
+bool CMessageBox::RemoveRegistryKey(LPCWSTR lpRegistry)
 {
 	HKEY hKey;
 	CString path;
@@ -758,7 +758,7 @@ void CMessageBox::OnButton2()
 		{
 			(FARPROC&)pHtmlHelp = GetProcAddress(hInstHtmlHelp, "HtmlHelpW");
 			if (pHtmlHelp)
-				hHelp = pHtmlHelp(m_hWnd, (LPCTSTR)m_sHelpPath, HH_DISPLAY_TOPIC, NULL);
+				hHelp = pHtmlHelp(m_hWnd, (LPCWSTR)m_sHelpPath, HH_DISPLAY_TOPIC, NULL);
 		}
 		if (!hHelp)
 			::MessageBox(m_hWnd, L"could not show help file", L"Help", MB_ICONERROR);
@@ -788,7 +788,7 @@ void CMessageBox::OnButton3()
 		{
 			(FARPROC&)pHtmlHelp = GetProcAddress(hInstHtmlHelp, "HtmlHelpW");
 			if (pHtmlHelp)
-				hHelp = pHtmlHelp(m_hWnd, (LPCTSTR)m_sHelpPath, HH_DISPLAY_TOPIC, NULL);
+				hHelp = pHtmlHelp(m_hWnd, (LPCWSTR)m_sHelpPath, HH_DISPLAY_TOPIC, NULL);
 		}
 		if (!hHelp)
 			::MessageBox(m_hWnd, L"could not show help file", L"Help", MB_ICONERROR);

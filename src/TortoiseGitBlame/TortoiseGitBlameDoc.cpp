@@ -65,7 +65,7 @@ BOOL CTortoiseGitBlameDoc::OnNewDocument()
 {
 	return TRUE;
 }
-BOOL CTortoiseGitBlameDoc::OnOpenDocument(LPCTSTR lpszPathName)
+BOOL CTortoiseGitBlameDoc::OnOpenDocument(LPCWSTR lpszPathName)
 {
 	CCmdLineParser parser(AfxGetApp()->m_lpCmdLine);
 	if (m_bFirstStartup)
@@ -83,7 +83,7 @@ BOOL CTortoiseGitBlameDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	return OnOpenDocument(lpszPathName,m_Rev);
 }
 
-BOOL CTortoiseGitBlameDoc::OnOpenDocument(LPCTSTR lpszPathName,CString Rev)
+BOOL CTortoiseGitBlameDoc::OnOpenDocument(LPCWSTR lpszPathName,CString Rev)
 {
 	if(Rev.IsEmpty())
 		Rev = L"HEAD";
@@ -114,7 +114,7 @@ BOOL CTortoiseGitBlameDoc::OnOpenDocument(LPCTSTR lpszPathName,CString Rev)
 	if (!GitAdminDir::HasAdminDir(m_CurrentFileName, &topdir))
 	{
 		CString temp;
-		temp.Format(IDS_CANNOTBLAMENOGIT, (LPCTSTR)m_CurrentFileName);
+		temp.Format(IDS_CANNOTBLAMENOGIT, (LPCWSTR)m_CurrentFileName);
 		MessageBox(nullptr, temp, L"TortoiseGitBlame", MB_OK | MB_ICONERROR);
 		return FALSE;
 	}
@@ -174,7 +174,7 @@ BOOL CTortoiseGitBlameDoc::OnOpenDocument(LPCTSTR lpszPathName,CString Rev)
 		if (theApp.GetInt(L"IgnoreWhitespace", 0) == 1)
 			option += L" -w";
 
-		cmd.Format(L"git.exe blame -p %s %s -- \"%s\"", (LPCTSTR)option, (LPCTSTR)Rev, (LPCTSTR)path.GetGitPathString());
+		cmd.Format(L"git.exe blame -p %s %s -- \"%s\"", (LPCWSTR)option, (LPCWSTR)Rev, (LPCWSTR)path.GetGitPathString());
 		m_BlameData.clear();
 		BYTE_VECTOR err;
 		if(g_Git.Run(cmd, &m_BlameData, &err))
@@ -198,12 +198,12 @@ BOOL CTortoiseGitBlameDoc::OnOpenDocument(LPCTSTR lpszPathName,CString Rev)
 
 		m_TempFileName=GetTempFile();
 
-		cmd.Format(L"git.exe cat-file blob %s:\"%s\"", (LPCTSTR)Rev, (LPCTSTR)path.GetGitPathString());
+		cmd.Format(L"git.exe cat-file blob %s:\"%s\"", (LPCWSTR)Rev, (LPCWSTR)path.GetGitPathString());
 
 		if(g_Git.RunLogFile(cmd, m_TempFileName))
 		{
 			CString str;
-			str.Format(IDS_CHECKOUTFAILED, (LPCTSTR)path.GetGitPathString());
+			str.Format(IDS_CHECKOUTFAILED, (LPCWSTR)path.GetGitPathString());
 			MessageBox(nullptr, CString(MAKEINTRESOURCE(IDS_BLAMEERROR)) + L"\n\n" + str, L"TortoiseGitBlame", MB_OK | MB_ICONERROR);
 			return FALSE;
 		}
@@ -250,7 +250,7 @@ BOOL CTortoiseGitBlameDoc::OnOpenDocument(LPCTSTR lpszPathName,CString Rev)
 	return TRUE;
 }
 
-void CTortoiseGitBlameDoc::SetPathName(LPCTSTR lpszPathName, BOOL bAddToMRU)
+void CTortoiseGitBlameDoc::SetPathName(LPCWSTR lpszPathName, BOOL bAddToMRU)
 {
 	CDocument::SetPathName(lpszPathName, bAddToMRU && (m_Rev == L"HEAD"));
 

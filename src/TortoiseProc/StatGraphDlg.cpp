@@ -804,7 +804,7 @@ int CStatGraphDlg::GatherData(BOOL fetchdiff, BOOL keepFetchedData)
 
 		if (progress.IsVisible() && (GetTickCount64() - starttime > 100UL))
 		{
-			progress.FormatNonPathLine(2, L"%s: %s", (LPCTSTR)pLogEntry->m_CommitHash.ToString().Left(g_Git.GetShortHASHLength()), (LPCTSTR)pLogEntry->GetSubject());
+			progress.FormatNonPathLine(2, L"%s: %s", (LPCWSTR)pLogEntry->m_CommitHash.ToString().Left(g_Git.GetShortHASHLength()), (LPCWSTR)pLogEntry->GetSubject());
 			progress.SetProgress64(i, m_ShowList.size());
 			starttime = GetTickCount64();
 		}
@@ -1256,12 +1256,12 @@ void CStatGraphDlg::ShowStats()
 		nWeeks = 1;
 	// Adjust the labels with the unit type (week, month, ...)
 	CString labelText;
-	labelText.Format(IDS_STATGRAPH_NUMBEROFUNIT, (LPCTSTR)GetUnitString());
+	labelText.Format(IDS_STATGRAPH_NUMBEROFUNIT, (LPCWSTR)GetUnitString());
 	SetDlgItemText(IDC_NUMWEEK, labelText);
-	labelText.Format(IDS_STATGRAPH_COMMITSBYUNIT, (LPCTSTR)GetUnitString());
+	labelText.Format(IDS_STATGRAPH_COMMITSBYUNIT, (LPCWSTR)GetUnitString());
 	SetDlgItemText(IDC_COMMITSEACHWEEK, labelText);
-	labelText.Format(IDS_STATGRAPH_FILECHANGESBYUNIT, (LPCTSTR)GetUnitString());
-	SetDlgItemText(IDC_FILECHANGESEACHWEEK, (LPCTSTR)labelText);
+	labelText.Format(IDS_STATGRAPH_FILECHANGESBYUNIT, (LPCWSTR)GetUnitString());
+	SetDlgItemText(IDC_FILECHANGESEACHWEEK, (LPCWSTR)labelText);
 	// We have now all data we want and we can fill in the labels...
 	CString number;
 	number.Format(L"%d", nWeeks);
@@ -1519,7 +1519,7 @@ void CStatGraphDlg::OnNeedText(NMHDR *pnmh, LRESULT * /*pResult*/)
 		CString string;
 		int percentage = int(min_commits*100.0/(m_nTotalCommits ? m_nTotalCommits : 1));
 		string.Format(IDS_STATGRAPH_AUTHORSLIDER_TT, m_Skipper.GetPos(), min_commits, percentage);
-		StringCchCopy(pttt->szText, _countof(pttt->szText), (LPCTSTR) string);
+		StringCchCopy(pttt->szText, _countof(pttt->szText), (LPCWSTR) string);
 	}
 }
 
@@ -1721,7 +1721,7 @@ void CStatGraphDlg::SaveGraph(CString sFilename)
 							bitmap.Save(tfile, &encoderClsid, nullptr);
 						}
 						else
-							sErrormessage.Format(IDS_REVGRAPH_ERR_NOENCODER, (LPCTSTR)CPathUtils::GetFileExtFromPath(sFilename));
+							sErrormessage.Format(IDS_REVGRAPH_ERR_NOENCODER, (LPCWSTR)CPathUtils::GetFileExtFromPath(sFilename));
 					}
 					else
 						sErrormessage.LoadString(IDS_REVGRAPH_ERR_NOBITMAP);

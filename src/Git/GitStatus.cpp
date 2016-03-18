@@ -149,7 +149,7 @@ void GitStatus::GetStatus(const CTGitPath& path, bool /*update*/ /* = false */, 
 
 	int err = 0;
 
-	LPCTSTR lpszSubPath = nullptr;
+	LPCWSTR lpszSubPath = nullptr;
 	CString sSubPath;
 	CString s = path.GetWinPathString();
 	if (s.GetLength() > sProjectRoot.GetLength())
@@ -244,7 +244,7 @@ int GitStatus::GetFileStatus(const CString& gitdir, CString path, git_wc_status_
 		if (start < 0)
 		{
 			*status = st = git_wc_status_added;
-			CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) L": File miss in head tree %s", (LPCTSTR)path);
+			CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) L": File miss in head tree %s", (LPCWSTR)path);
 			if (callback && assumeValid && skipWorktree)
 				callback(CombinePath(gitdir, path), st, false, pData, *assumeValid, *skipWorktree);
 			return 0;
