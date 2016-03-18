@@ -27,7 +27,7 @@ CAutoTempDir::CAutoTempDir()
 	GetTempPath(MAX_PATH, temppath.GetBufferSetLength(MAX_PATH));
 	TCHAR szTempName[MAX_PATH] = { 0 };
 	temppath.ReleaseBuffer();
-	GetTempFileName(temppath, _T("tgit-tests"), 0, szTempName);
+	GetTempFileName(temppath, L"tgit-tests", 0, szTempName);
 	DeleteFile(szTempName);
 	CreateDirectory(szTempName, nullptr);
 	tempdir = szTempName;
@@ -36,19 +36,19 @@ CAutoTempDir::CAutoTempDir()
 static void DeleteDirectoryRecursive(CString dir)
 {
 	WIN32_FIND_DATA ffd;
-	HANDLE hp = FindFirstFile(dir + _T("\\*"), &ffd);
+	HANDLE hp = FindFirstFile(dir + L"\\*", &ffd);
 	do
 	{
-		if (!_tcscmp(ffd.cFileName, _T(".")) || !_tcscmp(ffd.cFileName, _T("..")))
+		if (!_tcscmp(ffd.cFileName, L".") || !_tcscmp(ffd.cFileName, L".."))
 			continue;
 		if ((ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY)
 		{
-			CString subdir = dir + _T("\\") + ffd.cFileName;
+			CString subdir = dir + L"\\" + ffd.cFileName;
 			DeleteDirectoryRecursive(subdir);
 		}
 		else
 		{
-			CString file = dir + _T("\\") + ffd.cFileName;
+			CString file = dir + L"\\" + ffd.cFileName;
 			bool failed = !DeleteFile(file);
 			if (failed && GetLastError() == ERROR_ACCESS_DENIED)
 			{

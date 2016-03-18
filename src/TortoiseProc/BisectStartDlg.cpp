@@ -82,7 +82,7 @@ BOOL CBisectStartDlg::OnInitDialog()
 	AddAnchor(IDC_COMBOBOXEX_GOOD, TOP_LEFT, TOP_RIGHT);
 	AddAnchor(IDC_COMBOBOXEX_BAD, TOP_LEFT, TOP_RIGHT);
 
-	EnableSaveRestore(_T("BisectStartDlg"));
+	EnableSaveRestore(L"BisectStartDlg");
 
 	CString sWindowTitle;
 	GetWindowText(sWindowTitle);
@@ -128,10 +128,10 @@ void CBisectStartDlg::OnBnClickedOk()
 	m_LastGoodRevision = m_cLastGoodRevision.GetString().Trim();
 	m_FirstBadRevision = m_cFirstBadRevision.GetString().Trim();
 
-	if(m_FirstBadRevision.Find(_T("remotes/")) == 0)
+	if(m_FirstBadRevision.Find(L"remotes/") == 0)
 		m_FirstBadRevision = m_FirstBadRevision.Mid(8);
 
-	if(m_FirstBadRevision.Find(_T("remotes/")) == 0)
+	if(m_FirstBadRevision.Find(L"remotes/") == 0)
 		m_FirstBadRevision = m_FirstBadRevision.Mid(8);
 
 	CHorizontalResizableStandAloneDialog::OnOK();

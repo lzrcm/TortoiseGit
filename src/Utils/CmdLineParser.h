@@ -22,17 +22,6 @@
 
 using std::map;
 
-#pragma warning (push,1)
-typedef std::wstring wide_string;
-#ifndef stdstring
-#ifdef UNICODE
-#	define stdstring wide_string
-#else
-#	define stdstring std::string
-#endif
-#endif
-#pragma warning (pop)
-
 /**
  * \ingroup Utils
  *
@@ -64,7 +53,7 @@ typedef std::wstring wide_string;
 class CCmdLineParser
 {
 public:
-	typedef map<stdstring, stdstring> CValsMap;
+	typedef map<std::wstring, std::wstring> CValsMap;
 	typedef CValsMap::const_iterator ITERPOS;
 public:
 	/**
@@ -95,7 +84,7 @@ public:
 	 * \param sValue returns the value
 	 * \return the next position
 	 */
-	ITERPOS getNext(ITERPOS& pos, stdstring& sKey, stdstring& sValue) const;
+	ITERPOS getNext(ITERPOS& pos, std::wstring& sKey, std::wstring& sValue) const;
 
 	/**
 	 * Checks if the position is the last or if there are more key/value pairs in the command line.
@@ -140,7 +129,7 @@ private:
 	CValsMap::const_iterator findKey(LPCTSTR sKey) const;
 	const CValsMap& getVals() const { return m_valueMap; }
 private:
-	stdstring 	m_sCmdLine;
+	std::wstring	m_sCmdLine;
 	CValsMap	m_valueMap;
 
 	static const TCHAR m_sDelims[];

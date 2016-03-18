@@ -97,7 +97,7 @@ BOOL CGitSwitchDlg::OnInitDialog()
 	AdjustControlSize(IDC_CHECK_TRACK);
 	AdjustControlSize(IDC_CHECK_BRANCHOVERRIDE);
 
-	EnableSaveRestore(_T("SwitchDlg"));
+	EnableSaveRestore(L"SwitchDlg");
 
 	CString sWindowTitle;
 	GetWindowText(sWindowTitle);
@@ -149,7 +149,7 @@ void CGitSwitchDlg::OnBnClickedOk()
 			// branch already exists
 			CString msg;
 			msg.LoadString(IDS_B_EXISTS);
-			ShowEditBalloon(IDC_EDIT_BRANCH, msg + _T(" ") + CString(MAKEINTRESOURCE(IDS_B_DIFFERENTNAMEOROVERRIDE)), CString(MAKEINTRESOURCE(IDS_WARN_WARNING)));
+			ShowEditBalloon(IDC_EDIT_BRANCH, msg + L" " + CString(MAKEINTRESOURCE(IDS_B_DIFFERENTNAMEOROVERRIDE)), CString(MAKEINTRESOURCE(IDS_WARN_WARNING)));
 			return;
 		}
 		else if (g_Git.BranchTagExists(m_NewBranch, false))
@@ -172,10 +172,10 @@ void CGitSwitchDlg::SetDefaultName(BOOL isUpdateCreateBranch)
 	CString version = m_VersionName;
 
 	int start = -1;
-	if (version.Left(7)==_T("origin/"))
-		start = version.Find(_T('/'), 8);
-	else if (version.Left(8)==_T("remotes/"))
-		start = version.Find(_T('/'), 9);
+	if (version.Left(7)==L"origin/")
+		start = version.Find(L'/', 8);
+	else if (version.Left(8)==L"remotes/")
+		start = version.Find(L'/', 9);
 
 	if (start >= 0)
 	{
@@ -190,9 +190,9 @@ void CGitSwitchDlg::SetDefaultName(BOOL isUpdateCreateBranch)
 	}
 	else
 	{
-		if (m_VersionName.Left(11) == _T("refs/heads/"))
+		if (m_VersionName.Left(11) == L"refs/heads/")
 			version = m_VersionName.Mid(11);
-		m_NewBranch = CString(_T("Branch_")) + version;
+		m_NewBranch = CString(L"Branch_") + version;
 		this->GetDlgItem(IDC_CHECK_TRACK)->EnableWindow(FALSE);
 
 		if(isUpdateCreateBranch)
@@ -237,9 +237,9 @@ void CGitSwitchDlg::OnEnChangeEditBranch()
 
 	CString name;
 	GetDlgItem(IDC_EDIT_BRANCH)->GetWindowText(name);
-	name = _T("/") + name;
+	name = L"/" + name;
 	CString remoteName = m_ChooseVersioinBranch.GetString();
-	if (remoteName.Left(8) == _T("remotes/") && remoteName.Right(name.GetLength()) != name)		
+	if (remoteName.Left(8) == L"remotes/" && remoteName.Right(name.GetLength()) != name)		
 		((CButton *)GetDlgItem(IDC_CHECK_TRACK))->SetCheck(FALSE);
 }
 

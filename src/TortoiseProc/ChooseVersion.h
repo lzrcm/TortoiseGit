@@ -23,7 +23,7 @@
 #include "MessageBox.h"
 #include "registry.h"
 
-static UINT WM_GUIUPDATES = RegisterWindowMessage(_T("TORTOISEGIT_CHOOSEVERSION_GUIUPDATES"));
+static UINT WM_GUIUPDATES = RegisterWindowMessage(L"TORTOISEGIT_CHOOSEVERSION_GUIUPDATES");
 
 class CChooseVersion
 {
@@ -107,7 +107,7 @@ protected:
 		switch (radio)
 		{
 		case IDC_RADIO_HEAD:
-			this->m_VersionName=_T("HEAD");
+			this->m_VersionName=L"HEAD";
 			break;
 		case IDC_RADIO_BRANCH:
 			this->m_VersionName=m_ChooseVersioinBranch.GetString();
@@ -175,7 +175,7 @@ protected:
 		else if(wcsncmp(refName,L"tags/",5)==0)
 		{
 			refName = refName.Mid(5);
-			refName.Replace(_T("^{}"), _T(""));
+			refName.Replace(L"^{}", L"");
 			SetDefaultChoose(IDC_RADIO_TAGS);
 			m_ChooseVersioinTags.SetCurSel(
 				m_ChooseVersioinTags.FindStringExact(-1, refName));

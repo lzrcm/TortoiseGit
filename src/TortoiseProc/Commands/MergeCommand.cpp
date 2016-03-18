@@ -23,7 +23,7 @@
 
 bool MergeCommand::Execute()
 {
-	if (parser.HasKey(_T("abort")))
+	if (parser.HasKey(L"abort"))
 		return !!CAppUtils::MergeAbort();
 
 	return !!CAppUtils::Merge();

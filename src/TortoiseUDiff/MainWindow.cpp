@@ -37,7 +37,7 @@ CMainWindow::CMainWindow(HINSTANCE hInst, const WNDCLASSEX* wcx /* = NULL*/)
 	, m_hWndEdit(NULL)
 	, m_bMatchCase(false)
 {
-	SetWindowTitle(_T("TortoiseGitUDiff"));
+	SetWindowTitle(L"TortoiseGitUDiff");
 }
 
 CMainWindow::~CMainWindow(void)
@@ -253,7 +253,7 @@ LRESULT CMainWindow::DoCommand(int id)
 		break;
 	case ID_FILE_SETTINGS:
 		{
-			tstring gitCmd = _T(" /command:settings /page:udiff");
+			tstring gitCmd = L" /command:settings /page:udiff";
 			RunCommand(gitCmd);
 		}
 		break;
@@ -261,8 +261,8 @@ LRESULT CMainWindow::DoCommand(int id)
 		{
 			std::wstring command = L" /diff:\"";
 			command += m_filename;
-			command += L"\"";
-			std::wstring tortoiseMergePath = GetAppDirectory() + _T("TortoiseGitMerge.exe");
+			command += L'\"';
+			std::wstring tortoiseMergePath = GetAppDirectory() + L"TortoiseGitMerge.exe";
 			CCreateProcessHelper::CreateProcessDetached(tortoiseMergePath.c_str(), const_cast<TCHAR*>(command.c_str()));
 		}
 		break;
@@ -537,7 +537,7 @@ std::wstring CMainWindow::GetAppDirectory()
 
 void CMainWindow::RunCommand(const std::wstring& command)
 {
-	tstring tortoiseProcPath = GetAppDirectory() + _T("TortoiseGitProc.exe");
+	tstring tortoiseProcPath = GetAppDirectory() + L"TortoiseGitProc.exe";
 	CCreateProcessHelper::CreateProcessDetached(tortoiseProcPath.c_str(), const_cast<TCHAR*>(command.c_str()));
 }
 
@@ -553,8 +553,8 @@ LRESULT CMainWindow::SendEditor(UINT Msg, WPARAM wParam, LPARAM lParam)
 bool CMainWindow::Initialize()
 {
 	m_hWndEdit = ::CreateWindow(
-		_T("Scintilla"),
-		_T("Source"),
+		L"Scintilla",
+		L"Source",
 		WS_CHILD | WS_VSCROLL | WS_HSCROLL | WS_CLIPCHILDREN,
 		CW_USEDEFAULT, CW_USEDEFAULT,
 		CW_USEDEFAULT, CW_USEDEFAULT,
@@ -626,7 +626,7 @@ bool CMainWindow::LoadFile(LPCTSTR filename)
 {
 	InitEditor();
 	FILE *fp = NULL;
-	_tfopen_s(&fp, filename, _T("rb"));
+	_tfopen_s(&fp, filename, L"rb");
 	if (!fp)
 		return false;
 
@@ -705,7 +705,7 @@ void CMainWindow::SetupWindow(bool bUTF8)
 bool CMainWindow::SaveFile(LPCTSTR filename)
 {
 	FILE *fp = NULL;
-	_tfopen_s(&fp, filename, _T("w+b"));
+	_tfopen_s(&fp, filename, L"w+b");
 	if (!fp)
 		return false;
 
@@ -722,9 +722,9 @@ bool CMainWindow::SaveFile(LPCTSTR filename)
 
 void CMainWindow::SetTitle(LPCTSTR title)
 {
-	size_t len = _tcslen(title);
+	size_t len = wcslen(title);
 	auto pBuf = std::make_unique<TCHAR[]>(len + 40);
-	_stprintf_s(pBuf.get(), len + 40, _T("%s - TortoiseGitUDiff"), title);
+	swprintf_s(pBuf.get(), len + 40, L"%s - TortoiseGitUDiff", title);
 	SetWindowTitle(std::wstring(pBuf.get()));
 }
 

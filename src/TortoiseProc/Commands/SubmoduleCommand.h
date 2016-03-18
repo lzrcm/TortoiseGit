@@ -31,7 +31,7 @@ public:
 class SubmoduleCommand:public Command
 {
 public:
-	virtual bool Execute(CString cmd,CString arg=_T(""));
+	virtual bool Execute(CString cmd, CString arg = L"");
 };
 
 class SubmoduleUpdateCommand : public Command
@@ -49,7 +49,7 @@ public:
 	/**
 	 * Executes the command.
 	 */
-	virtual bool			Execute() {return SubmoduleCommand::Execute(_T("sync"));};
+	virtual bool			Execute() {return SubmoduleCommand::Execute(L"sync");};
 };
 
 

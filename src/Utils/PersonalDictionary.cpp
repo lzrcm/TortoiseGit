@@ -40,15 +40,15 @@ bool CPersonalDictionary::Load()
 	if (m_bLoaded)
 		return true;
 	TCHAR path[MAX_PATH] = {0};		//MAX_PATH ok here.
-	_tcscpy_s (path, CPathUtils::GetAppDataDirectory());
+	wcscpy_s (path, CPathUtils::GetAppDataDirectory());
 
 	if (m_lLanguage==0)
 		m_lLanguage = GetUserDefaultLCID();
 
 	TCHAR sLang[10] = { 0 };
-	_stprintf_s(sLang, 10, _T("%ld"), m_lLanguage);
-	_tcscat_s(path, MAX_PATH, sLang);
-	_tcscat_s(path, MAX_PATH, _T(".dic"));
+	swprintf_s(sLang, 10, L"%ld", m_lLanguage);
+	wcscat_s(path, MAX_PATH, sLang);
+	wcscat_s(path, MAX_PATH, L".dic");
 
 	std::wifstream File;
 	char filepath[MAX_PATH + 1] = { 0 };
@@ -96,22 +96,22 @@ bool CPersonalDictionary::Save()
 	if (!m_bLoaded)
 		return false;
 	TCHAR path[MAX_PATH] = { 0 };		//MAX_PATH ok here.
-	_tcscpy_s (path, CPathUtils::GetAppDataDirectory());
+	wcscpy_s (path, CPathUtils::GetAppDataDirectory());
 
 	if (m_lLanguage==0)
 		m_lLanguage = GetUserDefaultLCID();
 
 	TCHAR sLang[10] = { 0 };
-	_stprintf_s(sLang, 10, _T("%ld"), m_lLanguage);
-	_tcscat_s(path, MAX_PATH, sLang);
-	_tcscat_s(path, MAX_PATH, _T(".dic"));
+	swprintf_s(sLang, 10, L"%ld", m_lLanguage);
+	wcscat_s(path, MAX_PATH, sLang);
+	wcscat_s(path, MAX_PATH, L".dic");
 
 	std::wofstream File;
 	char filepath[MAX_PATH + 1] = { 0 };
 	WideCharToMultiByte(CP_ACP, 0, path, -1, filepath, MAX_PATH, nullptr, nullptr);
 	File.open(filepath, std::ios_base::binary);
 	for (const auto& line : dict)
-		File << (LPCTSTR)line << _T("\n");
+		File << (LPCTSTR)line << L"\n";
 	File.close();
 	return true;
 }

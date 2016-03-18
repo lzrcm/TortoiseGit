@@ -51,27 +51,27 @@ public:
 	};
 	ShellCache()
 	{
-		cachetype = CRegStdDWORD(_T("Software\\TortoiseGit\\CacheType"), GetSystemMetrics(SM_REMOTESESSION) ? dll : exe);
-		showrecursive = CRegStdDWORD(_T("Software\\TortoiseGit\\RecursiveOverlay"), TRUE);
-		folderoverlay = CRegStdDWORD(_T("Software\\TortoiseGit\\FolderOverlay"), TRUE);
-		driveremote = CRegStdDWORD(_T("Software\\TortoiseGit\\DriveMaskRemote"));
-		drivefixed = CRegStdDWORD(_T("Software\\TortoiseGit\\DriveMaskFixed"), TRUE);
-		drivecdrom = CRegStdDWORD(_T("Software\\TortoiseGit\\DriveMaskCDROM"));
-		driveremove = CRegStdDWORD(_T("Software\\TortoiseGit\\DriveMaskRemovable"));
-		drivefloppy = CRegStdDWORD(_T("Software\\TortoiseGit\\DriveMaskFloppy"));
-		driveram = CRegStdDWORD(_T("Software\\TortoiseGit\\DriveMaskRAM"));
-		driveunknown = CRegStdDWORD(_T("Software\\TortoiseGit\\DriveMaskUnknown"));
-		shellmenuaccelerators = CRegStdDWORD(_T("Software\\TortoiseGit\\ShellMenuAccelerators"), TRUE);
-		excludelist = CRegStdString(_T("Software\\TortoiseGit\\OverlayExcludeList"));
-		includelist = CRegStdString(_T("Software\\TortoiseGit\\OverlayIncludeList"));
-		simplecontext = CRegStdDWORD(_T("Software\\TortoiseGit\\SimpleContext"), FALSE);
-		unversionedasmodified = CRegStdDWORD(_T("Software\\TortoiseGit\\UnversionedAsModified"), FALSE);
-		recursesubmodules = CRegStdDWORD(_T("Software\\TortoiseGit\\TGitCacheRecurseSubmodules"), FALSE);
-		hidemenusforunversioneditems = CRegStdDWORD(_T("Software\\TortoiseGit\\HideMenusForUnversionedItems"), FALSE);
-		showunversionedoverlay = CRegStdDWORD(_T("Software\\TortoiseGit\\ShowUnversionedOverlay"), TRUE);
-		showignoredoverlay = CRegStdDWORD(_T("Software\\TortoiseGit\\ShowIgnoredOverlay"), TRUE);
-		getlocktop = CRegStdDWORD(_T("Software\\TortoiseGit\\GetLockTop"), TRUE);
-		excludedasnormal = CRegStdDWORD(_T("Software\\TortoiseGit\\ShowExcludedAsNormal"), TRUE);
+		cachetype = CRegStdDWORD(L"Software\\TortoiseGit\\CacheType", GetSystemMetrics(SM_REMOTESESSION) ? dll : exe);
+		showrecursive = CRegStdDWORD(L"Software\\TortoiseGit\\RecursiveOverlay", TRUE);
+		folderoverlay = CRegStdDWORD(L"Software\\TortoiseGit\\FolderOverlay", TRUE);
+		driveremote = CRegStdDWORD(L"Software\\TortoiseGit\\DriveMaskRemote");
+		drivefixed = CRegStdDWORD(L"Software\\TortoiseGit\\DriveMaskFixed", TRUE);
+		drivecdrom = CRegStdDWORD(L"Software\\TortoiseGit\\DriveMaskCDROM");
+		driveremove = CRegStdDWORD(L"Software\\TortoiseGit\\DriveMaskRemovable");
+		drivefloppy = CRegStdDWORD(L"Software\\TortoiseGit\\DriveMaskFloppy");
+		driveram = CRegStdDWORD(L"Software\\TortoiseGit\\DriveMaskRAM");
+		driveunknown = CRegStdDWORD(L"Software\\TortoiseGit\\DriveMaskUnknown");
+		shellmenuaccelerators = CRegStdDWORD(L"Software\\TortoiseGit\\ShellMenuAccelerators", TRUE);
+		excludelist = CRegStdString(L"Software\\TortoiseGit\\OverlayExcludeList");
+		includelist = CRegStdString(L"Software\\TortoiseGit\\OverlayIncludeList");
+		simplecontext = CRegStdDWORD(L"Software\\TortoiseGit\\SimpleContext", FALSE);
+		unversionedasmodified = CRegStdDWORD(L"Software\\TortoiseGit\\UnversionedAsModified", FALSE);
+		recursesubmodules = CRegStdDWORD(L"Software\\TortoiseGit\\TGitCacheRecurseSubmodules", FALSE);
+		hidemenusforunversioneditems = CRegStdDWORD(L"Software\\TortoiseGit\\HideMenusForUnversionedItems", FALSE);
+		showunversionedoverlay = CRegStdDWORD(L"Software\\TortoiseGit\\ShowUnversionedOverlay", TRUE);
+		showignoredoverlay = CRegStdDWORD(L"Software\\TortoiseGit\\ShowIgnoredOverlay", TRUE);
+		getlocktop = CRegStdDWORD(L"Software\\TortoiseGit\\GetLockTop", TRUE);
+		excludedasnormal = CRegStdDWORD(L"Software\\TortoiseGit\\ShowExcludedAsNormal", TRUE);
 		cachetypeticker = GetTickCount64();
 		recursiveticker = cachetypeticker;
 		folderoverlayticker = cachetypeticker;
@@ -93,22 +93,22 @@ public:
 		excontextticker = cachetypeticker;
 
 		unsigned __int64 entries = (DEFAULTMENUTOPENTRIES);
-		menulayoutlow = CRegStdDWORD(_T("Software\\TortoiseGit\\ContextMenuEntries"),	  entries&0xFFFFFFFF);
-		menulayouthigh = CRegStdDWORD(_T("Software\\TortoiseGit\\ContextMenuEntrieshigh"), entries>>32);
+		menulayoutlow = CRegStdDWORD(L"Software\\TortoiseGit\\ContextMenuEntries",	  entries&0xFFFFFFFF);
+		menulayouthigh = CRegStdDWORD(L"Software\\TortoiseGit\\ContextMenuEntrieshigh", entries>>32);
 		layoutticker = cachetypeticker;
 
 		unsigned __int64 ext = (DEFAULTMENUEXTENTRIES);
-		menuextlow	= CRegStdDWORD(_T("Software\\TortoiseGit\\ContextMenuExtEntriesLow"), ext&0xFFFFFFFF  );
-		menuexthigh = CRegStdDWORD(_T("Software\\TortoiseGit\\ContextMenuExtEntriesHigh"),	ext>>32	  );
+		menuextlow	= CRegStdDWORD(L"Software\\TortoiseGit\\ContextMenuExtEntriesLow", ext&0xFFFFFFFF  );
+		menuexthigh = CRegStdDWORD(L"Software\\TortoiseGit\\ContextMenuExtEntriesHigh",	ext>>32	  );
 		exticker = cachetypeticker;
 
-		menumasklow_lm = CRegStdDWORD(_T("Software\\TortoiseGit\\ContextMenuEntriesMaskLow"), 0, FALSE, HKEY_LOCAL_MACHINE);
-		menumaskhigh_lm = CRegStdDWORD(_T("Software\\TortoiseGit\\ContextMenuEntriesMaskHigh"), 0, FALSE, HKEY_LOCAL_MACHINE);
-		menumasklow_cu = CRegStdDWORD(_T("Software\\TortoiseGit\\ContextMenuEntriesMaskLow"), 0);
-		menumaskhigh_cu = CRegStdDWORD(_T("Software\\TortoiseGit\\ContextMenuEntriesMaskHigh"), 0);
+		menumasklow_lm = CRegStdDWORD(L"Software\\TortoiseGit\\ContextMenuEntriesMaskLow", 0, FALSE, HKEY_LOCAL_MACHINE);
+		menumaskhigh_lm = CRegStdDWORD(L"Software\\TortoiseGit\\ContextMenuEntriesMaskHigh", 0, FALSE, HKEY_LOCAL_MACHINE);
+		menumasklow_cu = CRegStdDWORD(L"Software\\TortoiseGit\\ContextMenuEntriesMaskLow", 0);
+		menumaskhigh_cu = CRegStdDWORD(L"Software\\TortoiseGit\\ContextMenuEntriesMaskHigh", 0);
 		menumaskticker = cachetypeticker;
-		langid = CRegStdDWORD(_T("Software\\TortoiseGit\\LanguageID"), 1033);
-		blockstatus = CRegStdDWORD(_T("Software\\TortoiseGit\\BlockStatus"), 0);
+		langid = CRegStdDWORD(L"Software\\TortoiseGit\\LanguageID", 1033);
+		blockstatus = CRegStdDWORD(L"Software\\TortoiseGit\\BlockStatus", 0);
 		blockstatusticker = cachetypeticker;
 		for (int i = 0; i < 27; ++i)
 		{
@@ -119,7 +119,7 @@ public:
 		drivetypecache[1] = DRIVE_REMOVABLE;
 		drivetypepathcache[0] = 0;
 		sAdminDirCacheKey.reserve(MAX_PATH);		// MAX_PATH as buffer reservation ok.
-		nocontextpaths = CRegStdString(_T("Software\\TortoiseGit\\NoContextPaths"), _T(""));
+		nocontextpaths = CRegStdString(L"Software\\TortoiseGit\\NoContextPaths", L"");
 		m_critSec.Init();
 	}
 	void ForceRefresh()
@@ -354,11 +354,11 @@ public:
 				continue;
 			if (exPath.at(exPath.size() - 1) == '*')
 			{
-				stdstring str = exPath.substr(0, exPath.size() - 1);
-				if (_tcsnicmp(str.c_str(), path, str.size())==0)
+				std::wstring str = exPath.substr(0, exPath.size() - 1);
+				if (_wcsnicmp(str.c_str(), path, str.size())==0)
 					return FALSE;
 			}
-			else if (_tcsicmp(exPath.c_str(), path) == 0)
+			else if (_wcsicmp(exPath.c_str(), path) == 0)
 				return FALSE;
 		}
 		return TRUE;
@@ -373,16 +373,16 @@ public:
 				continue;
 			if (pathAllowed.at(pathAllowed.size() - 1) == '*')
 			{
-				stdstring str = pathAllowed.substr(0, pathAllowed.size() - 1);
-				if (_tcsnicmp(str.c_str(), path, str.size())==0)
+				std::wstring str = pathAllowed.substr(0, pathAllowed.size() - 1);
+				if (_wcsnicmp(str.c_str(), path, str.size())==0)
 					return TRUE;
-				if (!str.empty() && (str.at(str.size()-1) == '\\') && (_tcsnicmp(str.c_str(), path, str.size()-1)==0))
+				if (!str.empty() && (str.at(str.size()-1) == '\\') && (_wcsnicmp(str.c_str(), path, str.size()-1)==0))
 					return TRUE;
 			}
-			else if (_tcsicmp(pathAllowed.c_str(), path) == 0)
+			else if (_wcsicmp(pathAllowed.c_str(), path) == 0)
 				return TRUE;
 			else if ((pathAllowed.at(pathAllowed.size() - 1) == '\\') &&
-				((_tcsnicmp(pathAllowed.c_str(), path, pathAllowed.size()) == 0) || (_tcsicmp(pathAllowed.c_str(), path) == 0)))
+				((_wcsnicmp(pathAllowed.c_str(), path, pathAllowed.size()) == 0) || (_wcsicmp(pathAllowed.c_str(), path) == 0)))
 				return TRUE;
 
 		}
@@ -399,10 +399,10 @@ public:
 				{
 					drivetypeticker = GetTickCount64();
 					TCHAR pathbuf[MAX_PATH+4] = {0};		// MAX_PATH ok here. PathStripToRoot works with partial paths too.
-					_tcsncpy_s(pathbuf, MAX_PATH+4, path, MAX_PATH+3);
+					wcsncpy_s(pathbuf, MAX_PATH+4, path, MAX_PATH+3);
 					PathStripToRoot(pathbuf);
 					PathAddBackslash(pathbuf);
-					CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) _T(": GetDriveType for %s, Drive %d\n"), pathbuf, drivenumber);
+					CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) L": GetDriveType for %s, Drive %d\n", pathbuf, drivenumber);
 					drivetype = GetDriveType(pathbuf);
 					drivetypecache[drivenumber] = drivetype;
 				}
@@ -411,21 +411,21 @@ public:
 		else
 		{
 			TCHAR pathbuf[MAX_PATH+4] = {0};		// MAX_PATH ok here. PathIsUNCServer works with partial paths too.
-			_tcsncpy_s(pathbuf, MAX_PATH+4, path, MAX_PATH+3);
+			wcsncpy_s(pathbuf, MAX_PATH+4, path, MAX_PATH+3);
 			if (PathIsUNCServer(pathbuf))
 				drivetype = DRIVE_REMOTE;
 			else
 			{
 				PathStripToRoot(pathbuf);
 				PathAddBackslash(pathbuf);
-				if (_tcsncmp(pathbuf, drivetypepathcache, MAX_PATH-1)==0)		// MAX_PATH ok.
+				if (wcsncmp(pathbuf, drivetypepathcache, MAX_PATH-1)==0)		// MAX_PATH ok.
 					drivetype = drivetypecache[26];
 				else
 				{
-					CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) _T("GetDriveType for %s\n"), pathbuf);
+					CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) L"GetDriveType for %s\n", pathbuf);
 					drivetype = GetDriveType(pathbuf);
 					drivetypecache[26] = drivetype;
-					_tcsncpy_s(drivetypepathcache, MAX_PATH, pathbuf, MAX_PATH - 1);			// MAX_PATH ok.
+					wcsncpy_s(drivetypepathcache, MAX_PATH, pathbuf, MAX_PATH - 1);			// MAX_PATH ok.
 				}
 			}
 		}
@@ -451,11 +451,11 @@ public:
 				continue;
 			if (exPath.at(exPath.size() - 1) == '*')
 			{
-				stdstring str = exPath.substr(0, exPath.size() - 1);
-				if (_tcsnicmp(str.c_str(), path, str.size())==0)
+				std::wstring str = exPath.substr(0, exPath.size() - 1);
+				if (_wcsnicmp(str.c_str(), path, str.size())==0)
 					return FALSE;
 			}
-			else if (_tcsicmp(exPath.c_str(), path) == 0)
+			else if (_wcsicmp(exPath.c_str(), path) == 0)
 				return FALSE;
 		}
 		return TRUE;
@@ -471,18 +471,18 @@ public:
 	}
 	BOOL HasGITAdminDir(LPCTSTR path, BOOL bIsDir, CString* ProjectTopDir = nullptr)
 	{
-		size_t len = _tcslen(path);
+		size_t len = wcslen(path);
 		auto buf = std::make_unique<TCHAR[]>(len + 1);
-		_tcscpy_s(buf.get(), len + 1, path);
+		wcscpy_s(buf.get(), len + 1, path);
 		if (! bIsDir)
 		{
-			TCHAR * ptr = _tcsrchr(buf.get(), '\\');
+			TCHAR * ptr = wcsrchr(buf.get(), '\\');
 			if (ptr != 0)
 				*ptr = 0;
 		}
 		if ((GetTickCount64() - ADMINDIRTIMEOUT) < admindirticker)
 		{
-			std::map<stdstring, AdminDir_s>::iterator iter;
+			std::map<std::wstring, AdminDir_s>::iterator iter;
 			sAdminDirCacheKey.assign(buf.get());
 			if ((iter = admindircache.find(sAdminDirCacheKey)) != admindircache.end())
 			{
@@ -528,24 +528,24 @@ private:
 			Locker lock(m_critSec);
 			excontextticker = GetTickCount64();
 			nocontextpaths.read();
-			if (excludecontextstr.compare((stdstring)nocontextpaths)==0)
+			if (excludecontextstr.compare((std::wstring)nocontextpaths)==0)
 				return;
-			excludecontextstr = (stdstring)nocontextpaths;
+			excludecontextstr = (std::wstring)nocontextpaths;
 			excontextvector.clear();
 			size_t pos = 0, pos_ant = 0;
-			pos = excludecontextstr.find(_T("\n"), pos_ant);
-			while (pos != stdstring::npos)
+			pos = excludecontextstr.find(L'\n', pos_ant);
+			while (pos != std::wstring::npos)
 			{
-				stdstring token = excludecontextstr.substr(pos_ant, pos-pos_ant);
+				std::wstring token = excludecontextstr.substr(pos_ant, pos-pos_ant);
 				excontextvector.push_back(token);
 				pos_ant = pos+1;
-				pos = excludecontextstr.find(_T("\n"), pos_ant);
+				pos = excludecontextstr.find(L'\n', pos_ant);
 			}
 			if (!excludecontextstr.empty())
 			{
 				excontextvector.push_back(excludecontextstr.substr(pos_ant, excludecontextstr.size()-1));
 			}
-			excludecontextstr = (stdstring)nocontextpaths;
+			excludecontextstr = (std::wstring)nocontextpaths;
 		}
 	}
 	void ExcludeListValid()
@@ -555,22 +555,22 @@ private:
 			Locker lock(m_critSec);
 			excludelistticker = GetTickCount64();
 			excludelist.read();
-			if (excludeliststr.compare((stdstring)excludelist)==0)
+			if (excludeliststr.compare((std::wstring)excludelist)==0)
 				return;
-			excludeliststr = (stdstring)excludelist;
+			excludeliststr = (std::wstring)excludelist;
 			exvector.clear();
 			size_t pos = 0, pos_ant = 0;
-			pos = excludeliststr.find(_T("\n"), pos_ant);
-			while (pos != stdstring::npos)
+			pos = excludeliststr.find(L'\n', pos_ant);
+			while (pos != std::wstring::npos)
 			{
-				stdstring token = excludeliststr.substr(pos_ant, pos-pos_ant);
+				std::wstring token = excludeliststr.substr(pos_ant, pos-pos_ant);
 				exvector.push_back(token);
 				pos_ant = pos+1;
-				pos = excludeliststr.find(_T("\n"), pos_ant);
+				pos = excludeliststr.find(L'\n', pos_ant);
 			}
 			if (!excludeliststr.empty())
 				exvector.push_back(excludeliststr.substr(pos_ant, excludeliststr.size()-1));
-			excludeliststr = (stdstring)excludelist;
+			excludeliststr = (std::wstring)excludelist;
 		}
 	}
 	void IncludeListValid()
@@ -580,29 +580,29 @@ private:
 			Locker lock(m_critSec);
 			includelistticker = GetTickCount64();
 			includelist.read();
-			if (includeliststr.compare((stdstring)includelist)==0)
+			if (includeliststr.compare((std::wstring)includelist)==0)
 				return;
-			includeliststr = (stdstring)includelist;
+			includeliststr = (std::wstring)includelist;
 			invector.clear();
 			size_t pos = 0, pos_ant = 0;
-			pos = includeliststr.find(_T("\n"), pos_ant);
-			while (pos != stdstring::npos)
+			pos = includeliststr.find(L'\n', pos_ant);
+			while (pos != std::wstring::npos)
 			{
-				stdstring token = includeliststr.substr(pos_ant, pos-pos_ant);
+				std::wstring token = includeliststr.substr(pos_ant, pos-pos_ant);
 				invector.push_back(token);
 				pos_ant = pos+1;
-				pos = includeliststr.find(_T("\n"), pos_ant);
+				pos = includeliststr.find(L'\n', pos_ant);
 			}
 			if (!includeliststr.empty())
 				invector.push_back(includeliststr.substr(pos_ant, includeliststr.size()-1));
-			includeliststr = (stdstring)includelist;
+			includeliststr = (std::wstring)includelist;
 		}
 	}
 
 	struct AdminDir_s
 	{
 		BOOL bHasAdminDir;
-		stdstring sProjectRoot;
+		std::wstring sProjectRoot;
 	};
 public:
 	CRegStdDWORD cachetype;
@@ -635,11 +635,11 @@ public:
 	CRegStdDWORD excludedasnormal;
 	CRegStdString excludelist;
 	CRegStdDWORD hidemenusforunversioneditems;
-	stdstring excludeliststr;
-	std::vector<stdstring> exvector;
+	std::wstring excludeliststr;
+	std::vector<std::wstring> exvector;
 	CRegStdString includelist;
-	stdstring includeliststr;
-	std::vector<stdstring> invector;
+	std::wstring includeliststr;
+	std::vector<std::wstring> invector;
 	ULONGLONG cachetypeticker;
 	ULONGLONG recursiveticker;
 	ULONGLONG folderoverlayticker;
@@ -665,11 +665,11 @@ public:
 	TCHAR drivetypepathcache[MAX_PATH];		// MAX_PATH ok.
 	TCHAR szDecSep[5];
 	TCHAR szThousandsSep[5];
-	std::map<stdstring, AdminDir_s> admindircache;
-	stdstring sAdminDirCacheKey;
+	std::map<std::wstring, AdminDir_s> admindircache;
+	std::wstring sAdminDirCacheKey;
 	CRegStdString nocontextpaths;
-	stdstring excludecontextstr;
-	std::vector<stdstring> excontextvector;
+	std::wstring excludecontextstr;
+	std::vector<std::wstring> excontextvector;
 	ULONGLONG excontextticker;
 	ULONGLONG admindirticker;
 	CComCriticalSection m_critSec;

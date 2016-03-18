@@ -64,10 +64,10 @@ BOOL CRevGraphFilterDlg::OnInitDialog()
 
 	STRING_VECTOR list;
 	if (g_Git.GetRefList(list))
-		MessageBox(g_Git.GetGitLastErr(_T("Could not get all refs.")), _T("TortoiseGit"), MB_ICONERROR);
+		MessageBox(g_Git.GetGitLastErr(L"Could not get all refs."), L"TortoiseGit", MB_ICONERROR);
 
-	m_ctrlFromRev.AddSearchString(_T("HEAD"));
-	m_ctrlToRev.AddSearchString(_T("HEAD"));
+	m_ctrlFromRev.AddSearchString(L"HEAD");
+	m_ctrlToRev.AddSearchString(L"HEAD");
 
 	for (size_t i = 0; i < list.size(); ++i)
 	{
@@ -76,25 +76,25 @@ BOOL CRevGraphFilterDlg::OnInitDialog()
 		m_ctrlFromRev.AddSearchString(list[i]);
 		m_ctrlToRev.AddSearchString(list[i]);
 
-		if(str.Find(_T("refs/")) == 0)
+		if(str.Find(L"refs/") == 0)
 		{
 			m_ctrlFromRev.AddSearchString(list[i].Mid(5));
 			m_ctrlToRev.AddSearchString(list[i].Mid(5));
 		}
 
-		if(str.Find(_T("refs/heads/")) == 0)
+		if(str.Find(L"refs/heads/") == 0)
 		{
 			m_ctrlFromRev.AddSearchString(list[i].Mid(11));
 			m_ctrlToRev.AddSearchString(list[i].Mid(11));
 		}
 
-		if(str.Find(_T("refs/remotes/")) == 0)
+		if(str.Find(L"refs/remotes/") == 0)
 		{
 			m_ctrlFromRev.AddSearchString(list[i].Mid(13));
 			m_ctrlToRev.AddSearchString(list[i].Mid(13));
 		}
 
-		if(str.Find(_T("refs/tags/")) == 0)
+		if(str.Find(L"refs/tags/") == 0)
 		{
 			m_ctrlFromRev.AddSearchString(list[i].Mid(10));
 			m_ctrlToRev.AddSearchString(list[i].Mid(10));

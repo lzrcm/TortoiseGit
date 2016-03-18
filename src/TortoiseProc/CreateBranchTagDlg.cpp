@@ -106,7 +106,7 @@ BOOL CCreateBranchTagDlg::OnInitDialog()
 	{
 		sWindowTitle = CString(MAKEINTRESOURCE(IDS_PROGS_TITLE_CREATETAG));
 		this->GetDlgItem(IDC_LABEL_BRANCH)->SetWindowText(CString(MAKEINTRESOURCE(IDS_PROC_TAG)));
-		this->GetDlgItem(IDC_CHECK_SIGN)->EnableWindow(!g_Git.GetConfigValue(_T("user.signingkey")).IsEmpty());
+		this->GetDlgItem(IDC_CHECK_SIGN)->EnableWindow(!g_Git.GetConfigValue(L"user.signingkey").IsEmpty());
 	}
 	else
 	{
@@ -125,7 +125,7 @@ BOOL CCreateBranchTagDlg::OnInitDialog()
 	pHead->GetWindowText( HeadText );
 	pHead->SetWindowText( HeadText + " (" + g_Git.GetCurrentBranch() + ")");
 	AdjustControlSize(IDC_RADIO_HEAD);
-	EnableSaveRestore(_T("BranchTagDlg"));
+	EnableSaveRestore(L"BranchTagDlg");
 
 	m_tooltips.AddTool(GetDlgItem(IDC_CHECK_FORCE), CString(MAKEINTRESOURCE(IDS_PROC_NEWBRANCHTAG_FORCE_TT)));
 	m_tooltips.AddTool(GetDlgItem(IDC_CHECK_SIGN), CString(MAKEINTRESOURCE(IDS_PROC_NEWBRANCHTAG_SIGN_TT)));
@@ -165,7 +165,7 @@ void CCreateBranchTagDlg::OnBnClickedOk()
 			msg.LoadString(IDS_T_EXISTS);
 		else
 			msg.LoadString(IDS_B_EXISTS);
-		ShowEditBalloon(IDC_BRANCH_TAG, msg + _T(" ") + CString(MAKEINTRESOURCE(IDS_B_T_DIFFERENTNAMEORFORCE)), CString(MAKEINTRESOURCE(IDS_WARN_WARNING)));
+		ShowEditBalloon(IDC_BRANCH_TAG, msg + L" " + CString(MAKEINTRESOURCE(IDS_B_T_DIFFERENTNAMEORFORCE)), CString(MAKEINTRESOURCE(IDS_WARN_WARNING)));
 		return;
 	}
 	if (g_Git.BranchTagExists(m_BranchTagName, m_bIsTag == TRUE))
@@ -175,7 +175,7 @@ void CCreateBranchTagDlg::OnBnClickedOk()
 			msg.LoadString(IDS_T_SAMEBRANCHNAMEEXISTS);
 		else
 			msg.LoadString(IDS_B_SAMETAGNAMEEXISTS);
-		if (CMessageBox::Show(m_hWnd, msg, _T("TortoiseGit"), 2, IDI_EXCLAMATION, CString(MAKEINTRESOURCE(IDS_CONTINUEBUTTON)), CString(MAKEINTRESOURCE(IDS_ABORTBUTTON))) == 2)
+		if (CMessageBox::Show(m_hWnd, msg, L"TortoiseGit", 2, IDI_EXCLAMATION, CString(MAKEINTRESOURCE(IDS_CONTINUEBUTTON)), CString(MAKEINTRESOURCE(IDS_ABORTBUTTON))) == 2)
 			return;
 	}
 
@@ -185,13 +185,13 @@ void CCreateBranchTagDlg::OnBnClickedOk()
 
 void CCreateBranchTagDlg::OnCbnSelchangeComboboxexBranch()
 {
-	if (this->m_ChooseVersioinBranch.GetString().Left(8)==_T("remotes/") && !m_bIsTag)
+	if (this->m_ChooseVersioinBranch.GetString().Left(8)==L"remotes/" && !m_bIsTag)
 	{
 		bool isDefault = false;
 		this->UpdateData();
 
 		CString str = this->m_OldSelectBranch;
-		int start = str.ReverseFind(_T('/'));
+		int start = str.ReverseFind(L'/');
 		if(start>=0)
 			str=str.Mid(start+1);
 		if(str == m_BranchTagName)
@@ -202,7 +202,7 @@ void CCreateBranchTagDlg::OnCbnSelchangeComboboxexBranch()
 		if( m_BranchTagName.IsEmpty() ||  isDefault)
 		{
 			m_BranchTagName= m_ChooseVersioinBranch.GetString();
-			start = m_BranchTagName.Find(_T('/'), 9);
+			start = m_BranchTagName.Find(L'/', 9);
 			if(start>=0)
 				m_BranchTagName = m_BranchTagName.Mid(start+1);
 
@@ -225,9 +225,9 @@ void CCreateBranchTagDlg::OnEnChangeBranchTag()
 
 	CString name;
 	GetDlgItem(IDC_BRANCH_TAG)->GetWindowText(name);
-	name = _T("/") + name;
+	name = L"/" + name;
 	CString remoteName = m_ChooseVersioinBranch.GetString();
-	if (remoteName.Left(8) == _T("remotes/") && remoteName.Right(name.GetLength()) != name)		
+	if (remoteName.Left(8) == L"remotes/" && remoteName.Right(name.GetLength()) != name)		
 		((CButton *)GetDlgItem(IDC_CHECK_TRACK))->SetCheck(FALSE);
 }
 

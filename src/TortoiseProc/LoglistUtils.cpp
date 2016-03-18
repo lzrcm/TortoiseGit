@@ -65,7 +65,7 @@ CString CLoglistUtils::FormatDateAndTime(const CTime& cTime, DWORD option, bool 
 			CString datetime = buf;
 			if (bIncludeTime)
 			{
-				datetime += _T(" ");
+				datetime += L" ";
 				GetTimeFormat(LOCALE_USER_DEFAULT, 0, &sysTime, nullptr, buf, _countof(buf) - 1);
 				datetime += buf;
 			}
@@ -75,9 +75,9 @@ CString CLoglistUtils::FormatDateAndTime(const CTime& cTime, DWORD option, bool 
 		{
 			// no, so fixed format
 			if (bIncludeTime)
-				return cTime.Format(_T("%Y-%m-%d %H:%M:%S"));
+				return cTime.Format(L"%Y-%m-%d %H:%M:%S");
 			else
-				return cTime.Format(_T("%Y-%m-%d"));
+				return cTime.Format(L"%Y-%m-%d");
 		}
 	}
 }

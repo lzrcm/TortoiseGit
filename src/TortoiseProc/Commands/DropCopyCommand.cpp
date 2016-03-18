@@ -27,7 +27,7 @@
 
 bool DropCopyCommand::Execute()
 {
-	CString sDroppath = parser.GetVal(_T("droptarget"));
+	CString sDroppath = parser.GetVal(L"droptarget");
 	if (CTGitPath(sDroppath).IsAdminDir())
 	{
 		MessageBox(hwndExplorer, L"Can't drop to .git repository directory\n", L"TortoiseGit", MB_OK | MB_ICONERROR);
@@ -37,7 +37,7 @@ bool DropCopyCommand::Execute()
 
 	CString sNewName;
 	pathList.RemoveAdminPaths();
-	if ((parser.HasKey(_T("rename")))&&(pathList.GetCount()==1))
+	if ((parser.HasKey(L"rename"))&&(pathList.GetCount()==1))
 	{
 		// ask for a new name of the source item
 		do
@@ -48,7 +48,7 @@ bool DropCopyCommand::Execute()
 			if (renDlg.DoModal() != IDOK)
 				return FALSE;
 			sNewName = renDlg.m_name;
-		} while(sNewName.IsEmpty() || PathFileExists(sDroppath+_T("\\")+sNewName));
+		} while (sNewName.IsEmpty() || PathFileExists(sDroppath + L'\\' + sNewName));
 	}
 	CSysProgressDlg progress;
 	progress.SetTitle(IDS_PROC_COPYING);
@@ -95,14 +95,14 @@ bool DropCopyCommand::Execute()
 				g_Git.SetCurrentDir(ProjectTopDir);
 				SetCurrentDirectory(ProjectTopDir);
 				CString cmd;
-				cmd = _T("git.exe add -- \"");
+				cmd = L"git.exe add -- \"";
 
 				CString path;
 				path=fullDropPath.GetGitPathString().Mid(ProjectTopDir.GetLength());
-				if (!path.IsEmpty() && (path[0] == _T('\\') || path[0] == _T('/')))
+				if (!path.IsEmpty() && (path[0] == L'\\' || path[0] == L'/'))
 					path = path.Mid(1);
 				cmd += path;
-				cmd +=_T('\"');
+				cmd += L'\"';
 
 				CString output;
 				if (g_Git.Run(cmd, &output, CP_UTF8))
@@ -114,7 +114,7 @@ bool DropCopyCommand::Execute()
 		}else
 		{
 			CString str;
-			str+=_T("Copy file fail:");
+			str+=L"Copy file fail:";
 			str+=sourcePath.GetWinPath();
 
 			MessageBox(hwndExplorer, str, L"TortoiseGit", MB_OK | MB_ICONERROR);

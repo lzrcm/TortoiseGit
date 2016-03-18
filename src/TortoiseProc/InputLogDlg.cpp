@@ -69,7 +69,7 @@ BOOL CInputLogDlg::OnInitDialog()
 	else
 		m_cInput.Init();
 
-	m_cInput.SetFont((CString)CRegString(_T("Software\\TortoiseGit\\LogFontName"), _T("Courier New")), (DWORD)CRegDWORD(_T("Software\\TortoiseGit\\LogFontSize"), 8));
+	m_cInput.SetFont((CString)CRegString(L"Software\\TortoiseGit\\LogFontName", L"Courier New"), (DWORD)CRegDWORD(L"Software\\TortoiseGit\\LogFontSize", 8));
 
 	if (m_pProjectProperties)
 	{
@@ -95,7 +95,7 @@ BOOL CInputLogDlg::OnInitDialog()
 	AddAnchor(IDC_INPUTTEXT, TOP_LEFT, BOTTOM_RIGHT);
 	AddAnchor(IDCANCEL, BOTTOM_RIGHT);
 	AddAnchor(IDOK, BOTTOM_RIGHT);
-	EnableSaveRestore(_T("InputDlg"));
+	EnableSaveRestore(L"InputDlg");
 	if (hWndExplorer)
 		CenterWindow(CWnd::FromHandle(hWndExplorer));
 	GetDlgItem(IDC_INPUTTEXT)->SetFocus();
@@ -108,10 +108,10 @@ void CInputLogDlg::OnOK()
 	m_sLogMsg = m_cInput.GetText();
 
 	CString reg;
-	reg.Format(_T("Software\\TortoiseGit\\History\\commit%s"), (LPCTSTR)m_sUUID);
+	reg.Format(L"Software\\TortoiseGit\\History\\commit%s", (LPCTSTR)m_sUUID);
 
 	CRegHistory history;
-	history.Load(reg, _T("logmsgs"));
+	history.Load(reg, L"logmsgs");
 	history.AddEntry(m_sLogMsg);
 	history.Save();
 
@@ -156,9 +156,9 @@ void CInputLogDlg::UpdateOKButton()
 void CInputLogDlg::OnBnClickedHistory()
 {
 	CString reg;
-	reg.Format(_T("Software\\TortoiseGit\\History\\commit%s"), (LPCTSTR)m_sUUID);
+	reg.Format(L"Software\\TortoiseGit\\History\\commit%s", (LPCTSTR)m_sUUID);
 	CRegHistory history;
-	history.Load(reg, _T("logmsgs"));
+	history.Load(reg, L"logmsgs");
 	CHistoryDlg HistoryDlg;
 	HistoryDlg.SetHistory(history);
 	if (HistoryDlg.DoModal()==IDOK)

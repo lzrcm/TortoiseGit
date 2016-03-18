@@ -64,12 +64,12 @@ public:
 				a =a<<4;
 
 					TCHAR ch = str[j];
-				if(ch >= _T('0') && ch <= _T('9'))
-					a |= (ch - _T('0'))&0xF;
-				else if(ch >=_T('A') && ch <= _T('F'))
-					a |= ((ch - _T('A'))&0xF) + 10 ;
-				else if(ch >=_T('a') && ch <= _T('f'))
-					a |= ((ch - _T('a'))&0xF) + 10;
+				if(ch >= L'0' && ch <= L'9')
+					a |= (ch - L'0')&0xF;
+				else if(ch >=L'A' && ch <= L'F')
+					a |= ((ch - L'A')&0xF) + 10 ;
+				else if(ch >=L'a' && ch <= L'f')
+					a |= ((ch - L'a')&0xF) + 10;
 
 			}
 			m_hash[i]=a;
@@ -88,11 +88,11 @@ public:
 
 				char ch = str[j];
 				if(ch >= '0' && ch <= '9')
-					a |= (ch - ('0'))&0xF;
-				else if(ch >=('A') && ch <= ('F'))
-					a |= ((ch - ('A'))&0xF) + 10 ;
-				else if(ch >=_T('a') && ch <= ('f'))
-					a |= ((ch - ('a'))&0xF) + 10;
+					a |= (ch - '0') & 0xF;
+				else if(ch >= 'A' && ch <= 'F')
+					a |= ((ch - 'A') & 0xF) + 10 ;
+				else if(ch >= 'a' && ch <= 'f')
+					a |= ((ch - 'a') & 0xF) + 10;
 
 			}
 			m_hash[i]=a;

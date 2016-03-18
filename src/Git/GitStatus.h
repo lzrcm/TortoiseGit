@@ -23,15 +23,6 @@
 
 class CGitFileName;
 
-#pragma warning (push,1)
-typedef std::basic_string<wchar_t> wide_string;
-#ifdef UNICODE
-#	define stdstring wide_string
-#else
-#	define stdstring std::string
-#endif
-#pragma warning (pop)
-
 #include "TGitPath.h"
 #include "GitHash.h"
 
@@ -63,8 +54,8 @@ typedef enum
 	git_depth_immediates,
 }git_depth_t;
 
-#define GIT_REV_ZERO _T("0000000000000000000000000000000000000000")
-#define GIT_INVALID_REVNUM _T("")
+#define GIT_REV_ZERO L"0000000000000000000000000000000000000000"
+#define GIT_INVALID_REVNUM L""
 typedef CString git_revnum_t;
 
 typedef struct git_wc_status2_t
@@ -86,7 +77,7 @@ typedef BOOL (*FILL_STATUS_CALLBACK)(const CString &path, git_wc_status_kind sta
 static CString CombinePath(const CString& part1, const CString& part2)
 {
 	CString path(part1);
-	path += _T('\\');
+	path += L'\\';
 	path += part2;
 	return path;
 }

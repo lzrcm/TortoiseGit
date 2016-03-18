@@ -109,7 +109,7 @@ BOOL CImportPatchDlg::OnInitDialog()
 	// not elevated, this is a no-op.
 	CHANGEFILTERSTRUCT cfs = { sizeof(CHANGEFILTERSTRUCT) };
 	typedef BOOL STDAPICALLTYPE ChangeWindowMessageFilterExDFN(HWND hWnd, UINT message, DWORD action, PCHANGEFILTERSTRUCT pChangeFilterStruct);
-	CAutoLibrary hUser = AtlLoadSystemLibraryUsingFullPath(_T("user32.dll"));
+	CAutoLibrary hUser = AtlLoadSystemLibraryUsingFullPath(L"user32.dll");
 	if (hUser)
 	{
 		ChangeWindowMessageFilterExDFN *pfnChangeWindowMessageFilterEx = (ChangeWindowMessageFilterExDFN*)GetProcAddress(hUser, "ChangeWindowMessageFilterEx");
@@ -139,7 +139,7 @@ BOOL CImportPatchDlg::OnInitDialog()
 	m_ctrlTabCtrl.SetResizeMode(CMFCTabCtrl::RESIZE_NO);
 	// Create output panes:
 
-	if( ! this->m_PatchCtrl.Create(_T("Scintilla"),_T("source"),0,rectDummy,&m_ctrlTabCtrl,0,0) )
+	if( ! this->m_PatchCtrl.Create(L"Scintilla",L"source",0,rectDummy,&m_ctrlTabCtrl,0,0) )
 	{
 		TRACE0("Failed to create log message control");
 		return FALSE;
@@ -148,7 +148,7 @@ BOOL CImportPatchDlg::OnInitDialog()
 	m_PatchCtrl.Call(SCI_SETREADONLY, TRUE);
 	m_PatchCtrl.SetUDiffStyle();
 
-	if (!m_wndOutput.Create(_T("Scintilla"),_T("source"),0,rectDummy, &m_ctrlTabCtrl, 0,0) )
+	if (!m_wndOutput.Create(L"Scintilla",L"source",0,rectDummy, &m_ctrlTabCtrl, 0,0) )
 	{
 		TRACE0("Failed to create output windows\n");
 		return -1;      // fail to create
@@ -179,7 +179,7 @@ BOOL CImportPatchDlg::OnInitDialog()
 	}
 	m_cList.SetColumnWidth(0, LVSCW_AUTOSIZE);
 
-	DWORD yPos = CRegDWORD(_T("Software\\TortoiseGit\\TortoiseProc\\ResizableState\\AMDlgSizer"));
+	DWORD yPos = CRegDWORD(L"Software\\TortoiseGit\\TortoiseProc\\ResizableState\\AMDlgSizer");
 	RECT rcDlg, rcLogMsg, rcFileList;
 	GetClientRect(&rcDlg);
 	m_cList.GetWindowRect(&rcLogMsg);
@@ -205,7 +205,7 @@ BOOL CImportPatchDlg::OnInitDialog()
 	GetWindowText(sWindowTitle);
 	CAppUtils::SetWindowTitle(m_hWnd, g_Git.m_CurrentDir, sWindowTitle);
 
-	EnableSaveRestore(_T("ImportDlg"));
+	EnableSaveRestore(L"ImportDlg");
 
 	SetSplitterRange();
 
@@ -386,14 +386,14 @@ UINT CImportPatchDlg::PatchThread()
 				switch(ret)
 				{
 				case 1:
-					cmd = _T("git.exe am --abort");
+					cmd = L"git.exe am --abort";
 					break;
 				case 2:
-					cmd = _T("git.exe am --skip");
+					cmd = L"git.exe am --skip";
 					++i;
 					break;
 				case 3:
-					cmd = _T("git.exe am --resolved");
+					cmd = L"git.exe am --resolved";
 					break;
 				default:
 					cmd.Empty();
@@ -420,23 +420,23 @@ UINT CImportPatchDlg::PatchThread()
 			if(m_bExitThread)
 				break;
 
-			cmd = _T("git.exe am ");
+			cmd = L"git.exe am ";
 
 			if(this->m_bAddSignedOffBy)
-				cmd += _T("--signoff ");
+				cmd += L"--signoff ";
 
 			if(this->m_b3Way)
-				cmd += _T("--3way ");
+				cmd += L"--3way ";
 
 			if(this->m_bIgnoreSpace)
-				cmd += _T("--ignore-space-change ");
+				cmd += L"--ignore-space-change ";
 
 			if(this->m_bKeepCR)
-				cmd += _T("--keep-cr ");
+				cmd += L"--keep-cr ";
 
-			cmd += _T("\"");
+			cmd += L'\"';
 			cmd += m_cList.GetItemText(i,0);
-			cmd += _T("\"");
+			cmd += L'\"';
 
 			this->AddLogString(cmd);
 			CString output;
@@ -577,7 +577,7 @@ void CImportPatchDlg::SaveSplitterPos()
 {
 	if (!IsIconic())
 	{
-		CRegDWORD regPos = CRegDWORD(_T("Software\\TortoiseGit\\TortoiseProc\\ResizableState\\AMDlgSizer"));
+		CRegDWORD regPos = CRegDWORD(L"Software\\TortoiseGit\\TortoiseProc\\ResizableState\\AMDlgSizer");
 		RECT rectSplitter;
 		m_wndSplitter.GetWindowRect(&rectSplitter);
 		ScreenToClient(&rectSplitter);
@@ -625,8 +625,8 @@ void CImportPatchDlg::OnBnClickedCancel()
 			if (CMessageBox::Show(GetSafeHwnd(), IDS_PROC_APPLYPATCH_GITAMACTIVE, IDS_APPNAME, MB_YESNO | MB_ICONQUESTION) == IDYES)
 			{
 				CString output;
-				if (g_Git.Run(_T("git.exe am --abort"), &output, CP_UTF8))
-					MessageBox(output, _T("TortoiseGit"), MB_OK | MB_ICONERROR);
+				if (g_Git.Run(L"git.exe am --abort", &output, CP_UTF8))
+					MessageBox(output, L"TortoiseGit", MB_OK | MB_ICONERROR);
 			}
 		OnCancel();
 	}
@@ -655,10 +655,10 @@ BOOL CImportPatchDlg::PreTranslateMessage(MSG* pMsg)
 				::GetClassName(pMsg->hwnd,buff,128);
 
 				/* Use MSFTEDIT_CLASS http://msdn.microsoft.com/en-us/library/bb531344.aspx */
-				if (_tcsnicmp(buff, MSFTEDIT_CLASS, 128) == 0 ||	//Unicode and MFC 2012 and later
-					_tcsnicmp(buff, RICHEDIT_CLASS, 128) == 0 ||	//ANSI or MFC 2010
-				   _tcsnicmp(buff,_T("Scintilla"),128)==0 ||
-				   _tcsnicmp(buff,_T("SysListView32"),128)==0||
+				if (_wcsnicmp(buff, MSFTEDIT_CLASS, 128) == 0 ||	//Unicode and MFC 2012 and later
+					_wcsnicmp(buff, RICHEDIT_CLASS, 128) == 0 ||	//ANSI or MFC 2010
+				   _wcsnicmp(buff,L"Scintilla",128)==0 ||
+				   _wcsnicmp(buff,L"SysListView32",128)==0||
 				   ::GetParent(pMsg->hwnd) == this->m_ctrlTabCtrl.m_hWnd)
 				{
 					this->PostMessage(WM_KEYDOWN,VK_ESCAPE,0);

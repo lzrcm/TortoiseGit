@@ -28,7 +28,7 @@
 bool AddCommand::Execute()
 {
 	bool bRet = false;
-	if (parser.HasKey(_T("noui")))
+	if (parser.HasKey(L"noui"))
 	{
 #if 0
 		SVN svn;

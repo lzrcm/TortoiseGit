@@ -28,7 +28,7 @@
 #pragma comment(lib, "shlwapi")
 #pragma comment(lib, "shell32")
 
-#define TGIT_CACHE_WINDOW_NAME _T("TGitCacheWindow")
+#define TGIT_CACHE_WINDOW_NAME L"TGitCacheWindow"
 
 BOOL APIENTRY DllMain( HANDLE /*hModule*/,
 					   DWORD  /*ul_reason_for_call*/,
@@ -64,12 +64,12 @@ UINT __stdcall TerminateCache(MSIHANDLE /*hModule*/)
 
 UINT __stdcall OpenDonatePage(MSIHANDLE /*hModule*/)
 {
-	ShellExecute(nullptr, _T("open"), _T("https://tortoisegit.org/donate"), nullptr, nullptr, SW_SHOW);
+	ShellExecute(nullptr, L"open", L"https://tortoisegit.org/donate", nullptr, nullptr, SW_SHOW);
 	return ERROR_SUCCESS;
 }
 
 UINT __stdcall MsgBox(MSIHANDLE /*hModule*/)
 {
-	MessageBox(nullptr, _T("CustomAction \"MsgBox\" running"), _T("Installer"), MB_ICONINFORMATION);
+	MessageBox(nullptr, L"CustomAction \"MsgBox\" running", L"Installer", MB_ICONINFORMATION);
 	return ERROR_SUCCESS;
 }

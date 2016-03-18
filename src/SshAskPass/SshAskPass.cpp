@@ -34,7 +34,7 @@
 // Global Variables:
 HINSTANCE hInst;								// current instance
 
-const TCHAR g_Promptphrase[] = _T("Enter your OpenSSH passphrase:");
+const TCHAR g_Promptphrase[] = L"Enter your OpenSSH passphrase:";
 const TCHAR *g_Prompt = g_Promptphrase;
 
 TCHAR g_PassWord[MAX_LOADSTRING];
@@ -51,7 +51,7 @@ int APIENTRY _tWinMain(HINSTANCE	/*hInstance*/,
 
 	InitCommonControls();
 
-	size_t cmdlineLen =_tcslen(lpCmdLine);
+	size_t cmdlineLen = wcslen(lpCmdLine);
 	if (lpCmdLine[0] == '"' && cmdlineLen > 1 && lpCmdLine[cmdlineLen - 1] == '"')
 	{
 		lpCmdLine[cmdlineLen - 1] = 0;
@@ -60,14 +60,14 @@ int APIENTRY _tWinMain(HINSTANCE	/*hInstance*/,
 	if (lpCmdLine[0] != 0)
 		g_Prompt = lpCmdLine;
 
-	const TCHAR *yesno=_T("(yes/no)");
-	const size_t lens = _tcslen(yesno);
+	const TCHAR *yesno = L"(yes/no)";
+	const size_t lens = wcslen(yesno);
 	const TCHAR *p = lpCmdLine;
 	BOOL bYesNo=FALSE;
 
 	while(*p)
 	{
-		if (_tcsncicmp(p, yesno, lens) == 0)
+		if (_wcsnicmp(p, yesno, lens) == 0)
 		{
 			bYesNo = TRUE;
 			break;
@@ -77,20 +77,20 @@ int APIENTRY _tWinMain(HINSTANCE	/*hInstance*/,
 
 	if(bYesNo)
 	{
-		if (::MessageBox(nullptr, g_Prompt, _T("TortoiseGit - git CLI stdin wrapper"), MB_YESNO | MB_ICONQUESTION) == IDYES)
-			_tprintf(_T("yes"));
+		if (::MessageBox(nullptr, g_Prompt, L"TortoiseGit - git CLI stdin wrapper", MB_YESNO | MB_ICONQUESTION) == IDYES)
+			wprintf(L"yes");
 		else
-			_tprintf(_T("no"));
+			wprintf(L"no");
 		return 0;
 	}
 	else
 	{
 		if (DialogBox(hInst, MAKEINTRESOURCE(IDD_ASK_PASSWORD), nullptr, PasswdDlg) == IDOK)
 		{
-			_tprintf(_T("%s\n"), (LPCTSTR)g_PassWord);
+			wprintf(L"%s\n", (LPCTSTR)g_PassWord);
 			return 0;
 		}
-		_tprintf(_T("\n"));
+		wprintf(L"\n");
 		return -1;
 	}
 }
@@ -99,7 +99,7 @@ void MarkWindowAsUnpinnable(HWND hWnd)
 {
 	typedef HRESULT (WINAPI *SHGPSFW) (HWND hwnd,REFIID riid,void** ppv);
 
-	HMODULE hShell = AtlLoadSystemLibraryUsingFullPath(_T("Shell32.dll"));
+	HMODULE hShell = AtlLoadSystemLibraryUsingFullPath(L"Shell32.dll");
 
 	if (hShell) {
 		SHGPSFW pfnSHGPSFW = (SHGPSFW)::GetProcAddress(hShell, "SHGetPropertyStoreForWindow");
@@ -139,13 +139,13 @@ INT_PTR CALLBACK PasswdDlg(HWND hDlg, UINT message, WPARAM wParam, LPARAM /*lPar
 			HWND title=::GetDlgItem(hDlg,IDC_STATIC_TITLE);
 			::SetWindowText(title,g_Prompt);
 
-			const TCHAR *pass =_T("pass");
-			const size_t passlens = _tcslen(pass);
+			const TCHAR *pass = L"pass";
+			const size_t passlens = wcslen(pass);
 			const TCHAR *p = g_Prompt;
 			bool password = false;
 			while (*p)
 			{
-				if (_tcsncicmp(p, pass, passlens) == 0)
+				if (_wcsnicmp(p, pass, passlens) == 0)
 				{
 					password = true;
 					break;

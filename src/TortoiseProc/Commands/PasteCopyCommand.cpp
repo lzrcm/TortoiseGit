@@ -29,7 +29,7 @@
 
 bool PasteCopyCommand::Execute()
 {
-	CString sDroppath = parser.GetVal(_T("droptarget"));
+	CString sDroppath = parser.GetVal(L"droptarget");
 	CTGitPath dropPath(sDroppath);
 	if (dropPath.IsAdminDir())
 		return FALSE;
@@ -83,11 +83,11 @@ bool PasteCopyCommand::Execute()
 			// source file is unversioned: move the file to the target, then add it
 			CopyFile(sourcePath.GetWinPath(), fullDropPath.GetWinPath(), FALSE);
 			CString cmd,output;
-			cmd.Format(_T("git.exe add -- \"%s\""),fullDropPath.GetWinPath());
+			cmd.Format(L"git.exe add -- \"%s\"", fullDropPath.GetWinPath());
 			if (g_Git.Run(cmd, &output, CP_UTF8))
 			{
-				TRACE(_T("%s\n"), (LPCTSTR)output);
-				CMessageBox::Show(hwndExplorer, output, _T("TortoiseGit"), MB_ICONERROR);
+				TRACE(L"%s\n", (LPCTSTR)output);
+				CMessageBox::Show(hwndExplorer, output, L"TortoiseGit", MB_ICONERROR);
 				return FALSE;		//get out of here
 			}
 			else
@@ -97,8 +97,8 @@ bool PasteCopyCommand::Execute()
 		//{
 		//	if (!svn.Copy(CTSVNPathList(sourcePath), fullDropPath, SVNRev::REV_WC, SVNRev()))
 		//	{
-		//		TRACE(_T("%s\n"), (LPCTSTR)svn.GetLastErrorMessage());
-		//		CMessageBox::Show(hwndExplorer, svn.GetLastErrorMessage(), _T("TortoiseSVN"), MB_ICONERROR);
+		//		TRACE(L"%s\n", (LPCTSTR)svn.GetLastErrorMessage());
+		//		CMessageBox::Show(hwndExplorer, svn.GetLastErrorMessage(), L"TortoiseSVN", MB_ICONERROR);
 		//		return FALSE;		//get out of here
 		//	}
 		//	else

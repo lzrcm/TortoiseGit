@@ -43,7 +43,7 @@ static CString GetProgramDataGitConfig()
 
 int CGitIndex::Print()
 {
-	_tprintf(_T("0x%08X  0x%08X %s %s\n"),
+	wprintf(L"0x%08X  0x%08X %s %s\n",
 		(int)this->m_ModifyTime,
 		this->m_Flags,
 		(LPCTSTR)this->m_IndexHash.ToString(),
@@ -57,7 +57,7 @@ CGitIndexList::CGitIndexList()
 {
 	this->m_LastModifyTime = 0;
 	m_critRepoSec.Init();
-	m_iMaxCheckSize = (__int64)CRegDWORD(_T("Software\\TortoiseGit\\TGitCacheCheckContentMaxSize"), 10 * 1024) * 1024; // stored in KiB
+	m_iMaxCheckSize = (__int64)CRegDWORD(L"Software\\TortoiseGit\\TGitCacheCheckContentMaxSize", 10 * 1024) * 1024; // stored in KiB
 }
 
 CGitIndexList::~CGitIndexList()
@@ -86,10 +86,10 @@ int CGitIndexList::ReadIndex(CString dgitdir)
 	// add config files
 	CAutoConfig config(true);
 
-	CString projectConfig = dgitdir + _T("config");
+	CString projectConfig = dgitdir + L"config";
 	CString globalConfig = g_Git.GetGitGlobalConfig();
 	CString globalXDGConfig = g_Git.GetGitGlobalXDGConfig();
-	CString systemConfig(CRegString(REG_SYSTEM_GITCONFIGPATH, _T(""), FALSE));
+	CString systemConfig(CRegString(REG_SYSTEM_GITCONFIGPATH, L"", FALSE));
 	CString programDataConfig(GetProgramDataGitConfig());
 
 	git_config_add_file_ondisk(config, CGit::GetGitPathStringA(projectConfig), GIT_CONFIG_LEVEL_LOCAL, FALSE);
@@ -128,7 +128,7 @@ int CGitIndexList::ReadIndex(CString dgitdir)
 		m_bHasConflicts |= GIT_IDXENTRY_STAGE(e);
 	}
 
-	CGit::GetFileModifyTime(dgitdir + _T("index"), &this->m_LastModifyTime);
+	CGit::GetFileModifyTime(dgitdir + L"index", &this->m_LastModifyTime);
 	std::sort(this->begin(), this->end(), SortIndex);
 
 	return 0;
@@ -237,8 +237,8 @@ int CGitIndexList::GetStatus(const CString& gitdir, CString path, git_wc_status_
 		return 0;
 	}
 
-	if (!path.IsEmpty() && path.Right(1) != _T('\\'))
-		path += _T('\\');
+	if (!path.IsEmpty() && path.Right(1) != L'\\')
+		path += L'\\';
 
 	int len = path.GetLength();
 
@@ -295,7 +295,7 @@ int CGitIndexFileMap::Check(const CString &gitdir, bool *isChanged)
 {
 	__int64 time;
 
-	CString IndexFile = g_AdminDirMap.GetAdminDirConcat(gitdir, _T("index"));
+	CString IndexFile = g_AdminDirMap.GetAdminDirConcat(gitdir, L"index");
 
 	if (CGit::GetFileModifyTime(IndexFile, &time))
 		return -1;
@@ -362,9 +362,9 @@ int CGitIndexFileMap::IsUnderVersionControl(const CString& gitdir, CString subpa
 		return 0;
 	}
 
-	subpath.Replace(_T('\\'), _T('/'));
+	subpath.Replace(L'\\', L'/');
 	if (isDir)
-		subpath += _T('/');
+		subpath += L'/';
 
 	subpath.MakeLower();
 
@@ -386,7 +386,7 @@ int CGitIndexFileMap::IsUnderVersionControl(const CString& gitdir, CString subpa
 // This method is assumed to be called with m_SharedMutex locked.
 int CGitHeadFileList::GetPackRef(const CString &gitdir)
 {
-	CString PackRef = g_AdminDirMap.GetAdminDirConcat(gitdir, _T("packed-refs"));
+	CString PackRef = g_AdminDirMap.GetAdminDirConcat(gitdir, L"packed-refs");
 
 	__int64 mtime;
 	if (CGit::GetFileModifyTime(PackRef, &mtime))
@@ -484,7 +484,7 @@ int CGitHeadFileList::ReadHeadHash(const CString& gitdir)
 	m_Gitdir = g_AdminDirMap.GetAdminDir(gitdir);
 
 	m_HeadFile = m_Gitdir;
-	m_HeadFile += _T("HEAD");
+	m_HeadFile += L"HEAD";
 
 	if( CGit::GetFileModifyTime(m_HeadFile, &m_LastModifyTimeHead))
 		return -1;
@@ -523,9 +523,9 @@ int CGitHeadFileList::ReadHeadHash(const CString& gitdir)
 
 		CString ref = m_HeadRefFile.Trim();
 		int start = 0;
-		ref = ref.Tokenize(_T("\n"), start);
+		ref = ref.Tokenize(L"\n", start);
 		m_HeadRefFile = m_Gitdir + m_HeadRefFile;
-		m_HeadRefFile.Replace(_T('/'), _T('\\'));
+		m_HeadRefFile.Replace(L'/', L'\\');
 
 		__int64 time;
 		if (CGit::GetFileModifyTime(m_HeadRefFile, &time, nullptr))
@@ -661,7 +661,7 @@ int CGitHeadFileList::CallBack(const unsigned char *sha1, const char *base, int 
 
 	p->at(cur).m_FileName.MakeLower();
 
-	//p->at(cur).m_FileName.Replace(_T('/'), _T('\\'));
+	//p->at(cur).m_FileName.Replace(L'/', L'\\');
 
 	//p->m_Map[p->at(cur).m_FileName] = cur;
 
@@ -747,9 +747,9 @@ int CGitIgnoreItem::FetchIgnoreList(const CString &projectroot, const CString &f
 	if (!isGlobal)
 	{
 		CString base = file.Mid(projectroot.GetLength() + 1);
-		base.Replace(_T('\\'), _T('/'));
+		base.Replace(L'\\', L'/');
 
-		int start = base.ReverseFind(_T('/'));
+		int start = base.ReverseFind(L'/');
 		if(start > 0)
 		{
 			base = base.Left(start);
@@ -881,14 +881,14 @@ bool CGitIgnoreList::CheckFileChanged(const CString &path)
 bool CGitIgnoreList::CheckIgnoreChanged(const CString &gitdir, const CString &path, bool isDir)
 {
 	CString temp(gitdir);
-	temp += _T('\\');
+	temp += L'\\';
 	temp += path;
 
-	temp.Replace(_T('/'), _T('\\'));
+	temp.Replace(L'/', L'\\');
 
 	if (!isDir)
 	{
-		int x = temp.ReverseFind(_T('\\'));
+		int x = temp.ReverseFind(L'\\');
 		if (x >= 2)
 			temp = temp.Left(x);
 	}
@@ -896,17 +896,17 @@ bool CGitIgnoreList::CheckIgnoreChanged(const CString &gitdir, const CString &pa
 	while(!temp.IsEmpty())
 	{
 		CString tempOrig = temp;
-		temp += _T("\\.git");
+		temp += L"\\.git";
 
 		if (CGit::GitPathFileExists(temp))
 		{
 			CString gitignore=temp;
-			gitignore += _T("ignore");
+			gitignore += L"ignore";
 			if (CheckFileChanged(gitignore))
 				return true;
 
 			CString adminDir = g_AdminDirMap.GetAdminDir(tempOrig);
-			CString wcglobalgitignore = adminDir + _T("info\\exclude");
+			CString wcglobalgitignore = adminDir + L"info\\exclude";
 			if (CheckFileChanged(wcglobalgitignore))
 				return true;
 
@@ -916,7 +916,7 @@ bool CGitIgnoreList::CheckIgnoreChanged(const CString &gitdir, const CString &pa
 			return false;
 		}
 
-		temp += _T("ignore");
+		temp += L"ignore";
 		if (CheckFileChanged(temp))
 			return true;
 
@@ -924,7 +924,7 @@ bool CGitIgnoreList::CheckIgnoreChanged(const CString &gitdir, const CString &pa
 		int i;
 		for (i = temp.GetLength() - 1; i >= 0; --i)
 		{
-			if(temp[i] == _T('\\'))
+			if(temp[i] == L'\\')
 				++found;
 
 			if(found == 2)
@@ -954,14 +954,14 @@ int CGitIgnoreList::FetchIgnoreFile(const CString &gitdir, const CString &gitign
 int CGitIgnoreList::LoadAllIgnoreFile(const CString &gitdir, const CString &path, bool isDir)
 {
 	CString temp(gitdir);
-	temp += _T('\\');
+	temp += L'\\';
 	temp += path;
 
-	temp.Replace(_T('/'), _T('\\'));
+	temp.Replace(L'/', L'\\');
 
 	if (!isDir)
 	{
-		int x = temp.ReverseFind(_T('\\'));
+		int x = temp.ReverseFind(L'\\');
 		if (x >= 2)
 			temp = temp.Left(x);
 	}
@@ -969,18 +969,18 @@ int CGitIgnoreList::LoadAllIgnoreFile(const CString &gitdir, const CString &path
 	while (!temp.IsEmpty())
 	{
 		CString tempOrig = temp;
-		temp += _T("\\.git");
+		temp += L"\\.git";
 
 		if (CGit::GitPathFileExists(temp))
 		{
 			CString gitignore = temp;
-			gitignore += _T("ignore");
+			gitignore += L"ignore";
 			if (CheckFileChanged(gitignore))
 				FetchIgnoreFile(gitdir, gitignore, false);
 
 			CString adminDir = g_AdminDirMap.GetAdminDir(tempOrig);
 			CString wcglobalgitignore = adminDir;
-			wcglobalgitignore += _T("info\\exclude");
+			wcglobalgitignore += L"info\\exclude";
 			if (CheckFileChanged(wcglobalgitignore))
 			{
 				FetchIgnoreFile(gitdir, wcglobalgitignore, true);
@@ -1000,7 +1000,7 @@ int CGitIgnoreList::LoadAllIgnoreFile(const CString &gitdir, const CString &path
 			return 0;
 		}
 
-		temp += _T("ignore");
+		temp += L"ignore";
 		if (CheckFileChanged(temp))
 			FetchIgnoreFile(gitdir, temp, false);
 
@@ -1008,7 +1008,7 @@ int CGitIgnoreList::LoadAllIgnoreFile(const CString &gitdir, const CString &path
 		int i;
 		for (i = temp.GetLength() - 1; i >= 0; --i)
 		{
-			if(temp[i] == _T('\\'))
+			if (temp[i] == L'\\')
 				++found;
 
 			if(found == 2)
@@ -1027,7 +1027,7 @@ bool CGitIgnoreList::CheckAndUpdateGitSystemConfigPath(bool force)
 	if (GetTickCount64() - m_dGitSystemConfigPathLastChecked > 30000UL || force)
 	{
 		m_dGitSystemConfigPathLastChecked = GetTickCount64();
-		CString gitSystemConfigPath(CRegString(REG_SYSTEM_GITCONFIGPATH, _T(""), FALSE));
+		CString gitSystemConfigPath(CRegString(REG_SYSTEM_GITCONFIGPATH, L"", FALSE));
 		if (gitSystemConfigPath != m_sGitSystemConfigPath)
 		{
 			m_sGitSystemConfigPath = gitSystemConfigPath;
@@ -1039,7 +1039,7 @@ bool CGitIgnoreList::CheckAndUpdateGitSystemConfigPath(bool force)
 bool CGitIgnoreList::CheckAndUpdateCoreExcludefile(const CString &adminDir)
 {
 	CString projectConfig(adminDir); 
-	projectConfig += _T("config");
+	projectConfig += L"config";
 	CString globalConfig = g_Git.GetGitGlobalConfig();
 	CString globalXDGConfig = g_Git.GetGitGlobalXDGConfig();
 
@@ -1073,10 +1073,10 @@ bool CGitIgnoreList::CheckAndUpdateCoreExcludefile(const CString &adminDir)
 	if (!m_sGitProgramDataConfigPath.IsEmpty())
 		git_config_add_file_ondisk(config, CGit::GetGitPathStringA(m_sGitProgramDataConfigPath), GIT_CONFIG_LEVEL_PROGRAMDATA, FALSE);
 
-	config.GetString(_T("core.excludesfile"), excludesFile);
+	config.GetString(L"core.excludesfile", excludesFile);
 	if (excludesFile.IsEmpty())
-		excludesFile = GetWindowsHome() + _T("\\.config\\git\\ignore");
-	else if (excludesFile.Find(_T("~/")) == 0)
+		excludesFile = GetWindowsHome() + L"\\.config\\git\\ignore";
+	else if (excludesFile.Find(L"~/") == 0)
 		excludesFile = GetWindowsHome() + excludesFile.Mid(1);
 
 	CAutoWriteLock lockMap(m_SharedMutex);
@@ -1106,16 +1106,16 @@ const CString CGitIgnoreList::GetWindowsHome()
 }
 bool CGitIgnoreList::IsIgnore(CString str, const CString& projectroot, bool isDir)
 {
-	str.Replace(_T('\\'),_T('/'));
+	str.Replace(L'\\', L'/');
 
-	if (!str.IsEmpty() && str[str.GetLength() - 1] == _T('/'))
+	if (!str.IsEmpty() && str[str.GetLength() - 1] == L'/')
 		str = str.Left(str.GetLength() - 1);
 
 	int ret;
 	ret = CheckIgnore(str, projectroot, isDir);
 	while (ret < 0)
 	{
-		int start = str.ReverseFind(_T('/'));
+		int start = str.ReverseFind(L'/');
 		if(start < 0)
 			return (ret == 1);
 
@@ -1135,7 +1135,7 @@ int CGitIgnoreList::CheckFileAgainstIgnoreList(const CString &ignorefile, const 
 int CGitIgnoreList::CheckIgnore(const CString &path, const CString &projectroot, bool isDir)
 {
 	CString temp = CombinePath(projectroot, path);
-	temp.Replace(_T('/'), _T('\\'));
+	temp.Replace(L'/', L'\\');
 
 	CStringA patha = CUnicodeUtils::GetMulti(path, CP_UTF8);
 	patha.Replace('\\', '/');
@@ -1147,7 +1147,7 @@ int CGitIgnoreList::CheckIgnore(const CString &path, const CString &projectroot,
 
 		// strip directory name
 		// we do not need to check for a .ignore file inside a directory we might ignore
-		int i = temp.ReverseFind(_T('\\'));
+		int i = temp.ReverseFind(L'\\');
 		if (i >= 0)
 			temp = temp.Left(i);
 	}
@@ -1155,7 +1155,7 @@ int CGitIgnoreList::CheckIgnore(const CString &path, const CString &projectroot,
 	{
 		type = DT_REG;
 
-		int x = temp.ReverseFind(_T('\\'));
+		int x = temp.ReverseFind(L'\\');
 		if (x >= 2)
 			temp = temp.Left(x);
 	}
@@ -1169,18 +1169,18 @@ int CGitIgnoreList::CheckIgnore(const CString &path, const CString &projectroot,
 	while (!temp.IsEmpty())
 	{
 		CString tempOrig = temp;
-		temp += _T("\\.git");
+		temp += L"\\.git";
 
 		if (CGit::GitPathFileExists(temp))
 		{
 			CString gitignore = temp;
-			gitignore += _T("ignore");
+			gitignore += L"ignore";
 			if ((ret = CheckFileAgainstIgnoreList(gitignore, patha, base, type)) != -1)
 				break;
 
 			CString adminDir = g_AdminDirMap.GetAdminDir(tempOrig);
 			CString wcglobalgitignore = adminDir;
-			wcglobalgitignore += _T("info\\exclude");
+			wcglobalgitignore += L"info\\exclude";
 			if ((ret = CheckFileAgainstIgnoreList(wcglobalgitignore, patha, base, type)) != -1)
 				break;
 
@@ -1191,7 +1191,7 @@ int CGitIgnoreList::CheckIgnore(const CString &path, const CString &projectroot,
 			break;
 		}
 
-		temp += _T("ignore");
+		temp += L"ignore";
 		if ((ret = CheckFileAgainstIgnoreList(temp, patha, base, type)) != -1)
 			break;
 
@@ -1199,7 +1199,7 @@ int CGitIgnoreList::CheckIgnore(const CString &path, const CString &projectroot,
 		int i;
 		for (i = temp.GetLength() - 1; i >= 0; i--)
 		{
-			if (temp[i] == _T('\\'))
+			if (temp[i] == L'\\')
 				++found;
 
 			if (found == 2)
@@ -1237,9 +1237,9 @@ int CGitHeadFileMap::IsUnderVersionControl(const CString& gitdir, CString subpat
 		return 0;
 	}
 
-	subpath.Replace(_T('\\'), _T('/'));
+	subpath.Replace(L'\\', L'/');
 	if (isDir)
-		subpath += _T('/');
+		subpath += L'/';
 
 	subpath.MakeLower();
 

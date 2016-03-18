@@ -26,8 +26,8 @@
 
 bool CatCommand::Execute()
 {
-	CString savepath = CPathUtils::GetLongPathname(parser.GetVal(_T("savepath")));
-	CString revision = parser.GetVal(_T("revision"));
+	CString savepath = CPathUtils::GetLongPathname(parser.GetVal(L"savepath"));
+	CString revision = parser.GetVal(L"revision");
 
 	if (g_Git.UsingLibGit2(CGit::GIT_CMD_GETONEFILE))
 	{
@@ -49,7 +49,7 @@ bool CatCommand::Execute()
 
 		if (git_object_type(obj) == GIT_OBJ_BLOB)
 		{
-			CAutoFILE file = _tfsopen(savepath, _T("w"), SH_DENYRW);
+			CAutoFILE file = _wfsopen(savepath, L"w", SH_DENYRW);
 			if (file == nullptr)
 			{
 				::DeleteFile(savepath);
@@ -68,7 +68,7 @@ bool CatCommand::Execute()
 			{
 				::DeleteFile(savepath);
 				CString err = CFormatMessageWrapper();
-				CMessageBox::Show(hwndExplorer, _T("Could not write to file: ") + err, L"TortoiseGit", MB_ICONERROR);
+				CMessageBox::Show(hwndExplorer, L"Could not write to file: " + err, L"TortoiseGit", MB_ICONERROR);
 				return false;
 			}
 			return true;
@@ -83,19 +83,19 @@ bool CatCommand::Execute()
 	}
 
 	CString cmd, output, err;
-	cmd.Format(_T("git.exe cat-file -t %s"), (LPCTSTR)revision);
+	cmd.Format(L"git.exe cat-file -t %s", (LPCTSTR)revision);
 
 	if (g_Git.Run(cmd, &output, &err, CP_UTF8))
 	{
 		::DeleteFile(savepath);
-		MessageBox(hwndExplorer, output + L"\n" + err, L"TortoiseGit", MB_ICONERROR);
+		MessageBox(hwndExplorer, output + L'\n' + err, L"TortoiseGit", MB_ICONERROR);
 		return false;
 	}
 
-	if(output.Find(_T("blob")) == 0)
-		cmd.Format(_T("git.exe cat-file -p %s"), (LPCTSTR)revision);
+	if(output.Find(L"blob") == 0)
+		cmd.Format(L"git.exe cat-file -p %s", (LPCTSTR)revision);
 	else
-		cmd.Format(_T("git.exe show %s -- \"%s\""), (LPCTSTR)revision, (LPCTSTR)this->cmdLinePath.GetWinPathString());
+		cmd.Format(L"git.exe show %s -- \"%s\"", (LPCTSTR)revision, (LPCTSTR)this->cmdLinePath.GetWinPathString());
 
 	if (g_Git.RunLogFile(cmd, savepath, &err))
 	{

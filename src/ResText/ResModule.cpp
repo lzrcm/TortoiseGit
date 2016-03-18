@@ -1034,7 +1034,7 @@ BOOL CResModule::ExtractAccelerator(LPCTSTR lpszType)
 
 		TCHAR szTempBuf[1024] = { 0 };
 		SecureZeroMemory(szTempBuf, sizeof (szTempBuf));
-		std::wstring wmenu = L"";
+		std::wstring wmenu;
 		pME_iter = m_MenuEntries.find(wID);
 		if (pME_iter != m_MenuEntries.end())
 		{

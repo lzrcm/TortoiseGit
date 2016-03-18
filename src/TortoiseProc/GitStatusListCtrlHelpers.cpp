@@ -97,7 +97,7 @@ bool PropertyList::HasProperty (const CString& name) const
 
 bool PropertyList::IsNeedsLockSet() const
 {
-	static const CString svnNeedsLock = _T("svn:needs-lock");
+	static const CString svnNeedsLock = L"svn:needs-lock";
 	return HasProperty (svnNeedsLock);
 }
 
@@ -133,10 +133,10 @@ void ColumnManager::ReadSettings
 
 	// where the settings are stored within the registry
 
-	registryPrefix = _T("Software\\TortoiseGit\\StatusColumns\\") + containerName;
+	registryPrefix = L"Software\\TortoiseGit\\StatusColumns\\" + containerName;
 
 	// we accept settings of current version only
-	bool valid = (DWORD)CRegDWORD (registryPrefix + _T("Version"), 0xff) == GITSLC_COL_VERSION;
+	bool valid = (DWORD)CRegDWORD (registryPrefix + L"Version", 0xff) == GITSLC_COL_VERSION;
 	if (valid)
 	{
 		// read (possibly different) column selection
@@ -145,7 +145,7 @@ void ColumnManager::ReadSettings
 
 		// read column widths
 
-		CString colWidths = CRegString (registryPrefix + _T("_Width"));
+		CString colWidths = CRegString (registryPrefix + L"_Width");
 
 		ParseWidths (colWidths);
 	}
@@ -168,7 +168,7 @@ void ColumnManager::ReadSettings
 	// restore column ordering
 
 	if (valid)
-		ParseColumnOrder (CRegString (registryPrefix + _T("_Order")));
+		ParseColumnOrder (CRegString (registryPrefix + L"_Order"));
 	else
 		ParseColumnOrder (CString());
 
@@ -184,7 +184,7 @@ void ColumnManager::ReadSettings
 
 void ColumnManager::WriteSettings() const
 {
-	CRegDWORD regVersion (registryPrefix + _T("Version"), 0, TRUE);
+	CRegDWORD regVersion (registryPrefix + L"Version", 0, TRUE);
 	regVersion = GITSLC_COL_VERSION;
 
 	// write (possibly different) column selection
@@ -194,12 +194,12 @@ void ColumnManager::WriteSettings() const
 
 	// write column widths
 
-	CRegString regWidths (registryPrefix + _T("_Width"), CString(), TRUE);
+	CRegString regWidths (registryPrefix + L"_Width", CString(), TRUE);
 	regWidths = GetWidthString();
 
 	// write column ordering
 
-	CRegString regColumnOrder (registryPrefix + _T("_Order"), CString(), TRUE);
+	CRegString regColumnOrder (registryPrefix + L"_Order", CString(), TRUE);
 	regColumnOrder = GetColumnOrderString();
 }
 
@@ -434,7 +434,7 @@ void ColumnManager::ParseWidths (const CString& widths)
 {
 	for (int i = 0, count = widths.GetLength() / 8; i < count; ++i)
 	{
-		long width = _tcstol (widths.Mid (i * 8, 8), nullptr, 16);
+		long width = wcstol (widths.Mid (i * 8, 8), nullptr, 16);
 		if (i < (int)itemName.size())
 		{
 			// a standard column
@@ -470,7 +470,7 @@ void ColumnManager::ParseColumnOrder
 
 	for (int i = 0, count = widths.GetLength() / 2; i < count; ++i)
 	{
-		int index = _tcstol (widths.Mid (i * 2, 2), nullptr, 16);
+		int index = wcstol (widths.Mid (i * 2, 2), nullptr, 16);
 		if ((index < (int)itemName.size()))
 		{
 			alreadyPlaced.insert (index);
@@ -559,7 +559,7 @@ CString ColumnManager::GetWidthString() const
 	TCHAR buf[10] = { 0 };
 	for (size_t i = 0; i < itemName.size(); ++i)
 	{
-		_stprintf_s (buf, 10, _T("%08X"), columns[i].width);
+		swprintf_s (buf, 10, L"%08X", columns[i].width);
 		result += buf;
 	}
 
@@ -573,7 +573,7 @@ CString ColumnManager::GetColumnOrderString() const
 	TCHAR buf[3] = { 0 };
 	for (size_t i = 0, count = columnOrder.size(); i < count; ++i)
 	{
-		_stprintf_s (buf, 3, _T("%02X"), columnOrder[i]);
+		swprintf_s (buf, 3, L"%02X", columnOrder[i]);
 		result += buf;
 	}
 

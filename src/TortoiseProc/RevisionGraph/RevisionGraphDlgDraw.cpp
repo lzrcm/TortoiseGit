@@ -65,7 +65,7 @@ CFont* CRevisionGraphWnd::GetFont(BOOL bItalic /*= FALSE*/, BOOL bBold /*= FALSE
 		ReleaseDC(pDC);
 		// use the empty font name, so GDI takes the first font which matches
 		// the specs. Maybe this will help render chinese/japanese chars correctly.
-		_tcsncpy_s(m_lfBaseFont.lfFaceName, _T("MS Shell Dlg 2"), _countof(m_lfBaseFont.lfFaceName) - 1);
+		wcsncpy_s(m_lfBaseFont.lfFaceName, L"MS Shell Dlg 2", _countof(m_lfBaseFont.lfFaceName) - 1);
 		if (!m_apFonts[nIndex]->CreateFontIndirect(&m_lfBaseFont))
 		{
 			delete m_apFonts[nIndex];
@@ -928,8 +928,8 @@ void CRevisionGraphWnd::DrawConnections (GraphicsDevice& graphics, const CRect& 
 		}
 		else if (graphics.pGraphviz)
 		{
-			CString hash1 = _T("g") + m_logEntries[e->target()->index()].ToString().Left(g_Git.GetShortHASHLength());
-			CString hash2 = _T("g") + m_logEntries[e->source()->index()].ToString().Left(g_Git.GetShortHASHLength());
+			CString hash1 = L"g" + m_logEntries[e->target()->index()].ToString().Left(g_Git.GetShortHASHLength());
+			CString hash2 = L"g" + m_logEntries[e->source()->index()].ToString().Left(g_Git.GetShortHASHLength());
 			graphics.pGraphviz->DrawEdge(hash1, hash2);
 		}
 
@@ -988,12 +988,12 @@ void CRevisionGraphWnd::DrawTexts (GraphicsDevice& graphics, const CRect& /*logR
 	if (graphics.pDC)
 		graphics.pDC->SetTextAlign (TA_CENTER | TA_TOP);
 
-	CString fontname = CRegString(_T("Software\\TortoiseGit\\LogFontName"), _T("Courier New"));
+	CString fontname = CRegString(L"Software\\TortoiseGit\\LogFontName", L"Courier New");
 
 	Gdiplus::Font font(fontname, (REAL)m_nFontSize, FontStyleRegular);
 	SolidBrush blackbrush((ARGB)Color::Black);
 
-	DWORD revGraphUseLocalForCur = CRegDWORD(_T("Software\\TortoiseGit\\TortoiseProc\\Graph\\RevGraphUseLocalForCur"));
+	DWORD revGraphUseLocalForCur = CRegDWORD(L"Software\\TortoiseGit\\TortoiseProc\\Graph\\RevGraphUseLocalForCur");
 
 	node v;
 	forall_nodes(v,m_Graph)
@@ -1035,13 +1035,13 @@ void CRevisionGraphWnd::DrawTexts (GraphicsDevice& graphics, const CRect& /*logR
 			if (graphics.pGraphviz)
 			{
 				CString shortHash = hash.ToString().Left(g_Git.GetShortHASHLength());
-				graphics.pGraphviz->DrawNode(_T("g") + shortHash, shortHash, fontname, m_nFontSize, background, brightColor, (int)noderect.Height);
+				graphics.pGraphviz->DrawNode(L"g" + shortHash, shortHash, fontname, m_nFontSize, background, brightColor, (int)noderect.Height);
 			}
 		}else
 		{
 			if (graphics.pGraphviz)
 			{
-				CString id = _T("g") + hash.ToString().Left(g_Git.GetShortHASHLength());
+				CString id = L"g" + hash.ToString().Left(g_Git.GetShortHASHLength());
 				graphics.pGraphviz->BeginDrawTableNode(id, fontname, m_nFontSize, (int)noderect.Height);
 			}
 
@@ -1279,7 +1279,7 @@ void CRevisionGraphWnd::DrawGraph(GraphicsDevice& graphics, const CRect& rect, i
 void CRevisionGraphWnd::SetNodeRect(GraphicsDevice& graphics, ogdf::node *pnode, CGitHash rev, int mode )
 {
 	//multi - line mode. One RefName is one new line
-	CString fontname = CRegString(_T("Software\\TortoiseGit\\LogFontName"), _T("Courier New"));
+	CString fontname = CRegString(L"Software\\TortoiseGit\\LogFontName", L"Courier New");
 	if(mode == 0)
 	{
 		if(this->m_HashMap.find(rev) == m_HashMap.end())

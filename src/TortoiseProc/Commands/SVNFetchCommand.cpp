@@ -28,19 +28,19 @@
 bool SVNFetchCommand::Execute()
 {
 	CString cmd, out, err;
-	cmd = _T("git.exe config svn-remote.svn.fetch");
+	cmd = L"git.exe config svn-remote.svn.fetch";
 
 	if (!g_Git.Run(cmd, &out, &err, CP_UTF8))
 	{
-		int start = out.Find(_T(':'));
+		int start = out.Find(L':');
 		if( start >=0 )
 			out=out.Mid(start);
 
-		if(out.Left(5) == _T(":refs"))
+		if(out.Left(5) == L":refs")
 			out=out.Mid(6);
 
 		start = 0;
-		out=out.Tokenize(_T("\n"),start);
+		out = out.Tokenize(L"\n", start);
 	}
 	else
 	{
@@ -51,12 +51,12 @@ bool SVNFetchCommand::Execute()
 	CGitHash upstreamOldHash;
 	if (g_Git.GetHash(upstreamOldHash, out))
 	{
-		MessageBox(hwndExplorer, g_Git.GetGitLastErr(_T("Could not get upstream hash.")), _T("TortoiseGit"), MB_ICONERROR);
+		MessageBox(hwndExplorer, g_Git.GetGitLastErr(L"Could not get upstream hash."), L"TortoiseGit", MB_ICONERROR);
 		return false;
 	}
 
 	CProgressDlg progress;
-	progress.m_GitCmd=_T("git.exe svn fetch");
+	progress.m_GitCmd=L"git.exe svn fetch";
 
 	CGitHash upstreamNewHash; // declare outside lambda, because it is captured by reference
 	progress.m_PostCmdCallback = [&](DWORD status, PostCmdList& postCmdList)
@@ -66,20 +66,20 @@ bool SVNFetchCommand::Execute()
 
 		if (g_Git.GetHash(upstreamNewHash, out))
 		{
-			MessageBox(hwndExplorer, g_Git.GetGitLastErr(_T("Could not get upstream hash after fetching.")), _T("TortoiseGit"), MB_ICONERROR);
+			MessageBox(hwndExplorer, g_Git.GetGitLastErr(L"Could not get upstream hash after fetching."), L"TortoiseGit", MB_ICONERROR);
 			return;
 		}
 		if (upstreamOldHash == upstreamNewHash)
 			return;
 
-		postCmdList.emplace_back(IDI_DIFF, _T("Fetched Diff"), [&]
+		postCmdList.emplace_back(IDI_DIFF, L"Fetched Diff", [&]
 		{
 			CLogDlg dlg;
-			dlg.SetParams(CTGitPath(_T("")), CTGitPath(_T("")), _T(""), upstreamOldHash.ToString() + _T("..") + upstreamNewHash.ToString(), 0);
+			dlg.SetParams(CTGitPath(L""), CTGitPath(L""), L"", upstreamOldHash.ToString() + L".." + upstreamNewHash.ToString(), 0);
 			dlg.DoModal();
 		});
 
-		postCmdList.emplace_back(IDI_LOG, _T("Fetched Log"), [&]
+		postCmdList.emplace_back(IDI_LOG, L"Fetched Log", [&]
 		{
 			CFileDiffDlg dlg;
 			dlg.SetDiff(nullptr, upstreamNewHash.ToString(), upstreamOldHash.ToString());

@@ -78,13 +78,13 @@ void LoadLangDll()
 			return;
 		if (GetModuleFileNameA(g_hmodThisDll, langdirA, _countof(langdirA))==0)
 			return;
-		TCHAR * dirpoint = _tcsrchr(langdir, '\\');
+		TCHAR * dirpoint = wcsrchr(langdir, '\\');
 		char * dirpointA = strrchr(langdirA, '\\');
 		if (dirpoint)
 			*dirpoint = 0;
 		if (dirpointA)
 			*dirpointA = 0;
-		dirpoint = _tcsrchr(langdir, '\\');
+		dirpoint = wcsrchr(langdir, '\\');
 		dirpointA = strrchr(langdirA, '\\');
 		if (dirpoint)
 			*dirpoint = 0;
@@ -98,9 +98,9 @@ void LoadLangDll()
 		do
 		{
 			if (bIsWow)
-				_stprintf_s(langDll, _T("%s\\Languages\\TortoiseProc32%lu.dll"), langdir, langId);
+				swprintf_s(langDll, L"%s\\Languages\\TortoiseProc32%lu.dll", langdir, langId);
 			else
-				_stprintf_s(langDll, _T("%s\\Languages\\TortoiseProc%lu.dll"), langdir, langId);
+				swprintf_s(langDll, L"%s\\Languages\\TortoiseProc%lu.dll", langdir, langId);
 			BOOL versionmatch = TRUE;
 
 			struct TRANSARRAY
@@ -132,13 +132,13 @@ void LoadLangDll()
 					{
 						// Query the current language
 						if (VerQueryValue(	pBuffer,
-							_T("\\VarFileInfo\\Translation"),
+							L"\\VarFileInfo\\Translation",
 							&lpFixedPointer,
 							&nFixedLength))
 						{
 							lpTransArray = (TRANSARRAY*) lpFixedPointer;
 
-							_stprintf_s(strLangProductVersion, _T("\\StringFileInfo\\%04x%04x\\ProductVersion"),
+							swprintf_s(strLangProductVersion, L"\\StringFileInfo\\%04x%04x\\ProductVersion",
 								lpTransArray[0].wLanguageID, lpTransArray[0].wCharacterSet);
 
 							if (VerQueryValue(pBuffer,
@@ -146,7 +146,7 @@ void LoadLangDll()
 								(LPVOID *)&lpVersion,
 								&nInfoSize))
 							{
-								versionmatch = (_tcscmp((LPCTSTR)lpVersion, _T(STRPRODUCTVER)) == 0);
+								versionmatch = (wcscmp((LPCTSTR)lpVersion, _T(STRPRODUCTVER)) == 0);
 							}
 
 						}

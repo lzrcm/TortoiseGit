@@ -30,8 +30,8 @@ bool RepositoryBrowserCommand::Execute()
 		return false;
 	}
 
-	CString rev = _T("HEAD");
-	CString val = parser.GetVal(_T("rev"));
+	CString rev = L"HEAD";
+	CString val = parser.GetVal(L"rev");
 	if (!val.IsEmpty())
 		rev = val;
 	CRepositoryBrowser(rev).DoModal();

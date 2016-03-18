@@ -37,10 +37,10 @@ CSetMainPage::CSetMainPage()
 	, m_bCheckNewer(TRUE)
 	, m_dwLanguage(0)
 {
-	m_regLanguage = CRegDWORD(_T("Software\\TortoiseGit\\LanguageID"), 1033);
-	CString temp = CRegString(REG_MSYSGIT_INSTALL, _T(""), FALSE, HKEY_LOCAL_MACHINE);
+	m_regLanguage = CRegDWORD(L"Software\\TortoiseGit\\LanguageID", 1033);
+	CString temp = CRegString(REG_MSYSGIT_INSTALL, L"", FALSE, HKEY_LOCAL_MACHINE);
 	if(!temp.IsEmpty())
-		temp+=_T("bin");
+		temp+=L"bin";
 	m_regMsysGitPath = CRegString(REG_MSYSGIT_PATH,temp,FALSE);
 
 	m_regMsysGitExtranPath =CRegString(REG_MSYSGIT_EXTRA_PATH);
@@ -48,7 +48,7 @@ CSetMainPage::CSetMainPage()
 	m_sMsysGitPath = m_regMsysGitPath;
 	m_sMsysGitExtranPath = m_regMsysGitExtranPath;
 
-	m_regCheckNewer = CRegDWORD(_T("Software\\TortoiseGit\\VersionCheck"), TRUE);
+	m_regCheckNewer = CRegDWORD(L"Software\\TortoiseGit\\VersionCheck", TRUE);
 }
 
 CSetMainPage::~CSetMainPage()
@@ -101,14 +101,14 @@ BOOL CSetMainPage::OnInitDialog()
 	m_LanguageCombo.AddString(buf);
 	m_LanguageCombo.SetItemData(0, 1033);
 	CString path = CPathUtils::GetAppParentDirectory();
-	path = path + _T("Languages\\");
-	CSimpleFileFind finder(path, _T("*.dll"));
+	path = path + L"Languages\\";
+	CSimpleFileFind finder(path, L"*.dll");
 	int langcount = 1;
 	while (finder.FindNextFileNoDirectories())
 	{
 		CString file = finder.GetFilePath();
 		CString filename = finder.GetFileName();
-		if (filename.Left(12).CompareNoCase(_T("TortoiseProc"))==0)
+		if (filename.Left(12).CompareNoCase(L"TortoiseProc")==0)
 		{
 			CString sVer = _T(STRPRODUCTVER);
 			sVer = sVer.Left(sVer.ReverseFind('.'));
@@ -120,15 +120,15 @@ BOOL CSetMainPage::OnInitDialog()
 			sLoc = sLoc.Left(sLoc.GetLength()-4); // cut off ".dll"
 			if ((sLoc.Left(2) == L"32")&&(sLoc.GetLength() > 5))
 				continue;
-			DWORD loc = _tstoi(filename.Mid(12));
+			DWORD loc = _wtoi(filename.Mid(12));
 			GetLocaleInfo(loc, LOCALE_SNATIVELANGNAME, buf, _countof(buf));
 			CString sLang = buf;
 			GetLocaleInfo(loc, LOCALE_SNATIVECTRYNAME, buf, _countof(buf));
 			if (buf[0])
 			{
-				sLang += _T(" (");
+				sLang += L" (";
 				sLang += buf;
-				sLang += _T(")");
+				sLang += L")";
 			}
 			m_LanguageCombo.AddString(sLang);
 			m_LanguageCombo.SetItemData(langcount++, loc);
@@ -162,21 +162,21 @@ static void PerformCommonGitPathCleanup(CString &path)
 		path.ReleaseBuffer();
 	}
 
-	path.Replace(L"/", L"\\");
+	path.Replace(L'/', L'\\');
 	path.Replace(L"\\\\", L"\\");
 
-	if (path.GetLength() > 7 && path.Right(7) == _T("git.exe"))
+	if (path.GetLength() > 7 && path.Right(7) == L"git.exe")
 		path = path.Left(path.GetLength() - 7);
 
-	path.TrimRight(L"\\");
+	path.TrimRight(L'\\');
 
 	// prefer git.exe in cmd-directory for Git for Windows based on msys2
-	if (path.GetLength() > 12 && (path.Right(12) == _T("\\mingw32\\bin") || path.Right(12) == _T("\\mingw64\\bin")) && PathFileExists(path.Left(path.GetLength() - 12) + _T("\\cmd\\git.exe")))
-		path = path.Left(path.GetLength() - 12) + _T("\\cmd");
+	if (path.GetLength() > 12 && (path.Right(12) == L"\\mingw32\\bin" || path.Right(12) == L"\\mingw64\\bin") && PathFileExists(path.Left(path.GetLength() - 12) + L"\\cmd\\git.exe"))
+		path = path.Left(path.GetLength() - 12) + L"\\cmd";
 
 	// prefer git.exe in bin-directory, see https://github.com/msysgit/msysgit/issues/103
-	if (path.GetLength() > 5 && path.Right(4) == _T("\\cmd") && PathFileExists(path.Left(path.GetLength() - 4) + _T("\\bin\\git.exe")))
-		path = path.Left(path.GetLength() - 4) + _T("\\bin");
+	if (path.GetLength() > 5 && path.Right(4) == L"\\cmd" && PathFileExists(path.Left(path.GetLength() - 4) + L"\\bin\\git.exe"))
+		path = path.Left(path.GetLength() - 4) + L"\\bin";
 }
 
 void CSetMainPage::OnMsysGitPathModify()
@@ -187,13 +187,13 @@ void CSetMainPage::OnMsysGitPathModify()
 	{
 		PerformCommonGitPathCleanup(str);
 
-		if(str.GetLength()>=3 && str.Find(_T("bin"), str.GetLength()-3) >=0)
+		if(str.GetLength()>=3 && str.Find(L"bin", str.GetLength()-3) >=0)
 		{
 			str=str.Left(str.GetLength()-3);
-			str += _T("mingw\\bin");
+			str += L"mingw\\bin";
 			if(::PathFileExists(str))
 			{
-				str+=_T(";");
+				str+=L";";
 				if(this->m_sMsysGitExtranPath.Find(str)<0)
 				{
 					m_sMsysGitExtranPath = str + m_sMsysGitExtranPath;
@@ -231,7 +231,7 @@ BOOL CSetMainPage::OnApply()
 	}
 	else
 	{
-		if (CMessageBox::Show(nullptr, _T("Invalid git.exe path.\nCheck help file for \"Git.exe Path\"."), _T("TortoiseGit"), 1, IDI_ERROR, CString(MAKEINTRESOURCE(IDS_MSGBOX_OK)), CString(MAKEINTRESOURCE(IDS_MSGBOX_HELP))) == 2)
+		if (CMessageBox::Show(nullptr, L"Invalid git.exe path.\nCheck help file for \"Git.exe Path\".", L"TortoiseGit", 1, IDI_ERROR, CString(MAKEINTRESOURCE(IDS_MSGBOX_OK)), CString(MAKEINTRESOURCE(IDS_MSGBOX_HELP))) == 2)
 			OnHelp();
 		return 0;
 	}
@@ -239,7 +239,7 @@ BOOL CSetMainPage::OnApply()
 
 void CSetMainPage::OnBnClickedChecknewerbutton()
 {
-	CAppUtils::RunTortoiseGitProc(_T("/command:updatecheck /visible"), false, false);
+	CAppUtils::RunTortoiseGitProc(L"/command:updatecheck /visible", false, false);
 }
 
 void CSetMainPage::OnBrowseDir()
@@ -282,22 +282,22 @@ void CSetMainPage::OnCheck()
 	{
 		CString cmd;
 		CString out;
-		cmd=_T("git.exe --version");
+		cmd=L"git.exe --version";
 		int ret = g_Git.Run(cmd,&out,CP_UTF8);
 		this->GetDlgItem(IDC_MSYSGIT_VER)->SetWindowText(out);
 		if (out.IsEmpty())
 		{
-			if (ret == 0xC0000135 && CMessageBox::Show(nullptr, _T("Could not start git.exe. A dynamic library (dll) is missing.\nCheck help file for \"Extern DLL Path\"."), _T("TortoiseGit"), 1, IDI_ERROR, CString(MAKEINTRESOURCE(IDS_MSGBOX_OK)), CString(MAKEINTRESOURCE(IDS_MSGBOX_HELP))) == 2)
+			if (ret == 0xC0000135 && CMessageBox::Show(nullptr, L"Could not start git.exe. A dynamic library (dll) is missing.\nCheck help file for \"Extern DLL Path\".", L"TortoiseGit", 1, IDI_ERROR, CString(MAKEINTRESOURCE(IDS_MSGBOX_OK)), CString(MAKEINTRESOURCE(IDS_MSGBOX_HELP))) == 2)
 				OnHelp();
-			else if (CMessageBox::Show(nullptr, _T("Could not get read version information from git.exe.\nCheck help file for \"Git.exe Path\"."),_T("TortoiseGit"), 1, IDI_ERROR, CString(MAKEINTRESOURCE(IDS_MSGBOX_OK)), CString(MAKEINTRESOURCE(IDS_MSGBOX_HELP))) == 2)
+			else if (CMessageBox::Show(nullptr, L"Could not get read version information from git.exe.\nCheck help file for \"Git.exe Path\".", L"TortoiseGit", 1, IDI_ERROR, CString(MAKEINTRESOURCE(IDS_MSGBOX_OK)), CString(MAKEINTRESOURCE(IDS_MSGBOX_HELP))) == 2)
 				OnHelp();
 		}
-		else if (!(CGit::ms_bCygwinGit || CGit::ms_bMsys2Git) && out.Find(_T("msysgit")) == -1 && out.Find(_T("windows")) == -1 && CMessageBox::Show(nullptr, _T("Could not find \"msysgit\" or \"windows\" in versionstring of git.exe.\nIf you are using git of the cygwin or msys2 environment please read the help file for the keyword \"cygwin git\" or \"msys2 git\"."), _T("TortoiseGit"), 1, IDI_INFORMATION, CString(MAKEINTRESOURCE(IDS_MSGBOX_OK)), CString(MAKEINTRESOURCE(IDS_MSGBOX_HELP))) == 2)
+		else if (!(CGit::ms_bCygwinGit || CGit::ms_bMsys2Git) && out.Find(L"msysgit") == -1 && out.Find(L"windows") == -1 && CMessageBox::Show(nullptr, L"Could not find \"msysgit\" or \"windows\" in versionstring of git.exe.\nIf you are using git of the cygwin or msys2 environment please read the help file for the keyword \"cygwin git\" or \"msys2 git\".", L"TortoiseGit", 1, IDI_INFORMATION, CString(MAKEINTRESOURCE(IDS_MSGBOX_OK)), CString(MAKEINTRESOURCE(IDS_MSGBOX_HELP))) == 2)
 			OnHelp();
 	}
 	else
 	{
-		if (CMessageBox::Show(nullptr, _T("Invalid git.exe path.\nCheck help file for \"Git.exe Path\"."), _T("TortoiseGit"), 1, IDI_ERROR, CString(MAKEINTRESOURCE(IDS_MSGBOX_OK)), CString(MAKEINTRESOURCE(IDS_MSGBOX_HELP))) == 2)
+		if (CMessageBox::Show(nullptr, L"Invalid git.exe path.\nCheck help file for \"Git.exe Path\".", L"TortoiseGit", 1, IDI_ERROR, CString(MAKEINTRESOURCE(IDS_MSGBOX_OK)), CString(MAKEINTRESOURCE(IDS_MSGBOX_HELP))) == 2)
 			OnHelp();
 	}
 
@@ -310,10 +310,10 @@ void CSetMainPage::OnBnClickedButtonShowEnv()
 	CString cmd, err;
 	CString tempfile=::GetTempFile();
 
-	cmd=_T("cmd /c set");
+	cmd=L"cmd /c set";
 	if (g_Git.RunLogFile(cmd, tempfile, &err))
 	{
-		CMessageBox::Show(GetSafeHwnd(), _T("Could not get environment variables:\n") + err, _T("TortoiseGit"), MB_OK);
+		CMessageBox::Show(GetSafeHwnd(), L"Could not get environment variables:\n" + err, L"TortoiseGit", MB_OK);
 		return;
 	}
 	CAppUtils::LaunchAlternativeEditor(tempfile);

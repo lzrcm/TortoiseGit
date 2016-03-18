@@ -43,11 +43,11 @@ bool SVNRebaseCommand::Execute()
 			sysProgressDlg.ShowModeless((HWND)nullptr, true);
 
 			CString cmd,out;
-			cmd=_T("git.exe stash");
+			cmd=L"git.exe stash";
 			if (g_Git.Run(cmd, &out, CP_UTF8))
 			{
 				sysProgressDlg.Stop();
-				MessageBox(hwndExplorer, out, _T("TortoiseGit"), MB_OK | MB_ICONERROR);
+				MessageBox(hwndExplorer, out, L"TortoiseGit", MB_OK | MB_ICONERROR);
 				return false;
 			}
 			sysProgressDlg.Stop();
@@ -61,26 +61,26 @@ bool SVNRebaseCommand::Execute()
 
 	CRebaseDlg dlg;
 
-//	dlg.m_PreCmd=_T("git.exe svn fetch");
+//	dlg.m_PreCmd=L"git.exe svn fetch";
 
 	CString cmd, out, err;
-	cmd = _T("git.exe config svn-remote.svn.fetch");
+	cmd = L"git.exe config svn-remote.svn.fetch";
 
 	if (!g_Git.Run(cmd, &out, &err, CP_UTF8))
 	{
-		int start = out.Find(_T(':'));
+		int start = out.Find(L':');
 		if( start >=0 )
 			out=out.Mid(start);
 
-		if(out.Left(5) == _T(":refs"))
+		if(out.Left(5) == L":refs")
 			out=out.Mid(6);
 
 		start = 0;
-		out=out.Tokenize(_T("\n"),start);
+		out = out.Tokenize(L"\n", start);
 	}
 	else
 	{
-		MessageBox(hwndExplorer, out + L"\n" + err, L"TortoiseGit", MB_OK | MB_ICONERROR);
+		MessageBox(hwndExplorer, out + L'\n' + err, L"TortoiseGit", MB_OK | MB_ICONERROR);
 		return false;
 	}
 
@@ -89,16 +89,16 @@ bool SVNRebaseCommand::Execute()
 	CGitHash UpStreamOldHash,HeadHash,UpStreamNewHash;
 	if (g_Git.GetHash(UpStreamOldHash, out))
 	{
-		MessageBox(hwndExplorer, g_Git.GetGitLastErr(_T("Could not get hash of SVN branch.")), _T("TortoiseGit"), MB_ICONERROR);
+		MessageBox(hwndExplorer, g_Git.GetGitLastErr(L"Could not get hash of SVN branch."), L"TortoiseGit", MB_ICONERROR);
 		return false;
 	}
-	if (g_Git.GetHash(HeadHash, _T("HEAD")))
+	if (g_Git.GetHash(HeadHash, L"HEAD"))
 	{
-		MessageBox(hwndExplorer, g_Git.GetGitLastErr(_T("Could not get HEAD hash.")), _T("TortoiseGit"), MB_ICONERROR);
+		MessageBox(hwndExplorer, g_Git.GetGitLastErr(L"Could not get HEAD hash."), L"TortoiseGit", MB_ICONERROR);
 		return false;
 	}
 	CProgressDlg progress;
-	progress.m_GitCmd=_T("git.exe svn fetch");
+	progress.m_GitCmd=L"git.exe svn fetch";
 	progress.m_AutoClose = AUTOCLOSE_IF_NO_ERRORS;
 
 	if(progress.DoModal()!=IDOK)
@@ -109,14 +109,14 @@ bool SVNRebaseCommand::Execute()
 
 	if (g_Git.GetHash(UpStreamNewHash, out))
 	{
-		MessageBox(hwndExplorer, g_Git.GetGitLastErr(_T("Could not get upstream hash after fetching.")), _T("TortoiseGit"), MB_ICONERROR);
+		MessageBox(hwndExplorer, g_Git.GetGitLastErr(L"Could not get upstream hash after fetching."), L"TortoiseGit", MB_ICONERROR);
 		return false;
 	}
 
 	//everything updated
 	if(UpStreamNewHash==HeadHash)
 	{
-		MessageBox(hwndExplorer, g_Git.m_CurrentDir + _T("\r\n") + CString(MAKEINTRESOURCE(IDS_PROC_EVERYTHINGUPDATED)), _T("TortoiseGit"), MB_OK | MB_ICONQUESTION);
+		MessageBox(hwndExplorer, g_Git.m_CurrentDir + L"\r\n" + CString(MAKEINTRESOURCE(IDS_PROC_EVERYTHINGUPDATED)), L"TortoiseGit", MB_OK | MB_ICONQUESTION);
 		if(isStash)
 			askIfUserWantsToStashPop();
 
@@ -124,10 +124,10 @@ bool SVNRebaseCommand::Execute()
 	}
 
 	//fast forward;
-	if(g_Git.IsFastForward(CString(_T("HEAD")),out))
+	if(g_Git.IsFastForward(CString(L"HEAD"),out))
 	{
 		CProgressDlg progressReset;
-		cmd.Format(_T("git.exe reset --hard %s --"), (LPCTSTR)out);
+		cmd.Format(L"git.exe reset --hard %s --", (LPCTSTR)out);
 		progressReset.m_GitCmd = cmd;
 		progressReset.m_AutoClose = AUTOCLOSE_IF_NO_ERRORS;
 
@@ -135,7 +135,7 @@ bool SVNRebaseCommand::Execute()
 			return false;
 		else
 		{
-			MessageBox(hwndExplorer, g_Git.m_CurrentDir + _T("\r\n") + CString(MAKEINTRESOURCE(IDS_PROC_FASTFORWARD)) + _T(":\n") + progressReset.m_LogText, _T("TortoiseGit"), MB_OK | MB_ICONQUESTION);
+			MessageBox(hwndExplorer, g_Git.m_CurrentDir + L"\r\n" + CString(MAKEINTRESOURCE(IDS_PROC_FASTFORWARD)) + L":\n" + progressReset.m_LogText, L"TortoiseGit", MB_OK | MB_ICONQUESTION);
 			if(isStash)
 				askIfUserWantsToStashPop();
 
@@ -152,8 +152,8 @@ bool SVNRebaseCommand::Execute()
 			askIfUserWantsToStashPop();
 		if (response == IDC_REBASE_POST_BUTTON)
 		{
-			cmd = _T("/command:log");
-			cmd += _T(" /path:\"") + g_Git.m_CurrentDir + _T("\"");
+			cmd = L"/command:log";
+			cmd += L" /path:\"" + g_Git.m_CurrentDir + L'\"';
 			CAppUtils::RunTortoiseGitProc(cmd);
 		}
 		return true;

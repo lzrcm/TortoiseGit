@@ -178,7 +178,7 @@ bool CStringUtils::WriteAsciiStringToClipboard(const CStringW& sClipdata, HWND h
 	if (!pchData)
 		return false;
 
-	_tcscpy_s(pchData, sClipdata.GetLength()+1, (LPCWSTR)sClipdata);
+	wcscpy_s(pchData, sClipdata.GetLength()+1, (LPCWSTR)sClipdata);
 	GlobalUnlock(hClipboardData);
 	if (!SetClipboardData(CF_UNICODETEXT, hClipboardData))
 		return false;
@@ -190,7 +190,7 @@ bool CStringUtils::WriteAsciiStringToClipboard(const CStringW& sClipdata, HWND h
 
 bool CStringUtils::WriteDiffToClipboard(const CStringA& sClipdata, HWND hOwningWnd)
 {
-	UINT cFormat = RegisterClipboardFormat(_T("TGIT_UNIFIEDDIFF"));
+	UINT cFormat = RegisterClipboardFormat(L"TGIT_UNIFIEDDIFF");
 	if (cFormat == 0)
 		return false;
 	CClipboardHelper clipboardHelper;
@@ -261,7 +261,7 @@ bool CStringUtils::ReadStringFromTextFile(const CString& path, CString& text)
 #if defined(CSTRING_AVAILABLE) || defined(_MFC_VER)
 BOOL CStringUtils::WildCardMatch(const CString& wildcard, const CString& string)
 {
-	return _tcswildcmp(wildcard, string);
+	return wcswildcmp(wildcard, string);
 }
 
 CString CStringUtils::LinesWrap(const CString& longstring, int limit /* = 80 */, bool bCompactPaths /* = true */)
@@ -283,12 +283,12 @@ CString CStringUtils::LinesWrap(const CString& longstring, int limit /* = 80 */,
 			break;
 		lineposold = linepos;
 		if (!retString.IsEmpty())
-			retString += _T("\n");
+			retString += L'\n';
 		retString += WordWrap(temp, limit, bCompactPaths, false, 4);
 	}
 	temp = longstring.Mid(lineposold);
 	if (!temp.IsEmpty())
-		retString += _T("\n");
+		retString += L'\n';
 	retString += WordWrap(temp, limit, bCompactPaths, false, 4);
 	retString.Trim();
 	return retString;
@@ -336,7 +336,7 @@ CString CStringUtils::WordWrap(const CString& longstring, int limit, bool bCompa
 			}
 			else
 				retString += longstring.Mid(nLineStart, nLineEnd-nLineStart);
-			retString += L"\n";
+			retString += L'\n';
 			tabOffset = 0;
 			nLineStart = nLineEnd;
 		}
@@ -444,7 +444,7 @@ static void cleanup_space(CString& string)
 	for (int pos = 0; pos < string.GetLength(); ++pos)
 	{
 		if (_istspace(string[pos])) {
-			string.SetAt(pos ,_T(' '));
+			string.SetAt(pos ,L' ');
 			int cnt;
 			for (cnt = 0; _istspace(string[pos + cnt + 1]); ++cnt);
 			string.Delete(pos + 1, cnt);
@@ -455,7 +455,7 @@ static void cleanup_space(CString& string)
 static void get_sane_name(CString* out, const CString* name, const CString& email)
 {
 	const CString* src = name;
-	if (name->GetLength() < 3 || 60 < name->GetLength() || _tcschr(*name, _T('@')) || _tcschr(*name, _T('<')) || _tcschr(*name, _T('>')))
+	if (name->GetLength() < 3 || 60 < name->GetLength() || wcschr(*name, L'@') || wcschr(*name, L'<') || wcschr(*name, L'>'))
 		src = &email;
 	else if (name == out)
 		return;
@@ -527,7 +527,7 @@ void CStringUtils::ParseEmailAddress(CString mailaddress, CString& parsedAddress
 	}
 
 	auto buf = mailaddress.GetBuffer();
-	auto at = _tcschr(buf, _T('@'));
+	auto at = wcschr(buf, L'@');
 	if (!at)
 	{
 		parse_bogus_from(mailaddress, parsedAddress, parsedName);
@@ -542,15 +542,15 @@ void CStringUtils::ParseEmailAddress(CString mailaddress, CString& parsedAddress
 		auto c = at[-1];
 		if (_istspace(c))
 			break;
-		if (c == _T('<')) {
-			at[-1] = _T(' ');
+		if (c == L'<') {
+			at[-1] = L' ';
 			break;
 		}
 		at--;
 	}
 
 	mailaddress.ReleaseBuffer();
-	size_t el = _tcscspn(at, _T(" \n\t\r\v\f>"));
+	size_t el = wcscspn(at, L" \n\t\r\v\f>");
 	parsedAddress = mailaddress.Mid((int)(at - buf), (int)el);
 	mailaddress.Delete((int)(at - buf), (int)(el + (at[el] ? 1 : 0)));
 
@@ -568,7 +568,7 @@ void CStringUtils::ParseEmailAddress(CString mailaddress, CString& parsedAddress
 	 */
 	cleanup_space(mailaddress);
 	mailaddress.Trim();
-	if (!mailaddress.IsEmpty() && ((mailaddress[0] == _T('(') && mailaddress[mailaddress.GetLength() - 1] == _T(')')) || (mailaddress[0] == _T('"') && mailaddress[mailaddress.GetLength() - 1] == _T('"'))))
+	if (!mailaddress.IsEmpty() && ((mailaddress[0] == L'(' && mailaddress[mailaddress.GetLength() - 1] == L')') || (mailaddress[0] == L'"' && mailaddress[mailaddress.GetLength() - 1] == L'"')))
 		mailaddress = mailaddress.Mid(1, mailaddress.GetLength() - 2);
 
 	if (parsedName && parsedName->IsEmpty())

@@ -26,30 +26,30 @@ bool BisectCommand::Execute()
 {
 	CTGitPath path = g_Git.m_CurrentDir;
 
-	if (this->parser.HasKey(_T("start")) && !path.IsBisectActive())
+	if (this->parser.HasKey(L"start") && !path.IsBisectActive())
 	{
 		CString lastGood, firstBad;
-		if (parser.HasKey(_T("good")))
-			lastGood = parser.GetVal(_T("good"));
-		if (parser.HasKey(_T("bad")))
-			firstBad = parser.GetVal(_T("bad"));
+		if (parser.HasKey(L"good"))
+			lastGood = parser.GetVal(L"good");
+		if (parser.HasKey(L"bad"))
+			firstBad = parser.GetVal(L"bad");
 
 		return CAppUtils::BisectStart(lastGood, firstBad, true);
 	}
-	else if ((this->parser.HasKey(_T("good")) || this->parser.HasKey(_T("bad")) || this->parser.HasKey(_T("reset"))) && path.IsBisectActive())
+	else if ((this->parser.HasKey(L"good") || this->parser.HasKey(L"bad") || this->parser.HasKey(L"reset")) && path.IsBisectActive())
 	{
 		CString op;
 		CString ref;
 
-		if (this->parser.HasKey(_T("good")))
+		if (this->parser.HasKey(L"good"))
 			g_Git.GetBisectTerms(&op, nullptr);
-		else if (this->parser.HasKey(_T("bad")))
+		else if (this->parser.HasKey(L"bad"))
 			g_Git.GetBisectTerms(nullptr, &op);
-		else if (this->parser.HasKey(_T("reset")))
-			op = _T("reset");
+		else if (this->parser.HasKey(L"reset"))
+			op = L"reset";
 
-		if (this->parser.HasKey(_T("ref")) &&! this->parser.HasKey(_T("reset")))
-			ref = this->parser.GetVal(_T("ref"));
+		if (this->parser.HasKey(L"ref") &&! this->parser.HasKey(L"reset"))
+			ref = this->parser.GetVal(L"ref");
 
 		return CAppUtils::BisectOperation(op, ref);
 	}

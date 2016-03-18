@@ -19,4 +19,4 @@
 
 #pragma once
 
-static UINT	WM_TASKBARBTNCREATED = RegisterWindowMessage(_T("TaskbarButtonCreated"));
+static UINT	WM_TASKBARBTNCREATED = RegisterWindowMessage(L"TaskbarButtonCreated");

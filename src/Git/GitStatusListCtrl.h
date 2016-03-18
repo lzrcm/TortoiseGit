@@ -124,7 +124,7 @@ GITSLC_SHOWINCOMPLETE|GITSLC_SHOWEXTERNAL|GITSLC_SHOWINEXTERNALS)
 #define GITLC_POPUNSETIGNORELOCALCHANGES CGitStatusListCtrl::GetContextMenuBit(CGitStatusListCtrl::IDGITLC_UNSETIGNORELOCALCHANGES)
 #define GITSLC_PREPAREDIFF				CGitStatusListCtrl::GetContextMenuBit(CGitStatusListCtrl::IDGITLC_PREPAREDIFF)
 
-#define GITSLC_IGNORECHANGELIST			_T("ignore-on-commit")
+#define GITSLC_IGNORECHANGELIST			L"ignore-on-commit"
 
 // This gives up to 64 standard properties and menu entries
 #define GITSLC_MAXCOLUMNCOUNT           0xff
@@ -339,7 +339,7 @@ public:
 			else if (cmd == columnCount+2)
 			{
 				temp.LoadString(IDS_CONFIRMRESETCOLUMNORDER);
-				if (MessageBox(pWnd->m_hWnd, temp, _T("TortoiseGit"), MB_YESNO | MB_ICONQUESTION) == IDYES)
+				if (MessageBox(pWnd->m_hWnd, temp, L"TortoiseGit", MB_YESNO | MB_ICONQUESTION) == IDYES)
 					ResetColumns (m_dwDefaultColumns);
 			}
 		}
@@ -428,10 +428,10 @@ public:
 
 	static int A2L(const CString &str)
 	{
-		if(str==_T("-"))
+		if (str == L"-")
 			return -1;
-		else
-			return _ttol(str);
+
+		return _wtol(str);
 	}
 
 private:

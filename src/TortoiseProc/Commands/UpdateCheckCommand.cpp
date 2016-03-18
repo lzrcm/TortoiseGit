@@ -24,9 +24,9 @@
 bool UpdateCheckCommand::Execute()
 {
 	CCheckForUpdatesDlg dlg;
-	if (parser.HasKey(_T("visible")))
+	if (parser.HasKey(L"visible"))
 		dlg.m_bShowInfo = TRUE;
-	if (parser.HasKey(_T("force")))
+	if (parser.HasKey(L"force"))
 		dlg.m_bForce = TRUE;
 	dlg.DoModal();
 	return true;

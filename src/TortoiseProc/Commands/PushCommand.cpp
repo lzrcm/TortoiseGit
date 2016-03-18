@@ -32,7 +32,7 @@ bool PushCommand::Execute()
 	}
 
 	CString branch;
-	if (parser.HasVal(_T("branch")))
-		branch = parser.GetVal(_T("branch"));
+	if (parser.HasVal(L"branch"))
+		branch = parser.GetVal(L"branch");
 	return CAppUtils::Push(branch);
 }

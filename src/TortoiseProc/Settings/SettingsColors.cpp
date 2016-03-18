@@ -25,7 +25,7 @@ IMPLEMENT_DYNAMIC(CSettingsColors, ISettingsPropPage)
 CSettingsColors::CSettingsColors()
 	: ISettingsPropPage(CSettingsColors::IDD)
 {
-	m_regRevGraphUseLocalForCur = CRegDWORD(_T("Software\\TortoiseGit\\TortoiseProc\\Graph\\RevGraphUseLocalForCur"));
+	m_regRevGraphUseLocalForCur = CRegDWORD(L"Software\\TortoiseGit\\TortoiseProc\\Graph\\RevGraphUseLocalForCur");
 }
 
 CSettingsColors::~CSettingsColors()

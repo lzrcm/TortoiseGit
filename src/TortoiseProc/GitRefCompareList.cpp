@@ -64,7 +64,7 @@ CGitRefCompareList::CGitRefCompareList()
 	m_bSortLogical = !CRegDWORD(L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoStrCmpLogical", 0, false, HKEY_CURRENT_USER);
 	if (m_bSortLogical)
 		m_bSortLogical = !CRegDWORD(L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\NoStrCmpLogical", 0, false, HKEY_LOCAL_MACHINE);
-	m_bHideUnchanged = CRegDWORD(_T("Software\\TortoiseGit\\RefCompareHideUnchanged"), FALSE);
+	m_bHideUnchanged = CRegDWORD(L"Software\\TortoiseGit\\RefCompareHideUnchanged", FALSE);
 }
 
 void CGitRefCompareList::Init()
@@ -251,21 +251,21 @@ void CGitRefCompareList::OnContextMenuList(CWnd * /*pWnd*/, CPoint point)
 		case IDGITRCL_NEWLOG:
 		{
 			CString sCmd;
-			sCmd.Format(_T("/command:log /path:\"%s\" /endrev:\"%s\""), (LPCTSTR)g_Git.m_CurrentDir, cmd == IDGITRCL_OLDLOG ? (LPCTSTR)oldHash : (LPCTSTR)newHash);
+			sCmd.Format(L"/command:log /path:\"%s\" /endrev:\"%s\"", (LPCTSTR)g_Git.m_CurrentDir, cmd == IDGITRCL_OLDLOG ? (LPCTSTR)oldHash : (LPCTSTR)newHash);
 			CAppUtils::RunTortoiseGitProc(sCmd);
 			break;
 		}
 		case IDGITRCL_COMPARE:
 		{
 			CString sCmd;
-			sCmd.Format(_T("/command:showcompare /path:\"%s\" /revision1:\"%s\" /revision2:\"%s\""), (LPCTSTR)g_Git.m_CurrentDir, (LPCTSTR)oldHash, (LPCTSTR)newHash);
+			sCmd.Format(L"/command:showcompare /path:\"%s\" /revision1:\"%s\" /revision2:\"%s\"", (LPCTSTR)g_Git.m_CurrentDir, (LPCTSTR)oldHash, (LPCTSTR)newHash);
 			CAppUtils::RunTortoiseGitProc(sCmd);
 			break;
 		}
 		case IDGITRCL_REFLOG:
 		{
 			CString sCmd;
-			sCmd.Format(_T("/command:reflog /path:\"%s\" /ref:\"%s\""), (LPCTSTR)g_Git.m_CurrentDir, (LPCTSTR)refName);
+			sCmd.Format(L"/command:reflog /path:\"%s\" /ref:\"%s\"", (LPCTSTR)g_Git.m_CurrentDir, (LPCTSTR)refName);
 			CAppUtils::RunTortoiseGitProc(sCmd);
 			break;
 		}
@@ -307,7 +307,7 @@ CString CGitRefCompareList::GetCommitMessage(git_commit *commit)
 
 	CString message = CUnicodeUtils::GetUnicode(git_commit_message(commit), encode);
 	int start = 0;
-	message = message.Tokenize(_T("\n"), start);
+	message = message.Tokenize(L"\n", start);
 	return message;
 }
 

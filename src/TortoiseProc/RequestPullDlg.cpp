@@ -31,7 +31,7 @@ IMPLEMENT_DYNAMIC(CRequestPullDlg, CHorizontalResizableStandAloneDialog)
 
 CRequestPullDlg::CRequestPullDlg(CWnd* pParent /*=nullptr*/)
 	: CHorizontalResizableStandAloneDialog(CRequestPullDlg::IDD, pParent)
-	, m_regSendMail(_T("Software\\TortoiseGit\\TortoiseProc\\RequestPull\\SendMail"), FALSE)
+	, m_regSendMail(L"Software\\TortoiseGit\\TortoiseProc\\RequestPull\\SendMail", FALSE)
 {
 	m_bSendMail = m_regSendMail;
 }
@@ -69,7 +69,7 @@ BOOL CRequestPullDlg::OnInitDialog()
 	AddAnchor(IDC_COMBOBOXEX_URL, TOP_LEFT,TOP_RIGHT);
 	AddAnchor(IDC_REMOTE_BRANCH, TOP_LEFT,TOP_RIGHT);
 
-	EnableSaveRestore(_T("RequestPullDlg"));
+	EnableSaveRestore(L"RequestPullDlg");
 
 	CString sWindowTitle;
 	GetWindowText(sWindowTitle);
@@ -81,9 +81,9 @@ BOOL CRequestPullDlg::OnInitDialog()
 	m_cStartRevision.SetList(list);
 
 	CString WorkingDir=g_Git.m_CurrentDir;
-	WorkingDir.Replace(_T(':'), _T('_'));
+	WorkingDir.Replace(L':', L'_');
 
-	m_RegStartRevision = CRegString(_T("Software\\TortoiseGit\\History\\RequestPull\\")+WorkingDir+_T("\\startrevision"));
+	m_RegStartRevision = CRegString(L"Software\\TortoiseGit\\History\\RequestPull\\"+WorkingDir+L"\\startrevision");
 	if(m_StartRevision.IsEmpty()) {
 		m_StartRevision = m_RegStartRevision;
 	}
@@ -93,13 +93,13 @@ BOOL CRequestPullDlg::OnInitDialog()
 	// because one normally has only one writable repository
 	m_cRepositoryURL.SetCaseSensitive(TRUE);
 	m_cRepositoryURL.SetURLHistory(TRUE);
-	m_cRepositoryURL.LoadHistory(_T("Software\\TortoiseGit\\History\\RequestPull"), _T("url"));
-	m_RegRepositoryURL = CRegString(_T("Software\\TortoiseGit\\History\\RequestPull\\")+WorkingDir+_T("\\repositoryurl"));
+	m_cRepositoryURL.LoadHistory(L"Software\\TortoiseGit\\History\\RequestPull", L"url");
+	m_RegRepositoryURL = CRegString(L"Software\\TortoiseGit\\History\\RequestPull\\"+WorkingDir+L"\\repositoryurl");
 	if(m_RepositoryURL.IsEmpty())
 		m_RepositoryURL = m_RegRepositoryURL;
 	m_cRepositoryURL.SetWindowTextW(m_RepositoryURL);
 
-	m_RegEndRevision = CRegString(_T("Software\\TortoiseGit\\History\\RequestPull\\")+WorkingDir+_T("\\endrevision"), _T("HEAD"));
+	m_RegEndRevision = CRegString(L"Software\\TortoiseGit\\History\\RequestPull\\"+WorkingDir+L"\\endrevision", L"HEAD");
 	if (m_EndRevision.IsEmpty())
 		m_EndRevision = m_RegEndRevision;
 	m_cEndRevision.SetWindowTextW(m_EndRevision);
@@ -129,7 +129,7 @@ void CRequestPullDlg::OnBnClickedOk()
 		return;
 	}
 
-	if(m_StartRevision.Find(_T("remotes/")) == 0)
+	if(m_StartRevision.Find(L"remotes/") == 0)
 		m_StartRevision = m_StartRevision.Mid(8);
 
 	m_regSendMail = m_bSendMail;

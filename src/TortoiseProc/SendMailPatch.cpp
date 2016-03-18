@@ -39,7 +39,7 @@ int CSendMailPatch::SendAsSingleMail(const CTGitPath& path, CGitProgressList* in
 	CSerialPatch patch;
 	if (patch.Parse(pathfile, !m_bAttachment))
 	{
-		instance->ReportError(_T("Could not open/parse ") + pathfile);
+		instance->ReportError(L"Could not open/parse " + pathfile);
 		return -2;
 	}
 
@@ -64,14 +64,14 @@ int CSendMailPatch::SendAsCombinedMail(const CTGitPathList &list, CGitProgressLi
 		CSerialPatch patch;
 		if (patch.Parse((CString&)list[i].GetWinPathString(), !m_bAttachment))
 		{
-			instance->ReportError(_T("Could not open/parse ") + list[i].GetWinPathString());
+			instance->ReportError(L"Could not open/parse " + list[i].GetWinPathString());
 			return -2;
 		}
 		if (m_bAttachment)
 		{
 			attachments.Add(list[i].GetWinPathString());
 			body += patch.m_Subject;
-			body += _T("\r\n");
+			body += L"\r\n";
 		}
 		else
 		{
@@ -81,7 +81,7 @@ int CSendMailPatch::SendAsCombinedMail(const CTGitPathList &list, CGitProgressLi
 			}
 			catch (CMemoryException *)
 			{
-				instance->ReportError(_T("Out of memory. Could not parse ") + list[i].GetWinPathString());
+				instance->ReportError(L"Out of memory. Could not parse " + list[i].GetWinPathString());
 				return -2;
 			}
 		}

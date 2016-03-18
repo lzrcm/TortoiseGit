@@ -27,13 +27,13 @@
 
 bool PrevDiffCommand::Execute()
 {
-	//bool bAlternativeTool = !!parser.HasKey(_T("alternative"));
+	//bool bAlternativeTool = !!parser.HasKey(L"alternative");
 	if (this->orgCmdLinePath.IsDirectory())
 	{
 		CFileDiffDlg dlg;
 
 		dlg.m_strRev1 = GIT_REV_ZERO;
-		dlg.m_strRev2 = _T("HEAD~1");
+		dlg.m_strRev2 = L"HEAD~1";
 		dlg.m_sFilter = this->cmdLinePath.GetGitPathString();
 
 		dlg.DoModal();

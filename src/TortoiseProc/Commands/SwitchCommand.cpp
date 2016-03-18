@@ -23,7 +23,7 @@
 
 bool SwitchCommand::Execute()
 {
-	CString base=parser.GetVal(_T("rev"));
+	CString base=parser.GetVal(L"rev");
 
 	return CAppUtils::Switch(base);
 }

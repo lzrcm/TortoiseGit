@@ -23,12 +23,14 @@
 
 void Graphviz::DrawNode(CString id, CString text, CString fontName, int fontSize, Gdiplus::Color /*borderColor*/, Gdiplus::Color backColor, int /*height*/)
 {
-	content.Append(_T("\t"));
+	content.Append(L"\t");
 	content.Append(id);
 
 	content.AppendFormat(L" [label=\"%s\"", (LPCTSTR)text);
+
 	if (m_defaultFontName != fontName)
 		content.AppendFormat(L", fontname=\"%s\"", (LPCTSTR)fontName);
+
 
 	if (m_defaultFontSize != fontSize)
 		content.AppendFormat(L", fontsize=\"%d\"", fontSize);
@@ -36,17 +38,17 @@ void Graphviz::DrawNode(CString id, CString text, CString fontName, int fontSize
 	if (m_defaultBackColor.GetValue() != backColor.GetValue())
 		content.AppendFormat(L", color=\"#%06X\"", backColor.GetValue() & 0xffffff);
 
-	content.Append(_T("];\r\n"));
+	content.Append(L"];\r\n");
 }
 
 void Graphviz::BeginDrawTableNode(CString id, CString fontName, int fontSize, int /*height*/)
 {
 	m_tableNodeNum = 0;
-	content.Append(_T("\t"));
+	content.Append(L"\t");
 	content.Append(id);
 
 	CString format;
-	content.Append(_T("["));
+	content.Append(L"[");
 	bool hasAttr = false;
 	if (m_defaultFontName != fontName)
 	{
@@ -63,10 +65,10 @@ void Graphviz::BeginDrawTableNode(CString id, CString fontName, int fontSize, in
 	}
 		
 	if (hasAttr)
-		content.Append(_T(", "));
-	content.Append(_T("color=transparent"));
+		content.Append(L", ");
+	content.Append(L"color=transparent");
 
-	content.Append(_T(", label=<\r\n\t<table border=\"0\" cellborder=\"0\" cellpadding=\"5\">\r\n"));
+	content.Append(L", label=<\r\n\t<table border=\"0\" cellborder=\"0\" cellpadding=\"5\">\r\n");
 }
 
 void Graphviz::DrawTableNode(CString text, Gdiplus::Color backColor)
@@ -76,16 +78,16 @@ void Graphviz::DrawTableNode(CString text, Gdiplus::Color backColor)
 
 void Graphviz::EndDrawTableNode()
 {
-	content.Append(_T("\t</table>\r\n\t>];\r\n"));
+	content.Append(L"\t</table>\r\n\t>];\r\n");
 }
 
 void Graphviz::DrawEdge(CString from, CString to)
 {
-	content.Append(_T("\t"));
+	content.Append(L"\t");
 	content.Append(from);
-	content.Append(_T("->"));
+	content.Append(L"->");
 	content.Append(to);
-	content.Append(_T("\r\n"));
+	content.Append(L"\r\n");
 }
 
 bool Graphviz::Save(const CString &path)

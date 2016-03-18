@@ -25,7 +25,7 @@ bool RefLogCommand::Execute()
 	bool bRet = false;
 	CRefLogDlg dlg;
 
-	CString branch = parser.GetVal(_T("ref"));
+	CString branch = parser.GetVal(L"ref");
 	if ( !branch.IsEmpty() )
 		dlg.m_CurrentBranch = branch;
 

@@ -25,10 +25,10 @@
 bool BlameCommand::Execute()
 {
 	CString params;
-	if (parser.HasVal(_T("line")))
-		params.Format(_T("/line:%ld"), parser.GetLongVal(_T("line")));
+	if (parser.HasVal(L"line"))
+		params.Format(L"/line:%ld", parser.GetLongVal(L"line"));
 
-	CAppUtils::LaunchTortoiseBlame(orgCmdLinePath.GetWinPath(), parser.GetVal(_T("endrev")), params);
+	CAppUtils::LaunchTortoiseBlame(orgCmdLinePath.GetWinPath(), parser.GetVal(L"endrev"), params);
 
 	return TRUE;
 }

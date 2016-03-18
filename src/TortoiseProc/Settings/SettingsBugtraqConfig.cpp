@@ -166,7 +166,7 @@ void CSettingsBugtraqConfig::LoadDataImpl(CAutoConfig& config)
 		ProjectProperties props;
 		props.ReadProps();
 		m_URL = props.sUrl;
-		m_Logregex = props.sCheckRe + _T("\n") + props.sBugIDRe;
+		m_Logregex = props.sCheckRe + L'\n' + props.sBugIDRe;
 		m_Label = props.sLabel;
 		m_Message = props.sMessage;
 		m_UUID32 = props.sProviderUuid;
@@ -226,7 +226,7 @@ void CSettingsBugtraqConfig::LoadDataImpl(CAutoConfig& config)
 	}
 
 	m_Logregex.Trim();
-	m_Logregex.Replace(_T("\n"), _T("\r\n"));
+	m_Logregex.Replace(L"\n", L"\r\n");
 
 	m_bNeedSave = false;
 	SetModified(FALSE);
@@ -273,7 +273,7 @@ BOOL CSettingsBugtraqConfig::SafeDataImpl(CAutoConfig& config)
 	}
 	{
 		CString value(m_Logregex);
-		value.Replace(_T("\r\n"),_T("\n"));
+		value.Replace(L"\r\n",L"\n");
 		if (!Save(config, BUGTRAQPROPNAME_LOGREGEX, value, m_bInheritLogregex == TRUE))
 			return FALSE;
 	}
@@ -299,7 +299,7 @@ void CSettingsBugtraqConfig::OnBnClickedTestbugtraqregexbutton()
 	CBugtraqRegexTestDlg dlg(this);
 	dlg.m_sBugtraqRegex2 = m_Logregex;
 	dlg.m_sBugtraqRegex2.Trim();
-	dlg.m_sBugtraqRegex2.Replace(_T("\r\n"), _T("\n"));
+	dlg.m_sBugtraqRegex2.Replace(L"\r\n", L"\n");
 	if (dlg.m_sBugtraqRegex2.Find('\n') >= 0)
 	{
 		dlg.m_sBugtraqRegex1 = dlg.m_sBugtraqRegex2.Mid(dlg.m_sBugtraqRegex2.Find('\n')).Trim();
@@ -307,9 +307,9 @@ void CSettingsBugtraqConfig::OnBnClickedTestbugtraqregexbutton()
 	}
 	if (dlg.DoModal() == IDOK)
 	{
-		m_Logregex = dlg.m_sBugtraqRegex2 + _T("\n") + dlg.m_sBugtraqRegex1;
+		m_Logregex = dlg.m_sBugtraqRegex2 + L'\n' + dlg.m_sBugtraqRegex1;
 		m_Logregex.Trim();
-		m_Logregex.Replace(_T("\n"), _T("\r\n"));
+		m_Logregex.Replace(L"\n", L"\r\n");
 		UpdateData(FALSE);
 	}
 }

@@ -57,7 +57,7 @@ CBrowseFolder::retVal CBrowseFolder::Show(HWND parent, LPTSTR path, size_t pathl
 	if (szDefaultPath)
 		sDefault = szDefaultPath;
 	CBrowseFolder::retVal ret = Show(parent, temp, sDefault);
-	_tcscpy_s(path, pathlen, temp);
+	wcscpy_s(path, pathlen, temp);
 	return ret;
 }
 CBrowseFolder::retVal CBrowseFolder::Show(HWND parent, CString& path, const CString& sDefaultPath /* = CString() */)
@@ -70,7 +70,7 @@ CBrowseFolder::retVal CBrowseFolder::Show(HWND parent, CString& path, const CStr
 			CString p = path.Left(path.ReverseFind(L'\\'));
 			if ((p.GetLength() == 2) && (p[1] == L':'))
 			{
-				p += L"\\";
+				p += L'\\';
 				if (p.Compare(path) == 0)
 					p.Empty();
 			}
@@ -115,7 +115,7 @@ CBrowseFolder::retVal CBrowseFolder::Show(HWND parent, CString& path, const CStr
 		return CANCEL;
 
 	// Set a title
-	TCHAR* nl = _tcschr(m_title, '\n');
+	TCHAR* nl = wcschr(m_title, '\n');
 	if (nl)
 		*nl = 0;
 	pfd->SetTitle(m_title);
@@ -171,7 +171,7 @@ void CBrowseFolder::SetInfo(LPCTSTR title)
 	ASSERT(title);
 
 	if (title)
-		_tcscpy_s(m_title, title);
+		wcscpy_s(m_title, title);
 }
 
 void CBrowseFolder::SetCheckBoxText(LPCTSTR checktext)
@@ -179,7 +179,7 @@ void CBrowseFolder::SetCheckBoxText(LPCTSTR checktext)
 	ASSERT(checktext);
 
 	if (checktext)
-		_tcscpy_s(m_CheckText, checktext);
+		wcscpy_s(m_CheckText, checktext);
 }
 
 void CBrowseFolder::SetCheckBoxText2(LPCTSTR checktext)
@@ -187,7 +187,7 @@ void CBrowseFolder::SetCheckBoxText2(LPCTSTR checktext)
 	ASSERT(checktext);
 
 	if (checktext)
-		_tcscpy_s(m_CheckText2, checktext);
+		wcscpy_s(m_CheckText2, checktext);
 }
 
 void CBrowseFolder::SetFont(HWND hwnd,LPTSTR FontName,int FontSize)
@@ -216,7 +216,7 @@ int CBrowseFolder::BrowseCallBackProc(HWND hwnd, UINT uMsg, LPARAM lParam, LPARA
 			bool bSecondCheckbox = (m_CheckText2[0] != 0);
 			//Rectangles for getting the positions
 			checkbox = CreateWindowEx(	0,
-				_T("BUTTON"),
+				L"BUTTON",
 				m_CheckText,
 				WS_CHILD|WS_VISIBLE|WS_CLIPCHILDREN|BS_AUTOCHECKBOX,
 				0,100,100,50,
@@ -231,7 +231,7 @@ int CBrowseFolder::BrowseCallBackProc(HWND hwnd, UINT uMsg, LPARAM lParam, LPARA
 			{
 				//Rectangles for getting the positions
 				checkbox2 = CreateWindowEx(	0,
-					_T("BUTTON"),
+					L"BUTTON",
 					m_CheckText2,
 					WS_CHILD|WS_VISIBLE|WS_CLIPCHILDREN|BS_AUTOCHECKBOX,
 					0,100,100,50,
@@ -243,9 +243,9 @@ int CBrowseFolder::BrowseCallBackProc(HWND hwnd, UINT uMsg, LPARAM lParam, LPARA
 					return 0;
 			}
 
-			ListView = FindWindowEx(hwnd, nullptr, _T("SysTreeView32"), nullptr);
+			ListView = FindWindowEx(hwnd, nullptr, L"SysTreeView32", nullptr);
 			if (!ListView)
-				ListView = FindWindowEx(hwnd, nullptr, _T("SHBrowseForFolder ShellNameSpace Control"), nullptr);
+				ListView = FindWindowEx(hwnd, nullptr, L"SHBrowseForFolder ShellNameSpace Control", nullptr);
 
 			if (!ListView)
 				return 0;
@@ -285,7 +285,7 @@ int CBrowseFolder::BrowseCallBackProc(HWND hwnd, UINT uMsg, LPARAM lParam, LPARA
 					controlHeight,
 					SWP_NOZORDER);
 			}
-			HWND label = FindWindowEx(hwnd, nullptr, _T("STATIC"), nullptr);
+			HWND label = FindWindowEx(hwnd, nullptr, L"STATIC", nullptr);
 			if (label)
 			{
 				HFONT hFont = (HFONT)::SendMessage(label, WM_GETFONT, 0, 0);
@@ -299,9 +299,9 @@ int CBrowseFolder::BrowseCallBackProc(HWND hwnd, UINT uMsg, LPARAM lParam, LPARA
 			else
 			{
 				//Sets the fonts of static controls
-				SetFont(checkbox,_T("MS Sans Serif"),12);
+				SetFont(checkbox,L"MS Sans Serif",12);
 				if (bSecondCheckbox)
-					SetFont(checkbox2,_T("MS Sans Serif"),12);
+					SetFont(checkbox2,L"MS Sans Serif",12);
 			}
 
 			// Subclass the checkbox control.

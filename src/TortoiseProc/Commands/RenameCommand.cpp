@@ -49,18 +49,18 @@ bool RenameCommand::Execute()
 	CString force;
 	// if the filenames only differ in case, we have to pass "-f"
 	if (sNewName.CompareNoCase(cmdLinePath.GetGitPathString()) == 0)
-		force = _T("-f ");
+		force = L"-f ";
 
 	CString cmd;
 	CString output;
-	cmd.Format(_T("git.exe mv %s-- \"%s\" \"%s\""),
+	cmd.Format(L"git.exe mv %s-- \"%s\" \"%s\"",
 					(LPCTSTR)force,
 					(LPCTSTR)cmdLinePath.GetGitPathString(),
 					(LPCTSTR)sNewName);
 
 	if (g_Git.Run(cmd, &output, CP_UTF8))
 	{
-		CMessageBox::Show(hwndExplorer, output, _T("TortoiseGit"), MB_OK);
+		CMessageBox::Show(hwndExplorer, output, L"TortoiseGit", MB_OK);
 		bRet = false;
 	}
 

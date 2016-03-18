@@ -72,7 +72,7 @@ BOOL CBugtraqRegexTestDlg::OnInitDialog()
 	projectprops.SetCheckRe(m_sBugtraqRegex2);
 
 	m_cLogMessage.Init(projectprops);
-	m_cLogMessage.SetFont((CString)CRegString(_T("Software\\TortoiseGit\\LogFontName"), _T("Courier New")), (DWORD)CRegDWORD(_T("Software\\TortoiseGit\\LogFontSize"), 8));
+	m_cLogMessage.SetFont((CString)CRegString(L"Software\\TortoiseGit\\LogFontName", L"Courier New"), (DWORD)CRegDWORD(L"Software\\TortoiseGit\\LogFontSize", 8));
 
 	m_cLogMessage.SetText(CString(MAKEINTRESOURCE(IDS_SAMPLEBUGTRAQTESTMSG)));
 	m_cLogMessage.Call(SCI_SETCURRENTPOS, 0);

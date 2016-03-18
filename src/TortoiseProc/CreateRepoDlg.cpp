@@ -59,7 +59,7 @@ BOOL CCreateRepoDlg::OnInitDialog()
 	CAppUtils::SetWindowTitle(m_hWnd, m_folder, sWindowTitle);
 
 	// Check if the folder ends with .git this indicates the use probably want this to be a bare repository
-	if (m_folder.Right(4) == _T(".git"))
+	if (m_folder.Right(4) == L".git")
 	{
 		m_bBare = TRUE;
 		UpdateData(FALSE);

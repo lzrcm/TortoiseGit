@@ -26,7 +26,7 @@ IMPLEMENT_DYNAMIC(CSetProgsAdvDlg, CResizableStandAloneDialog)
 CSetProgsAdvDlg::CSetProgsAdvDlg(const CString& type, CWnd* pParent /*=nullptr*/)
 	: CResizableStandAloneDialog(CSetProgsAdvDlg::IDD, pParent)
 	, m_sType(type)
-	, m_regToolKey(_T("Software\\TortoiseGit\\") + type + _T("Tools"))
+	, m_regToolKey(L"Software\\TortoiseGit\\" + type + L"Tools")
 	, m_ToolsValid(false)
 {
 }
@@ -47,7 +47,7 @@ void CSetProgsAdvDlg::LoadData()
 			for (POSITION pos = values.GetHeadPosition(); pos; )
 			{
 				CString ext = values.GetNext(pos);
-				m_Tools[ext] = CRegString(m_regToolKey.m_path + _T("\\") + ext);
+				m_Tools[ext] = CRegString(m_regToolKey.m_path + L'\\' + ext);
 			}
 		}
 
@@ -68,7 +68,7 @@ int CSetProgsAdvDlg::SaveData()
 				CString ext = values.GetNext(pos);
 				if (m_Tools.find(ext) == m_Tools.end())
 				{
-					CRegString to_remove(m_regToolKey.m_path + _T("\\") + ext);
+					CRegString to_remove(m_regToolKey.m_path + L'\\' + ext);
 					to_remove.removeValue();
 				}
 			}
@@ -79,7 +79,7 @@ int CSetProgsAdvDlg::SaveData()
 		{
 			CString ext = it->first;
 			CString new_value = it->second;
-			CRegString reg_value(m_regToolKey.m_path + _T("\\") + ext);
+			CRegString reg_value(m_regToolKey.m_path + L'\\' + ext);
 			if (reg_value != new_value)
 				reg_value = new_value;
 		}
@@ -153,7 +153,7 @@ BOOL CSetProgsAdvDlg::OnInitDialog()
 		m_ToolListCtrl.SetColumnWidth(col,LVSCW_AUTOSIZE_USEHEADER);
 	m_ToolListCtrl.SetRedraw(TRUE);
 
-	temp.LoadString(m_sType == _T("Diff") ? IDS_DLGTITLE_ADV_DIFF : IDS_DLGTITLE_ADV_MERGE);
+	temp.LoadString(m_sType == L"Diff" ? IDS_DLGTITLE_ADV_DIFF : IDS_DLGTITLE_ADV_MERGE);
 	SetWindowText(temp);
 
 	LoadData();

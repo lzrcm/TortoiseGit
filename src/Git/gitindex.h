@@ -403,7 +403,7 @@ int SearchInSortVector(const T &vector, LPCTSTR pstr, int len)
 	{
 		int cmp;
 		if(len < 0)
-			cmp = _tcscmp(vector[mid].m_FileName,pstr);
+			cmp = wcscmp(vector[mid].m_FileName, pstr);
 		else
 			cmp = _tcsnccmp( vector[mid].m_FileName,pstr,len );
 
@@ -419,7 +419,7 @@ int SearchInSortVector(const T &vector, LPCTSTR pstr, int len)
 	}
 	if(len <0)
 	{
-		if(_tcscmp(vector[mid].m_FileName,pstr) == 0)
+		if (wcscmp(vector[mid].m_FileName, pstr) == 0)
 			return mid;
 	}
 	else
@@ -447,22 +447,22 @@ public:
 		auto lookup = find(thePath);
 		if (lookup == cend())
 		{
-			if (PathIsDirectory(path + _T("\\.git")))
+			if (PathIsDirectory(path + L"\\.git"))
 			{
-				(*this)[thePath] = path + _T("\\.git\\");
-				m_reverseLookup[thePath + _T("\\.git")] = path;
+				(*this)[thePath] = path + L"\\.git\\";
+				m_reverseLookup[thePath + L"\\.git"] = path;
 				return (*this)[thePath];
 			}
 
-			CString result = GitAdminDir::ReadGitLink(path, path + _T("\\.git"));
+			CString result = GitAdminDir::ReadGitLink(path, path + L"\\.git");
 			if (!result.IsEmpty())
 			{
-				(*this)[thePath] = result + _T("\\");
+				(*this)[thePath] = result + L'\\';
 				m_reverseLookup[result.MakeLower()] = path;
 				return (*this)[thePath];
 			}
 
-			return path + _T("\\.git\\"); // in case of an error stick to old behavior
+			return path + L"\\.git\\"; // in case of an error stick to old behavior
 		}
 
 		return lookup->second;

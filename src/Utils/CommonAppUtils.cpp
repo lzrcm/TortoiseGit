@@ -40,7 +40,7 @@ bool CCommonAppUtils::LaunchApplication(const CString& sCommandLine, UINT idErrM
 		CString file, param;
 		SHELLEXECUTEINFO shellinfo = { 0 };
 		shellinfo.cbSize = sizeof(shellinfo);
-		shellinfo.lpVerb = _T("runas");
+		shellinfo.lpVerb = L"runas";
 		shellinfo.nShow = SW_SHOWNORMAL;
 		shellinfo.fMask = SEE_MASK_NOCLOSEPROCESS;
 		shellinfo.lpDirectory = theCWD;
@@ -60,7 +60,7 @@ bool CCommonAppUtils::LaunchApplication(const CString& sCommandLine, UINT idErrM
 				{
 					CString temp;
 					temp.Format(idErrMessageFormat, (LPCTSTR)CFormatMessageWrapper());
-					MessageBox(nullptr, temp, _T("TortoiseGit"), MB_OK | MB_ICONINFORMATION);
+					MessageBox(nullptr, temp, L"TortoiseGit", MB_OK | MB_ICONINFORMATION);
 				}
 				return false;
 			}
@@ -86,7 +86,7 @@ bool CCommonAppUtils::LaunchApplication(const CString& sCommandLine, UINT idErrM
 			{
 				CString temp;
 				temp.Format(idErrMessageFormat, (LPCTSTR)CFormatMessageWrapper());
-				MessageBox(nullptr, temp, _T("TortoiseGit"), MB_OK | MB_ICONINFORMATION);
+				MessageBox(nullptr, temp, L"TortoiseGit", MB_OK | MB_ICONINFORMATION);
 			}
 			return false;
 		}
@@ -110,7 +110,7 @@ bool CCommonAppUtils::LaunchApplication(const CString& sCommandLine, UINT idErrM
 		{
 			CString temp;
 			temp.Format(idErrMessageFormat, (LPCTSTR)CFormatMessageWrapper());
-			MessageBox(nullptr, temp, _T("TortoiseGit"), MB_OK | MB_ICONINFORMATION);
+			MessageBox(nullptr, temp, L"TortoiseGit", MB_OK | MB_ICONINFORMATION);
 		}
 		return false;
 	}
@@ -128,20 +128,20 @@ bool CCommonAppUtils::LaunchApplication(const CString& sCommandLine, UINT idErrM
 
 bool CCommonAppUtils::RunTortoiseGitProc(const CString& sCommandLine, bool uac, bool includeGroupingUUID)
 {
-	CString pathToExecutable = CPathUtils::GetAppDirectory() + _T("TortoiseGitProc.exe");
+	CString pathToExecutable = CPathUtils::GetAppDirectory() + L"TortoiseGitProc.exe";
 	CString sCmd;
-	sCmd.Format(_T("\"%s\" %s"), (LPCTSTR)pathToExecutable, (LPCTSTR)sCommandLine);
+	sCmd.Format(L"\"%s\" %s", (LPCTSTR)pathToExecutable, (LPCTSTR)sCommandLine);
 	if (AfxGetMainWnd()->GetSafeHwnd() && (sCommandLine.Find(L"/hwnd:") < 0))
 	{
 		CString sCmdLine;
 		sCmdLine.Format(L"%s /hwnd:%p", (LPCTSTR)sCommandLine, (void*)AfxGetMainWnd()->GetSafeHwnd());
-		sCmd.Format(_T("\"%s\" %s"), (LPCTSTR)pathToExecutable, (LPCTSTR)sCmdLine);
+		sCmd.Format(L"\"%s\" %s", (LPCTSTR)pathToExecutable, (LPCTSTR)sCmdLine);
 	}
 	if (!g_sGroupingUUID.IsEmpty() && includeGroupingUUID)
 	{
 		sCmd += L" /groupuuid:\"";
 		sCmd += g_sGroupingUUID;
-		sCmd += L"\"";
+		sCmd += L'\"';
 	}
 
 	return LaunchApplication(sCmd, NULL, false, nullptr, uac);
@@ -166,7 +166,7 @@ bool CCommonAppUtils::IsAdminLogin()
 
 bool CCommonAppUtils::SetListCtrlBackgroundImage(HWND hListCtrl, UINT nID, int width /* = 128 */, int height /* = 128 */)
 {
-	if ((((DWORD)CRegStdDWORD(_T("Software\\TortoiseGit\\ShowListBackgroundImage"), TRUE)) == FALSE))
+	if ((((DWORD)CRegStdDWORD(L"Software\\TortoiseGit\\ShowListBackgroundImage", TRUE)) == FALSE))
 		return false;
 	ListView_SetTextBkColor(hListCtrl, CLR_NONE);
 	COLORREF bkColor = ListView_GetBkColor(hListCtrl);
@@ -230,7 +230,7 @@ bool CCommonAppUtils::FileOpenSave(CString& path, int * filterindex, UINT title,
 		CString dir = path;
 		while (true)
 		{
-			int index = dir.ReverseFind(_T('\\'));
+			int index = dir.ReverseFind(L'\\');
 			if (index < 0)
 				break;
 			dir = dir.Left(index);
@@ -239,10 +239,10 @@ bool CCommonAppUtils::FileOpenSave(CString& path, int * filterindex, UINT title,
 		}
 		GetShortPathName(dir, szFile, MAX_PATH);
 		CString remain = path.Right(path.GetLength() - dir.GetLength());
-		_tcscat_s(szFile, MAX_PATH, remain);
+		wcscat_s(szFile, MAX_PATH, remain);
 	}
 	else
-		_tcscpy_s(szFile, MAX_PATH, (LPCTSTR)path);
+		wcscpy_s(szFile, MAX_PATH, (LPCTSTR)path);
 	ofn.lpstrFile = szFile;
 	ofn.nMaxFile = _countof(szFile);
 
