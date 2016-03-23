@@ -669,7 +669,7 @@ bool CGit::GetConfigValueBool(const CString& name, const bool def)
 	CString configValue = GetConfigValue(name, def ? L"true" : L"false", true);
 	configValue.MakeLower();
 	configValue.Trim();
-	if(configValue == L"true" || configValue == L"on" || configValue == L"yes" || StrToInt(configValue) != 0)
+	if (configValue == L"true" || configValue == L"on" || configValue == L"yes" || StrToInt(configValue) != 0)
 		return true;
 	else
 		return false;
