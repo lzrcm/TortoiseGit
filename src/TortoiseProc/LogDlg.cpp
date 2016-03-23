@@ -450,7 +450,7 @@ BOOL CLogDlg::OnInitDialog()
 	m_History.SetMaxHistoryItems((LONG)CRegDWORD(L"Software\\TortoiseGit\\MaxRefHistoryItems", 5));
 	CString reg;
 	reg.Format(L"Software\\TortoiseGit\\History\\log-refs\\%s", (LPCWSTR)g_Git.m_CurrentDir);
-	reg.Replace(L':',L'_');
+	reg.Replace(L':', L'_');
 	m_History.Load(reg, L"ref");
 
 	reg.Format(L"Software\\TortoiseGit\\History\\LogDlg_Limits\\%s\\FromDate", (LPCWSTR)g_Git.m_CurrentDir);

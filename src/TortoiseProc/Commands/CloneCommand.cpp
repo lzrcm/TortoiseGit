@@ -151,7 +151,7 @@ bool CloneCommand::Execute()
 
 		CString depth;
 		if (dlg.m_bDepth)
-			depth.Format(L" --depth %d",dlg.m_nDepth);
+			depth.Format(L" --depth %d", dlg.m_nDepth);
 
 		CString cmd;
 		cmd.Format(L"git.exe clone --progress%s%s%s%s%s -v%s \"%s\" \"%s\"",
@@ -215,11 +215,7 @@ bool CloneCommand::Execute()
 				cmd+=L" -t "+dlg.m_strSVNTags;
 
 			if(dlg.m_bSVNFrom)
-			{
-				CString str;
-				str.Format(L"%d:HEAD",dlg.m_nSVNFrom);
-				cmd+=L" -r "+str;
-			}
+				cmd.AppendFormat(L" -r %d:HEAD", dlg.m_nSVNFrom);
 
 			if(dlg.m_bSVNUserName)
 			{

@@ -168,7 +168,6 @@ bool GitPatch::PatchFile(int nIndex, CString &datapath)
 			if (!CAppUtils::GetVersionedFile(sFilePath, sVersion, sBaseFile, m_pProgDlg))
 			{
 				m_errorStr.Format(IDS_ERR_MAINFRAME_FILEVERSIONNOTFOUND, (LPCWSTR)sVersion, (LPCWSTR)sFilePath);
-
 				return false;
 			}
 		}

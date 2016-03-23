@@ -482,9 +482,9 @@ void CTortoiseGitBlameView::ContextMenuAction(int cmd, GitRev *pRev, GIT_REV_LIS
 			CString endrev = parentHashWithFile[index].ToString();
 			int line = m_data.GetOriginalLineNumber(m_MouseLine);
 
-			CString procCmd = _T("/path:\"") + path + _T("\" ");
-			procCmd += _T(" /command:blame");
-			procCmd += _T(" /endrev:") + endrev;
+			CString procCmd = L"/path:\"" + path + L"\" ";
+			procCmd += L" /command:blame";
+			procCmd += L" /endrev:" + endrev;
 			procCmd += L" /line:";
 			procCmd.AppendFormat(L"%d", line);
 

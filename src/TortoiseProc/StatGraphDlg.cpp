@@ -1855,7 +1855,6 @@ void CStatGraphDlg::DrawOthers(const std::list<tstring> &others, MyGraphSeries *
 	for (std::list<tstring>::const_iterator it = others.begin(); it != others.end(); ++it)
 		nCommits += RollPercentageOfAuthorship(map[*it]);
 
-
 	CString sOthers(MAKEINTRESOURCE(IDS_STATGRAPH_OTHERGROUP));
 	sOthers.AppendFormat(L" (%Iu)", others.size());
 	int group = m_graph.AppendGroup(sOthers);

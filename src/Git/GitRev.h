@@ -106,7 +106,7 @@ public:
 		REV_UNSPECIFIED = -4,	///< unspecified revision
 	};
 
-	static CString GetHead()^{ return L"HEAD"; };
+	static CString GetHead() { return L"HEAD"; };
 	static CString GetWorkingCopy() { return GIT_REV_ZERO; };
 
 	CGitHash m_CommitHash;
