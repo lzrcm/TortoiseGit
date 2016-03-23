@@ -60,7 +60,7 @@ int APIENTRY _tWinMain(HINSTANCE	/*hInstance*/,
 	if (lpCmdLine[0] != 0)
 		g_Prompt = lpCmdLine;
 
-	const TCHAR *yesno = L"(yes/no)";
+	const TCHAR* yesno = L"(yes/no)";
 	const size_t lens = wcslen(yesno);
 	const TCHAR *p = lpCmdLine;
 	BOOL bYesNo=FALSE;
@@ -139,7 +139,7 @@ INT_PTR CALLBACK PasswdDlg(HWND hDlg, UINT message, WPARAM wParam, LPARAM /*lPar
 			HWND title=::GetDlgItem(hDlg,IDC_STATIC_TITLE);
 			::SetWindowText(title,g_Prompt);
 
-			const TCHAR *pass = L"pass";
+			const TCHAR* pass = L"pass";
 			const size_t passlens = wcslen(pass);
 			const TCHAR *p = g_Prompt;
 			bool password = false;

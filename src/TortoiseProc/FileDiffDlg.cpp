@@ -206,7 +206,7 @@ BOOL CFileDiffDlg::OnInitDialog()
 	m_cFilter.SetCancelBitmaps(IDI_CANCELNORMAL, IDI_CANCELPRESSED);
 	m_cFilter.SetInfoIcon(IDI_FILTEREDIT);
 	temp.LoadString(IDS_FILEDIFF_FILTERCUE);
-	temp = L"   "+temp;
+	temp = L"   " + temp;
 	m_cFilter.SetCueBanner(temp);
 	if (!m_sFilter.IsEmpty())
 		m_cFilter.SetWindowText(m_sFilter);
@@ -849,13 +849,13 @@ void CFileDiffDlg::ClearURLabels(int mask)
 	if(mask&0x1)
 	{
 		SetDlgItemText(IDC_FIRSTURL, L"");
-		m_tooltips.AddTool(IDC_FIRSTURL,  L"");
+		m_tooltips.AddTool(IDC_FIRSTURL, L"");
 	}
 
 	if(mask&0x2)
 	{
 		SetDlgItemText(IDC_SECONDURL, L"");
-		m_tooltips.AddTool(IDC_SECONDURL,  L"");
+		m_tooltips.AddTool(IDC_SECONDURL, L"");
 	}
 }
 BOOL CFileDiffDlg::PreTranslateMessage(MSG* pMsg)
@@ -1205,11 +1205,11 @@ void CFileDiffDlg::CopySelectionToClipboard(BOOL isFull)
 		else
 		{
 			sTextForClipboard += m_cFileList.GetItemText(index, 1);
-			sTextForClipboard += L"\t";
+			sTextForClipboard += L'\t';
 			sTextForClipboard += m_cFileList.GetItemText(index, 2);
-			sTextForClipboard += L"\t";
+			sTextForClipboard += L'\t';
 			sTextForClipboard += m_cFileList.GetItemText(index, 3);
-			sTextForClipboard += L"\t";
+			sTextForClipboard += L'\t';
 			sTextForClipboard += m_cFileList.GetItemText(index, 4);
 			sTextForClipboard += L"\r\n";
 		}
@@ -1224,7 +1224,7 @@ LRESULT CFileDiffDlg::OnRefLoad(WPARAM /*wParam*/, LPARAM /*lParam*/)
 	{
 		CString str=m_Reflist[i];
 
-		if(str.Find(L"remotes/") == 0)
+		if (str.Find(L"remotes/") == 0)
 			str=str.Mid(8);
 
 		m_ctrRev1Edit.AddSearchString(str);

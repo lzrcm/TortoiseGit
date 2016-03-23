@@ -39,7 +39,7 @@ bool RebaseCommand::Execute()
 		if (ret == IDC_REBASE_POST_BUTTON)
 		{
 			CString cmd = L"/command:log";
-			cmd += L" /path:\"" + g_Git.m_CurrentDir + L'\"';
+			cmd += L" /path:\"" + g_Git.m_CurrentDir + L'"';
 			CAppUtils::RunTortoiseGitProc(cmd);
 			return true;
 		}

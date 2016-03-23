@@ -342,12 +342,12 @@ void CCloneDlg::OnCbnEditchangeUrlcombo()
 	CString old;
 	old=m_ModuleName;
 
-	url.Replace(L'\\',L'/');
+	url.Replace(L'\\', L'/');
 
 	// add compatibility for Google Code git urls
 	url.TrimRight(L"/");
 
-	int start=url.ReverseFind(L'/');
+	int start = url.ReverseFind(L'/');
 	if(start<0)
 	{
 		start = url.ReverseFind(L':');
@@ -402,7 +402,7 @@ void CCloneDlg::OnBnClickedCheckSvn()
 		m_URLCombo.GetWindowText(str);
 
 		str.TrimRight(L"\\/");
-		if(str.GetLength()>=5 && (str.Right(5).MakeLower() == L"trunk" ))
+		if (str.GetLength() >= 5 && str.Right(5).MakeLower() == L"trunk")
 			this->m_bSVNBranch=this->m_bSVNTags=this->m_bSVNTrunk = FALSE;
 		else
 			this->m_bSVNBranch=this->m_bSVNTags=this->m_bSVNTrunk = TRUE;

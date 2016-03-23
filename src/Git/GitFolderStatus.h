@@ -74,7 +74,7 @@ private:
 	FileStatusCacheEntry	dirstat;
 	git_wc_status2_t *		dirstatus;
 
-	std::wstring		sCacheKey;
+	std::wstring			sCacheKey;
 
 	CAutoGeneralHandle	m_hInvalidationEvent;
 

@@ -2361,7 +2361,7 @@ void CGitStatusListCtrl::OnContextMenuList(CWnd * pWnd, CPoint point)
 					CString str;
 					str.Format(IDS_PROC_WARNREVERT,GetSelectedCount());
 
-					if (!bConfirm || CMessageBox::Show(this->m_hWnd, str, L"TortoiseGit", MB_YESNO | MB_ICONQUESTION)==IDYES)
+					if (!bConfirm || CMessageBox::Show(this->m_hWnd, str, L"TortoiseGit", MB_YESNO | MB_ICONQUESTION) == IDYES)
 					{
 						CTGitPathList targetList;
 						FillListOfSelectedItemPaths(targetList);
@@ -2394,7 +2394,7 @@ void CGitStatusListCtrl::OnContextMenuList(CWnd * pWnd, CPoint point)
 							revertToCommit = L"HEAD~1";
 						CString err;
 						if (g_Git.Revert(revertToCommit, targetList, err))
-							CMessageBox::Show(this->m_hWnd, L"Revert failed:\n" + err, L"TortoiseGit", MB_ICONERROR);
+							CMessageBox::Show(GetSafeHwnd(), L"Revert failed:\n" + err, L"TortoiseGit", MB_ICONERROR);
 						else
 						{
 							bool updateStatusList = false;

@@ -82,7 +82,7 @@ bool CloneCommand::Execute()
 			DWORD len = ::GetTempPath(0, nullptr);
 			auto tszPath = std::make_unique<TCHAR[]>(len);
 			::GetTempPath(len, tszPath.get());
-			if (_wcsnicmp(cloneDirectory.GetWinPath(), tszPath.get(), len-2 /* \\ and \0 */) == 0)
+			if (_wcsnicmp(cloneDirectory.GetWinPath(), tszPath.get(), len - 2 /* \\ and \0 */) == 0)
 			{
 				// if the current directory is set to a temp directory,
 				// we don't use that but leave it empty instead.

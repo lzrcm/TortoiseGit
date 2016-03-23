@@ -61,7 +61,7 @@ BOOL CCachedDirectory::SaveToDisk(FILE * pFile)
 		WRITEVALUETOFILE(value);
 		if (value)
 		{
-			if (fwrite((LPCWSTR)key, sizeof(TCHAR), value, pFile)!=value)
+			if (fwrite((LPCWSTR)key, sizeof(TCHAR), value, pFile) != value)
 				return false;
 			if (!entry.second.SaveToDisk(pFile))
 				return false;
@@ -76,7 +76,7 @@ BOOL CCachedDirectory::SaveToDisk(FILE * pFile)
 		WRITEVALUETOFILE(value);
 		if (value)
 		{
-			if (fwrite((LPCWSTR)path, sizeof(TCHAR), value, pFile)!=value)
+			if (fwrite((LPCWSTR)path, sizeof(TCHAR), value, pFile) != value)
 				return false;
 			git_wc_status_kind status = entry.second;
 			WRITEVALUETOFILE(status);
@@ -257,7 +257,7 @@ CStatusCacheEntry CCachedDirectory::GetStatusFromGit(const CTGitPath &path, CStr
 	CString subpaths = path.GetGitPathString();
 	if(subpaths.GetLength() >= sProjectRoot.GetLength())
 	{
-		if(subpaths[sProjectRoot.GetLength()] == L'/')
+		if (subpaths[sProjectRoot.GetLength()] == L'/')
 			subpaths=subpaths.Right(subpaths.GetLength() - sProjectRoot.GetLength()-1);
 		else
 			subpaths=subpaths.Right(subpaths.GetLength() - sProjectRoot.GetLength());
@@ -428,7 +428,7 @@ int CCachedDirectory::EnumFiles(const CTGitPath &path , bool IsFull)
 	if (s.GetLength() > sProjectRoot.GetLength())
 	{
 		// skip initial slash if necessary
-		if(s[sProjectRoot.GetLength()] == L'\\')
+		if (s[sProjectRoot.GetLength()] == L'\\')
 			sSubPath = s.Right(s.GetLength() - sProjectRoot.GetLength() -1);
 		else
 			sSubPath = s.Right(s.GetLength() - sProjectRoot.GetLength() );
@@ -621,7 +621,7 @@ BOOL CCachedDirectory::GetStatusCallback(const CString & path, git_wc_status_kin
 
 				if ( status <  git_wc_status_normal)
 				{
-					if( ::PathFileExists(path+L"\\.git"))
+					if (::PathFileExists(path + L"\\.git"))
 					{ // this is submodule
 						CTraceToOutputDebugString::Instance()(_T(__FUNCTION__) L": skip submodule %s\n", (LPCWSTR)path);
 						return FALSE;

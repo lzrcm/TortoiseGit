@@ -92,7 +92,7 @@ bool CatCommand::Execute()
 		return false;
 	}
 
-	if(output.Find(L"blob") == 0)
+	if (output.Find(L"blob") == 0)
 		cmd.Format(L"git.exe cat-file -p %s", (LPCWSTR)revision);
 	else
 		cmd.Format(L"git.exe show %s -- \"%s\"", (LPCWSTR)revision, (LPCWSTR)this->cmdLinePath.GetWinPathString());

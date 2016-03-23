@@ -81,7 +81,7 @@ static int SubmoduleCallback(git_submodule *sm, const char * /*name*/, void *pay
 	{
 		for (size_t i = 0; i < spayload->prefixList.size(); ++i)
 		{
-			CString prefix = spayload->prefixList.at(i) + L"/";
+			CString prefix = spayload->prefixList.at(i) + L'/';
 			if (path.Left(prefix.GetLength()) == prefix)
 			{
 				CTGitPath subPath(spayload->basePath);

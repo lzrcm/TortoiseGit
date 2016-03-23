@@ -28,7 +28,7 @@ bool IgnoreCommand::Execute()
 {
 	bool bmask=false;
 
-	if(parser.HasKey(L"onlymask"))
+	if (parser.HasKey(L"onlymask"))
 		bmask=true;
 
 	bool ret = CAppUtils::IgnoreFile(pathList,bmask);

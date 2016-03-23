@@ -41,7 +41,7 @@ CString CommitCommand::LoadLogMessage()
 bool CommitCommand::Execute()
 {
 	CTGitPathList selectedList;
-	if (parser.HasKey(L"logmsg") && (parser.HasKey(L"logmsgfile")))
+	if (parser.HasKey(L"logmsg") && parser.HasKey(L"logmsgfile"))
 	{
 		CMessageBox::Show(hwndExplorer, IDS_ERR_TWOLOGPARAMS, IDS_APPNAME, MB_ICONERROR);
 		return false;

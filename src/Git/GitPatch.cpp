@@ -233,11 +233,11 @@ bool GitPatch::PatchPath(const CString& path)
 {
 	m_errorStr.Empty();
 
-	m_patchfile.Replace('\\', '/');
-	m_targetpath.Replace('\\', '/');
+	m_patchfile.Replace(L'\\', L'/');
+	m_targetpath.Replace(L'\\', L'/');
 
 	m_filetopatch = path.Mid(m_targetpath.GetLength()+1);
-	m_filetopatch.Replace('\\', '/');
+	m_filetopatch.Replace(L'\\', L'/');
 
 	m_nRejected = 0;
 
@@ -331,8 +331,7 @@ int GitPatch::CountMatches(const CString& path) const
 	{
 		CString temp = GetStrippedPath(i);
 		temp.Replace('/', '\\');
-		if ((PathIsRelative(temp)) ||
-			((temp.GetLength() > 1) && (temp[0]=='\\') && (temp[1]!='\\')) )
+		if (PathIsRelative(temp) || ((temp.GetLength() > 1) && (temp[0] == L'\\') && (temp[1] != L'\\')))
 			temp = path + L'\\' + temp;
 		if (PathFileExists(temp))
 			++matches;
@@ -346,7 +345,7 @@ int GitPatch::CountDirMatches(const CString& path) const
 	for (int i=0; i<GetNumberOfFiles(); ++i)
 	{
 		CString temp = GetStrippedPath(i);
-		temp.Replace('/', '\\');
+		temp.Replace(L'/', L'\\');
 		if (PathIsRelative(temp))
 			temp = path + L'\\' + temp;
 		// remove the filename
@@ -376,7 +375,7 @@ CString GitPatch::Strip(const CString& filename) const
 	if ( m_nStrip>0 )
 	{
 		// Remove windows drive letter "c:"
-		if (s.GetLength()>2 && s[1]==':')
+		if (s.GetLength() > 2 && s[1] == L':')
 			s = s.Mid(2);
 
 		for (int nStrip = 1; nStrip <= m_nStrip; ++nStrip)

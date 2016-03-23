@@ -398,7 +398,7 @@ CString CBrowseRefsDlg::GetSelectedRef(bool onlyIfLeaf, bool pickFirstSelIfMulti
 				ref = ref.Mid(5);
 			if(wcsncmp(ref, L"heads/", 6) == 0)
 				ref = ref.Mid(6);
-			refs += ref + L" ";
+			refs += ref + L' ';
 		}
 		return refs.Trim();
 	}
@@ -1569,7 +1569,7 @@ LRESULT CBrowseRefsDlg::OnClickedCancelFilter(WPARAM /*wParam*/, LPARAM /*lParam
 void CBrowseRefsDlg::SetFilterCueText()
 {
 	CString temp(MAKEINTRESOURCE(IDS_LOG_FILTER_BY));
-	temp += L" ";
+	temp += L' ';
 
 	if (m_SelectedFilters & LOGFILTER_REFNAME)
 		temp += CString(MAKEINTRESOURCE(IDS_LOG_FILTER_REFNAME));

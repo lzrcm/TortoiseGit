@@ -48,7 +48,7 @@ bool BisectCommand::Execute()
 		else if (this->parser.HasKey(L"reset"))
 			op = L"reset";
 
-		if (this->parser.HasKey(L"ref") &&! this->parser.HasKey(L"reset"))
+		if (this->parser.HasKey(L"ref") && !this->parser.HasKey(L"reset"))
 			ref = this->parser.GetVal(L"ref");
 
 		return CAppUtils::BisectOperation(op, ref);

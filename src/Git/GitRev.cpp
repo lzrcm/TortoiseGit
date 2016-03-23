@@ -275,7 +275,7 @@ int GitRev::GetCommit(const CString& refname)
 		if (refname.Find(L"00000000") == 0)
 		{
 			this->m_CommitHash.Empty();
-			this->m_Subject=L"Working Copy";
+			this->m_Subject = L"Working Copy";
 			m_sErr.Empty();
 			return 0;
 		}

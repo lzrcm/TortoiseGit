@@ -56,13 +56,13 @@ bool FormatPatchCommand::Execute()
 			range=g_Git.FixBranchName(dlg.m_Since);
 			break;
 		case IDC_RADIO_NUM:
-			range.Format(L"-%d",dlg.m_Num);
+			range.Format(L"-%d", dlg.m_Num);
 			break;
 		case IDC_RADIO_RANGE:
 			range.Format(L"%s..%s", (LPCWSTR)dlg.m_From, (LPCWSTR)dlg.m_To);
 			break;
 		}
-		dlg.m_Dir.Replace(L'\\',L'/');
+		dlg.m_Dir.Replace(L'\\', L'/');
 		cmd.Format(L"git.exe format-patch%s -o \"%s\" %s",
 			dlg.m_bNoPrefix ? L" --no-prefix" : L"",
 			(LPCWSTR)dlg.m_Dir,

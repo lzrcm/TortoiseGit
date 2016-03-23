@@ -185,7 +185,7 @@ void CCreateBranchTagDlg::OnBnClickedOk()
 
 void CCreateBranchTagDlg::OnCbnSelchangeComboboxexBranch()
 {
-	if (this->m_ChooseVersioinBranch.GetString().Left(8)==L"remotes/" && !m_bIsTag)
+	if (this->m_ChooseVersioinBranch.GetString().Left(8) == L"remotes/" && !m_bIsTag)
 	{
 		bool isDefault = false;
 		this->UpdateData();
@@ -227,7 +227,7 @@ void CCreateBranchTagDlg::OnEnChangeBranchTag()
 	GetDlgItem(IDC_BRANCH_TAG)->GetWindowText(name);
 	name = L"/" + name;
 	CString remoteName = m_ChooseVersioinBranch.GetString();
-	if (remoteName.Left(8) == L"remotes/" && remoteName.Right(name.GetLength()) != name)		
+	if (remoteName.Left(8) == L"remotes/" && remoteName.Right(name.GetLength()) != name)
 		((CButton *)GetDlgItem(IDC_CHECK_TRACK))->SetCheck(FALSE);
 }
 

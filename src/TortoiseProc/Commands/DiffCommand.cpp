@@ -48,7 +48,7 @@ bool DiffCommand::Execute()
 				return false;
 			CGitDiff diff;
 			//diff.SetAlternativeTool(bAlternativeTool);
-			if ( parser.HasKey(L"startrev") && parser.HasKey(L"endrev") )
+			if (parser.HasKey(L"startrev") && parser.HasKey(L"endrev"))
 			{
 				if (parser.HasKey(L"unified"))
 					bRet = !!CAppUtils::StartShowUnifiedDiff(nullptr, cmdLinePath, git_revnum_t(parser.GetVal(L"endrev")), cmdLinePath, git_revnum_t(parser.GetVal(L"startrev")));

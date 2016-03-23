@@ -185,7 +185,7 @@ public:
 	static bool ShellOpen(const CString& file, HWND hwnd = nullptr);
 	static bool ShowOpenWithDialog(const CString& file, HWND hwnd = nullptr);
 
-	static CString GetClipboardLink(const CString &skipGitPrefix = L"", int paramsCount = 0);
+	static CString GetClipboardLink(const CString& skipGitPrefix = L"", int paramsCount = 0);
 	static CString ChooseRepository(const CString* path);
 
 	static bool SendPatchMail(CTGitPathList& pathlist, bool bIsMainWnd = false);

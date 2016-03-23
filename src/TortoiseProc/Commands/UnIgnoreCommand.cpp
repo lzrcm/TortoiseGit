@@ -31,7 +31,7 @@ bool UnIgnoreCommand::Execute()
 	{
 		CString name = CPathUtils::PathPatternEscape(pathList[nPath].GetFileOrDirectoryName());
 		if (parser.HasKey(L"onlymask"))
-			name = L"*"+pathList[nPath].GetFileExtension();
+			name = L'*' + pathList[nPath].GetFileExtension();
 		filelist += name + L'\n';
 		CTSVNPath parentfolder = pathList[nPath].GetContainingDirectory();
 		SVNProperties props(parentfolder, SVNRev::REV_WC, false);
@@ -39,7 +39,7 @@ bool UnIgnoreCommand::Execute()
 		for (int i = 0; i < props.GetCount(); ++i)
 		{
 			CString propname(props.GetItemName(i).c_str());
-			if (propname.CompareNoCase(L"svn:ignore")==0)
+			if (propname.CompareNoCase(L"svn:ignore") == 0)
 			{
 				//treat values as normal text even if they're not
 				value = (char *)props.GetItemValue(i).c_str();

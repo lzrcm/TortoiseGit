@@ -77,9 +77,9 @@ BOOL CAboutDlg::OnInitDialog()
 	CString temp;
 
 	CString cmd, out, err;
-	cmd=L"git.exe --version";
+	cmd = L"git.exe --version";
 	if (g_Git.Run(cmd, &out, &err, CP_UTF8))
-		out = L"git not found (" + err + L")";;
+		out = L"git not found (" + err + L')';
 	out.Trim();
 
 	if (!CGit::ms_LastMsysGitDir.IsEmpty())

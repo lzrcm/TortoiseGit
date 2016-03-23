@@ -54,7 +54,7 @@ int CGitDiff::SubmoduleDiffNull(const CTGitPath * pPath, const git_revnum_t &rev
 	}
 
 	int start=0;
-	start=output.Find(L' ',start);
+	start = output.Find(L' ', start);
 	if(start>0)
 	{
 		if (rev1 != GIT_REV_ZERO) // in ls-files the hash is in the second column; in ls-tree it's in the third one
@@ -192,8 +192,7 @@ int CGitDiff::SubmoduleDiff(const CTGitPath * pPath, const CTGitPath * /*pPath2*
 
 		isWorkingCopy = true;
 
-		cmd.Format(L"git.exe diff %s -- \"%s\"",
-		(LPCWSTR)rev, (LPCWSTR)pPath->GetGitPathString());
+		cmd.Format(L"git.exe diff %s -- \"%s\"", (LPCWSTR)rev, (LPCWSTR)pPath->GetGitPathString());
 
 		CString output, err;
 		if (g_Git.Run(cmd, &output, &err, CP_UTF8))
@@ -229,21 +228,21 @@ int CGitDiff::SubmoduleDiff(const CTGitPath * pPath, const CTGitPath * /*pPath2*
 		}
 
 		int start =0;
-		int oldstart = output.Find(L"-Subproject commit",start);
+		int oldstart = output.Find(L"-Subproject commit", start);
 		if(oldstart<0)
 		{
 			CMessageBox::Show(nullptr, L"Subproject Diff Format error", L"TortoiseGit", MB_OK | MB_ICONERROR);
 			return -1;
 		}
-		oldhash = output.Mid(oldstart+ CString(L"-Subproject commit").GetLength()+1,40);
+		oldhash = output.Mid(oldstart+ CString(L"-Subproject commit").GetLength() + 1, 40);
 		start = 0;
-		int newstart = output.Find(L"+Subproject commit",start);
+		int newstart = output.Find(L"+Subproject commit", start);
 		if (newstart < 0)
 		{
 			CMessageBox::Show(nullptr, L"Subproject Diff Format error", L"TortoiseGit", MB_OK | MB_ICONERROR);
 			return -1;
 		}
-		newhash = output.Mid(newstart+ CString(L"+Subproject commit").GetLength()+1,40);
+		newhash = output.Mid(newstart+ CString(L"+Subproject commit").GetLength() + 1, 40);
 		dirty = output.Mid(newstart + CString(L"+Subproject commit").GetLength() + 41) == L"-dirty\n";
 	}
 	else
@@ -303,7 +302,7 @@ void CGitDiff::GetSubmoduleChangeType(CGit& subgit, const CString& oldhash, cons
 		oldOK = !subgit.Run(cmd, &cmdout, &cmderr, encode);
 		if (oldOK)
 		{
-			int pos = cmdout.Find(L" ");
+			int pos = cmdout.Find(L' ');
 			oldTime = _wtoi(cmdout.Left(pos));
 			oldsub = cmdout.Mid(pos + 1);
 		}
@@ -317,7 +316,7 @@ void CGitDiff::GetSubmoduleChangeType(CGit& subgit, const CString& oldhash, cons
 		newOK = !subgit.Run(cmd, &cmdout, &cmderr, encode);
 		if (newOK)
 		{
-			int pos = cmdout.Find(L" ");
+			int pos = cmdout.Find(L' ');
 			newTime = _wtoi(cmdout.Left(pos));
 			newsub = cmdout.Mid(pos + 1);
 		}

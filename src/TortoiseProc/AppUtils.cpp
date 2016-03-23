@@ -207,7 +207,7 @@ bool CAppUtils::StashApply(CString ref, bool showChanges /* true */)
 bool CAppUtils::StashPop(int showChanges /* = 1 */)
 {
 	CString cmd,out;
-	cmd=L"git.exe stash pop ";
+	cmd = L"git.exe stash pop ";
 
 	CSysProgressDlg sysProgressDlg;
 	sysProgressDlg.SetTitle(CString(MAKEINTRESOURCE(IDS_APPNAME)));
@@ -273,13 +273,13 @@ BOOL CAppUtils::StartExtMerge(
 	if (!CString(mergetool).IsEmpty())
 		com = mergetool;
 
-	if (com.IsEmpty()||(com.Left(1).Compare(L"#")==0))
+	if (com.IsEmpty() || (com.Left(1).Compare(L"#") == 0))
 	{
 		// Maybe we should use TortoiseIDiff?
 		if ((ext == L".jpg") || (ext == L".jpeg") ||
 			(ext == L".bmp") || (ext == L".gif")  ||
 			(ext == L".png") || (ext == L".ico")  ||
-			(ext == L".tif") || (ext == L".tiff")  ||
+			(ext == L".tif") || (ext == L".tiff") ||
 			(ext == L".dib") || (ext == L".emf")  ||
 			(ext == L".cur"))
 		{
@@ -610,7 +610,7 @@ BOOL CAppUtils::StartTextViewer(CString file)
 	if (viewer.Find(L"\"%1\"") >= 0)
 		viewer.Replace(L"\"%1\"", file);
 	else if (viewer.Find(L"%1") >= 0)
-		viewer.Replace(L"%1",  file);
+		viewer.Replace(L"%1", file);
 	else
 		viewer += L" ";
 		viewer += file;
@@ -711,7 +711,7 @@ bool CAppUtils::LaunchPAgent(const CString* keyfile, const CString* pRemote)
 bool CAppUtils::LaunchAlternativeEditor(const CString& filename, bool uac)
 {
 	CString editTool = CRegString(L"Software\\TortoiseGit\\AlternativeEditor");
-	if (editTool.IsEmpty() || (editTool.Left(1).Compare(L"#")==0)) {
+	if (editTool.IsEmpty() || (editTool.Left(1).Compare(L"#") == 0)) {
 		editTool = CPathUtils::GetAppDirectory() + L"notepad2.exe";
 	}
 
@@ -744,7 +744,7 @@ bool CAppUtils::LaunchTortoiseBlame(const CString& sBlameFile, const CString& Re
 	//viewer += L" \"" + sLogFile + L'\"';
 	//viewer += L" \"" + sOriginalFile + L'\"';
 	if(!Rev.IsEmpty() && Rev != GIT_REV_ZERO)
-		viewer += CString(L" /rev:")+Rev;
+		viewer += L" /rev:" + Rev;
 	if (!g_sGroupingUUID.IsEmpty())
 	{
 		viewer += L" /groupuuid:\"";
@@ -971,7 +971,7 @@ bool CAppUtils::StartShowUnifiedDiff(HWND hWnd, const CTGitPath& url1, const git
 #if 0
 	CString sCmd;
 	sCmd.Format(L"%s /command:showcompare /unified",
-		(LPCWSTR)(CPathUtils::GetAppDirectory()+L"TortoiseGitProc.exe"));
+		(LPCWSTR)(CPathUtils::GetAppDirectory() + L"TortoiseGitProc.exe"));
 	sCmd += L" /url1:\"" + url1.GetGitPathString() + L'\"';
 	if (rev1.IsValid())
 		sCmd += L" /revision1:" + rev1.ToString();
@@ -1016,9 +1016,9 @@ bool CAppUtils::SetupDiffScripts(bool force, const CString& type)
 		std::set<CString> extensions;
 		extensions.insert(ext);
 		CString kind;
-		if (file.Right(3).CompareNoCase(L"vbs")==0)
+		if (file.Right(3).CompareNoCase(L"vbs") == 0)
 			kind = L" //E:vbscript";
-		if (file.Right(2).CompareNoCase(L"js")==0)
+		if (file.Right(2).CompareNoCase(L"js") == 0)
 			kind = L" //E:javascript";
 		// open the file, read the first line and find possible extensions
 		// this script can handle
@@ -1070,9 +1070,9 @@ bool CAppUtils::SetupDiffScripts(bool force, const CString& type)
 						diffreg = L"wscript.exe \"" + file + L"\" %base %mine" + kind;
 				}
 			}
-			if (type.IsEmpty() || (type.Compare(L"Merge")==0))
+			if (type.IsEmpty() || (type.Compare(L"Merge") == 0))
 			{
-				if (filename.Left(6).CompareNoCase(L"merge-")==0)
+				if (filename.Left(6).CompareNoCase(L"merge-") == 0)
 				{
 					CRegString diffreg = CRegString(L"Software\\TortoiseGit\\MergeTools\\" + extension);
 					CString diffregstring = diffreg;
@@ -1161,12 +1161,12 @@ bool CAppUtils::CreateBranchTag(bool isTag /*true*/, const CString* commitHash /
 		CString force;
 		CString track;
 		if(dlg.m_bTrack == TRUE)
-			track=L" --track ";
+			track = L" --track ";
 		else if(dlg.m_bTrack == FALSE)
-			track=L" --no-track";
+			track = L" --no-track";
 
 		if(dlg.m_bForce)
-			force=L" -f ";
+			force = L" -f ";
 
 		if (isTag)
 		{
@@ -1189,7 +1189,7 @@ bool CAppUtils::CreateBranchTag(bool isTag /*true*/, const CString* commitHash /
 					CMessageBox::Show(nullptr, L"Could not save tag message", L"TortoiseGit", MB_OK | MB_ICONERROR);
 					return FALSE;
 				}
-				cmd += L" -F "+tempfile;
+				cmd += L" -F " + tempfile;
 			}
 		}
 		else
@@ -1234,7 +1234,7 @@ bool CAppUtils::Switch(const CString& initialRefName)
 
 		// if refs/heads/ is not stripped, checkout will detach HEAD
 		// checkout prefers branches on name clashes (with tags)
-		if (dlg.m_VersionName.Left(11) ==L"refs/heads/" && dlg.m_bBranchOverride != TRUE)
+		if (dlg.m_VersionName.Left(11) == L"refs/heads/" && dlg.m_bBranchOverride != TRUE)
 			dlg.m_VersionName = dlg.m_VersionName.Mid(11);
 
 		return PerformSwitch(dlg.m_VersionName, dlg.m_bForce == TRUE , branch, dlg.m_bBranchOverride == TRUE, dlg.m_bTrack, dlg.m_bMerge == TRUE);
@@ -2118,9 +2118,9 @@ bool CAppUtils::ConflictEdit(const CTGitPath& path, bool /*bAlternativeTool = fa
 
 bool CAppUtils::IsSSHPutty()
 {
-	CString sshclient=g_Git.m_Environment.GetEnv(L"GIT_SSH");
+	CString sshclient = g_Git.m_Environment.GetEnv(L"GIT_SSH");
 	sshclient=sshclient.MakeLower();
-	if(sshclient.Find(L"plink.exe",0)>=0)
+	if(sshclient.Find(L"plink.exe", 0) >= 0)
 		return true;
 	return false;
 }
@@ -2168,7 +2168,7 @@ CString CAppUtils::GetClipboardLink(const CString &skipGitPrefix, int paramsCoun
 			return sClipboardText;
 
 		if(sClipboardText.GetLength()>=2)
-			if( sClipboardText[1] == L':' )
+			if (sClipboardText[1] == L':')
 				if( (sClipboardText[0] >= 'A' &&  sClipboardText[0] <= 'Z')
 					|| (sClipboardText[0] >= 'a' &&  sClipboardText[0] <= 'z') )
 					return sClipboardText;
@@ -2197,7 +2197,7 @@ CString CAppUtils::GetClipboardLink(const CString &skipGitPrefix, int paramsCoun
 CString CAppUtils::ChooseRepository(const CString* path)
 {
 	CBrowseFolder browseFolder;
-	CRegString  regLastResopitory = CRegString(L"Software\\TortoiseGit\\TortoiseProc\\LastRepo",L"");
+	CRegString regLastResopitory = CRegString(L"Software\\TortoiseGit\\TortoiseProc\\LastRepo", L"");
 
 	browseFolder.m_style = BIF_EDITBOX | BIF_NEWDIALOGSTYLE | BIF_RETURNFSANCESTORS | BIF_RETURNONLYFSDIRS;
 	CString strCloneDirectory;
@@ -2266,7 +2266,7 @@ bool CAppUtils::SendPatchMail(const CString& cmd, const CString& formatpatchoutp
 		one=one.Trim();
 		if (one.IsEmpty() || one.Find(CString(MAKEINTRESOURCE(IDS_SUCCESS))) == 0)
 			continue;
-		one.Replace(L'/',L'\\');
+		one.Replace(L'/', L'\\');
 		CTGitPath path;
 		path.SetFromWin(one);
 		list.AddPath(path);
@@ -2934,7 +2934,7 @@ void CAppUtils::RemoveTrailSlash(CString &path)
 			return;
 	}
 
-	while(path[path.GetLength()-1] == L'\\' || path[path.GetLength()-1] == L'/')
+	while (path[path.GetLength() - 1] == L'\\' || path[path.GetLength() - 1] == L'/')
 	{
 		path=path.Left(path.GetLength()-1);
 		if(path.IsEmpty())
@@ -3062,7 +3062,7 @@ BOOL CAppUtils::SVNDCommit()
 					gitSetting = L"true";
 				else
 					gitSetting = L"false";
-				if(g_Git.SetConfigValue(L"svn.rmdir",gitSetting))
+				if (g_Git.SetConfigValue(L"svn.rmdir", gitSetting))
 				{
 					CString msg;
 					msg.Format(IDS_PROC_SAVECONFIGFAILED, L"svn.rmdir", gitSetting);
@@ -3086,11 +3086,11 @@ BOOL CAppUtils::SVNDCommit()
 			sysProgressDlg.ShowModeless((HWND)nullptr, true);
 
 			CString cmd,out;
-			cmd=L"git.exe stash";
+			cmd = L"git.exe stash";
 			if (g_Git.Run(cmd, &out, CP_UTF8))
 			{
 				sysProgressDlg.Stop();
-				MessageBox(nullptr, out,L"TortoiseGit", MB_OK | MB_ICONERROR);
+				MessageBox(nullptr, out, L"TortoiseGit", MB_OK | MB_ICONERROR);
 				return false;
 			}
 			sysProgressDlg.Stop();
@@ -3103,9 +3103,9 @@ BOOL CAppUtils::SVNDCommit()
 
 	CProgressDlg progress;
 	if (dcommitdlg.m_rmdir)
-		progress.m_GitCmd=L"git.exe svn dcommit --rmdir";
+		progress.m_GitCmd = L"git.exe svn dcommit --rmdir";
 	else
-		progress.m_GitCmd=L"git.exe svn dcommit";
+		progress.m_GitCmd = L"git.exe svn dcommit";
 	if(progress.DoModal()==IDOK && progress.m_GitStatus == 0)
 	{
 		if( IsStash)
@@ -3277,7 +3277,7 @@ void CAppUtils::EditNote(GitRevLoglist* rev)
 	if(dlg.DoModal() == IDOK)
 	{
 		CString cmd,output;
-		cmd=L"notes add -f -F \"";
+		cmd = L"notes add -f -F \"";
 
 		CString tempfile=::GetTempFile();
 		if (CAppUtils::SaveCommitUnicodeFile(tempfile, dlg.m_sInputText))
@@ -3316,7 +3316,7 @@ int CAppUtils::GetMsysgitVersion()
 	CRegDWORD regTime		= CRegDWORD(L"Software\\TortoiseGit\\git_file_time");
 	CRegDWORD regVersion	= CRegDWORD(L"Software\\TortoiseGit\\git_cached_version");
 
-	CString gitpath = CGit::ms_LastMsysGitDir+L"\\git.exe";
+	CString gitpath = CGit::ms_LastMsysGitDir + L"\\git.exe";
 
 	__int64 time=0;
 	if (!CGit::GetFileModifyTime(gitpath, &time))

@@ -50,7 +50,7 @@ bool DropMoveCommand::Execute()
 	pathList.RemoveAdminPaths();
 	CString sNewName;
 
-	if ((parser.HasKey(L"rename"))&&(pathList.GetCount()==1))
+	if (parser.HasKey(L"rename") && pathList.GetCount() == 1)
 	{
 		// ask for a new name of the source item
 		do

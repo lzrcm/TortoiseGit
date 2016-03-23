@@ -49,7 +49,7 @@ public:
 	/**
 	 * Executes the command.
 	 */
-	virtual bool			Execute() {return SubmoduleCommand::Execute(L"sync");};
+	virtual bool			Execute() { return SubmoduleCommand::Execute(L"sync"); };
 };
 
 

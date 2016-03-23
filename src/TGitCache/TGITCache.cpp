@@ -185,7 +185,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR lp
 	hTrayWnd = hWndHidden;
 	if (!hWndHidden)
 		return 0;
-	if (CRegStdDWORD(L"Software\\TortoiseGit\\CacheTrayIcon", FALSE)==TRUE)
+	if (CRegStdDWORD(L"Software\\TortoiseGit\\CacheTrayIcon", FALSE) == TRUE)
 	{
 		SecureZeroMemory(&niData,sizeof(NOTIFYICONDATA));
 		niData.cbSize = sizeof(NOTIFYICONDATA);
@@ -316,7 +316,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			int line = 0;
 			SIZE fontsize = {0};
 			AutoLocker print(critSec);
-			GetTextExtentPoint32( hdc, szCurrentCrawledPath[0], (int)wcslen(szCurrentCrawledPath[0]), &fontsize );
+			GetTextExtentPoint32(hdc, szCurrentCrawledPath[0], (int)wcslen(szCurrentCrawledPath[0]), &fontsize);
 			for (int i=nCurrentCrawledpathIndex; i<MAX_CRAWLEDPATHS; ++i)
 			{
 				TextOut(hdc, 0, line*fontsize.cy, szCurrentCrawledPath[i], (int)wcslen(szCurrentCrawledPath[i]));

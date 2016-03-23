@@ -678,9 +678,9 @@ void CTGitPath::AppendPathString(const CString& sAppend)
 {
 	EnsureBackslashPathSet();
 	CString cleanAppend(sAppend);
-	cleanAppend.Replace('/', '\\');
-	cleanAppend.TrimLeft('\\');
-	m_sBackslashPath.TrimRight('\\');
+	cleanAppend.Replace(L'/', L'\\');
+	cleanAppend.TrimLeft(L'\\');
+	m_sBackslashPath.TrimRight(L'\\');
 	CString strCopy = m_sBackslashPath;
 	strCopy += L'\\';
 	strCopy += cleanAppend;

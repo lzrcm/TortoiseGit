@@ -112,7 +112,7 @@ bool RemoveCommand::Execute()
 
 	//we don't ask user about if keep local copy.
 	//because there are command "Delete(keep local copy)" at explore context menu
-	//int key=CMessageBox::Show(hwndExplorer, L"File will removed from version control\r\n Do you want to keep local copy", L"TortoiseGit", MB_ICONINFORMATION|MB_YESNOCANCEL);
+	//int key=CMessageBox::Show(hwndExplorer, L"File will removed from version control\r\n Do you want to keep local copy", L"TortoiseGit", MB_ICONINFORMATION | MB_YESNOCANCEL);
 	//if(key == IDCANCEL)
 
 	CString format;
@@ -146,7 +146,7 @@ bool RemoveCommand::Execute()
 
 	CShellUpdater::Instance().AddPathsForUpdate(pathList);
 
-	CMessageBox::Show(hwndExplorer, output, L"TortoiseGit", MB_ICONINFORMATION|MB_OK);
+	CMessageBox::Show(hwndExplorer, output, L"TortoiseGit", MB_ICONINFORMATION | MB_OK);
 
 	CShellUpdater::Instance().Flush();
 	return bRet;

@@ -34,10 +34,10 @@ const svn_diff_fns2_t SVNLineDiff::SVNLineDiff_vtable =
 #define SVNLINEDIFF_CHARTYPE_SPACE			2
 #define SVNLINEDIFF_CHARTYPE_OTHER			3
 
-typedef void (*LineParser)(LPCWSTR line, apr_size_t lineLength, std::vector<std::wstring> &tokens);
+typedef void (*LineParser)(LPCTSTR line, apr_size_t lineLength, std::vector<std::wstring> &tokens);
 
 void SVNLineDiff::ParseLineWords(
-	LPCWSTR line, apr_size_t lineLength, std::vector<std::wstring> &tokens)
+	LPCTSTR line, apr_size_t lineLength, std::vector<std::wstring> &tokens)
 {
 	std::wstring token;
 	int prevCharType = SVNLINEDIFF_CHARTYPE_NONE;
@@ -66,7 +66,7 @@ void SVNLineDiff::ParseLineWords(
 }
 
 void SVNLineDiff::ParseLineChars(
-	LPCWSTR line, apr_size_t lineLength, std::vector<std::wstring> &tokens)
+	LPCTSTR line, apr_size_t lineLength, std::vector<std::wstring> &tokens)
 {
 	std::wstring token;
 	for (apr_size_t i = 0; i < lineLength; ++i)
@@ -115,7 +115,7 @@ void SVNLineDiff::NextTokenWords(
 }
 
 void SVNLineDiff::NextTokenChars(
-	apr_uint32_t* hash, void** token, apr_size_t& linePos, LPCWSTR line, apr_size_t lineLength)
+	apr_uint32_t* hash, void** token, apr_size_t& linePos, LPCTSTR line, apr_size_t lineLength)
 {
 	if (linePos < lineLength)
 	{
@@ -153,11 +153,11 @@ svn_error_t * SVNLineDiff::compare_token(void * baton, void * token1, void * tok
 	SVNLineDiff * linediff = (SVNLineDiff *)baton;
 	if (linediff->m_bWordDiff)
 	{
-		LPCWSTR s1 = (LPCWSTR)token1;
-		LPCWSTR s2 = (LPCWSTR)token2;
+		LPCTSTR s1 = (LPCTSTR)token1;
+		LPCTSTR s2 = (LPCTSTR)token2;
 		if (s1 && s2)
 		{
-			*compare = wcscmp(s1, s2);
+			*compare = _tcscmp(s1, s2);
 		}
 	}
 	else
@@ -204,7 +204,7 @@ SVNLineDiff::~SVNLineDiff()
 	svn_pool_destroy(m_pool);
 };
 
-bool SVNLineDiff::Diff(svn_diff_t **diff, LPCWSTR line1, apr_size_t len1, LPCWSTR line2, apr_size_t len2, bool bWordDiff)
+bool SVNLineDiff::Diff(svn_diff_t **diff, LPCTSTR line1, apr_size_t len1, LPCTSTR line2, apr_size_t len2, bool bWordDiff)
 {
 	if (m_subpool)
 		svn_pool_clear(m_subpool);
@@ -217,8 +217,8 @@ bool SVNLineDiff::Diff(svn_diff_t **diff, LPCWSTR line1, apr_size_t len1, LPCWST
 	m_bWordDiff = bWordDiff;
 	m_line1 = line1;
 	m_line2 = line2;
-	m_line1length = len1 ? len1 : wcslen(m_line1);
-	m_line2length = len2 ? len2 : wcslen(m_line2);
+	m_line1length = len1 ? len1 : _tcslen(m_line1);
+	m_line2length = len2 ? len2 : _tcslen(m_line2);
 
 	m_line1pos = 0;
 	m_line2pos = 0;

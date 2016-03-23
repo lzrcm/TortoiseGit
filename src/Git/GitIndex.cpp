@@ -128,7 +128,7 @@ int CGitIndexList::ReadIndex(CString dgitdir)
 		m_bHasConflicts |= GIT_IDXENTRY_STAGE(e);
 	}
 
-	CGit::GetFileModifyTime(dgitdir + L"index", &this->m_LastModifyTime);
+	CGit::GetFileModifyTime(dgitdir + L"index", &m_LastModifyTime);
 	std::sort(this->begin(), this->end(), SortIndex);
 
 	return 0;

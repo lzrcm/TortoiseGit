@@ -42,7 +42,7 @@ CDirectoryWatcher::CDirectoryWatcher(void)
 									SE_CHANGE_NOTIFY_NAME
 								 };
 
-	for (int i=0; i<(sizeof(arPrivelegeNames)/sizeof(LPCWSTR)); ++i)
+	for (int i = 0; i < (sizeof(arPrivelegeNames) / sizeof(LPCWSTR)); ++i)
 	{
 		CAutoGeneralHandle hToken;
 		if (OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES, hToken.GetPointer()))

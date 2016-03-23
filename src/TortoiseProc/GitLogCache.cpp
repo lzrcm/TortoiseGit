@@ -317,12 +317,12 @@ int CLogCache::LoadOneItem(GitRevLoglist& Rev,ULONGLONG offset)
 		Rev.m_Action |= path.m_Action;
 
 		if(fileheader->m_Add == 0xFFFFFFFF)
-			path.m_StatAdd=L"-";
+			path.m_StatAdd = L"-";
 		else
-			path.m_StatAdd.Format(L"%d",fileheader->m_Add);
+			path.m_StatAdd.Format(L"%d", fileheader->m_Add);
 
 		if(fileheader->m_Del == 0xFFFFFFFF)
-			path.m_StatDel=L"-";
+			path.m_StatDel = L"-";
 		else
 			path.m_StatDel.Format(L"%d", fileheader->m_Del);
 
@@ -502,9 +502,9 @@ int CLogCache::SaveCache()
 
 void CLogCache::Sort()
 {
-	if(this->m_pCacheIndex)
-		qsort(m_pCacheIndex->m_Item, m_pCacheIndex->m_Header.m_ItemCount,sizeof(SLogCacheIndexItem), Compare);
-	}
+	if (this->m_pCacheIndex)
+		qsort(m_pCacheIndex->m_Item, m_pCacheIndex->m_Header.m_ItemCount, sizeof(SLogCacheIndexItem), Compare);
+}
 
 int CLogCache::ClearAllParent()
 {

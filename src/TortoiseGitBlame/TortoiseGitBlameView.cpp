@@ -1025,7 +1025,7 @@ void CTortoiseGitBlameView::DrawLocatorBar(HDC hDC)
 
 void CTortoiseGitBlameView::SetupLexer(CString filename)
 {
-	int start=filename.ReverseFind(L'.');
+	int start = filename.ReverseFind(L'.');
 	SendEditor(SCI_SETLEXER, SCLEX_NULL);
 	if (!m_bLexer)
 		return;
@@ -1036,8 +1036,8 @@ void CTortoiseGitBlameView::SetupLexer(CString filename)
 		CString ext=filename.Right(filename.GetLength()-start-1);
 		const TCHAR* line = ext;
 
-		if ((wcscmp(line, L"py")==0)||
-			(wcscmp(line, L"pyw")==0))
+		if ((wcscmp(line, L"py") == 0)||
+			(wcscmp(line, L"pyw") == 0))
 		{
 			SendEditor(SCI_SETLEXER, SCLEX_PYTHON);
 			SendEditor(SCI_SETKEYWORDS, 0, (LPARAM)(m_TextView.StringForControl(L"and assert break class continue def del elif \
@@ -1058,16 +1058,16 @@ not or pass print raise return try while yield").GetBuffer()));
 			SetAStyle(SCE_P_COMMENTBLOCK, darkGreen);
 			SetAStyle(SCE_P_STRINGEOL, red);
 		}
-		if ((wcscmp(line, L"c")==0)||
-			(wcscmp(line, L"cc")==0)||
-			(wcscmp(line, L"cpp")==0)||
-			(wcscmp(line, L"cxx")==0)||
-			(wcscmp(line, L"h")==0)||
-			(wcscmp(line, L"hh")==0)||
-			(wcscmp(line, L"hpp")==0)||
-			(wcscmp(line, L"hxx")==0)||
-			(wcscmp(line, L"dlg")==0)||
-			(wcscmp(line, L"mak")==0))
+		if ((wcscmp(line, L"c") == 0) ||
+			(wcscmp(line, L"cc") == 0) ||
+			(wcscmp(line, L"cpp") == 0) ||
+			(wcscmp(line, L"cxx") == 0) ||
+			(wcscmp(line, L"h") == 0) ||
+			(wcscmp(line, L"hh") == 0) ||
+			(wcscmp(line, L"hpp") == 0) ||
+			(wcscmp(line, L"hxx") == 0) ||
+			(wcscmp(line, L"dlg") == 0) ||
+			(wcscmp(line, L"mak") == 0))
 		{
 			SendEditor(SCI_SETLEXER, SCLEX_CPP);
 			SendEditor(SCI_SETKEYWORDS, 0, (LPARAM)(m_TextView.StringForControl(L"and and_eq asm auto bitand bitor bool break \
@@ -1090,7 +1090,7 @@ test throw todo typedef union until \
 var verbatim verbinclude version warning weakgroup $ @ \\ & < > # { }").GetBuffer()));
 			SetupCppLexer();
 		}
-		if (wcscmp(line, L"cs")==0)
+		if (wcscmp(line, L"cs") == 0)
 		{
 			SendEditor(SCI_SETLEXER, SCLEX_CPP);
 			SendEditor(SCI_SETKEYWORDS, 0, (LPARAM)(m_TextView.StringForControl(L"abstract as base bool break byte case catch char checked class \
@@ -1103,8 +1103,8 @@ string struct switch this throw true try typeof uint ulong \
 unchecked unsafe ushort using virtual void while").GetBuffer()));
 			SetupCppLexer();
 		}
-		if ((wcscmp(line, L"rc")==0)||
-			(wcscmp(line, L"rc2")==0))
+		if ((wcscmp(line, L"rc") == 0) ||
+			(wcscmp(line, L"rc2") == 0))
 		{
 			SendEditor(SCI_SETLEXER, SCLEX_CPP);
 			SendEditor(SCI_SETKEYWORDS, 0, (LPARAM)(m_TextView.StringForControl(L"ACCELERATORS ALT AUTO3STATE AUTOCHECKBOX AUTORADIOBUTTON \
@@ -1116,8 +1116,8 @@ PUSHBUTTON RADIOBUTTON RCDATA RTEXT SCROLLBAR SEPARATOR SHIFT STATE3 \
 STRINGTABLE STYLE TEXTINCLUDE VALUE VERSION VERSIONINFO VIRTKEY").GetBuffer()));
 			SetupCppLexer();
 		}
-		if ((wcscmp(line, L"idl")==0)||
-			(wcscmp(line, L"odl")==0))
+		if ((wcscmp(line, L"idl") == 0) ||
+			(wcscmp(line, L"odl") == 0))
 		{
 			SendEditor(SCI_SETLEXER, SCLEX_CPP);
 			SendEditor(SCI_SETKEYWORDS, 0, (LPARAM)(m_TextView.StringForControl(L"aggregatable allocate appobject arrays async async_uuid \
@@ -1154,7 +1154,7 @@ uidefault union unique unsigned user_marshal usesgetlasterror uuid \
 v1_enum vararg version void wchar_t wire_marshal").GetBuffer()));
 			SetupCppLexer();
 		}
-		if (wcscmp(line, L"java")==0)
+		if (wcscmp(line, L"java") == 0)
 		{
 			SendEditor(SCI_SETLEXER, SCLEX_CPP);
 			SendEditor(SCI_SETKEYWORDS, 0, (LPARAM)(m_TextView.StringForControl(L"abstract assert boolean break byte case catch char class \
@@ -1165,7 +1165,7 @@ return short static super switch synchronized this throw throws \
 transient try var void volatile while").GetBuffer()));
 			SetupCppLexer();
 		}
-		if (wcscmp(line, L"js")==0)
+		if (wcscmp(line, L"js") == 0)
 		{
 			SendEditor(SCI_SETLEXER, SCLEX_CPP);
 			SendEditor(SCI_SETKEYWORDS, 0, (LPARAM)(m_TextView.StringForControl(L"abstract boolean break byte case catch char class \
@@ -1176,9 +1176,9 @@ return short static super switch synchronized this throw throws \
 transient try typeof var void volatile while with").GetBuffer()));
 			SetupCppLexer();
 		}
-		if ((wcscmp(line, L"pas")==0)||
-			(wcscmp(line, L"dpr")==0)||
-			(wcscmp(line, L"pp")==0))
+		if ((wcscmp(line, L"pas") == 0) ||
+			(wcscmp(line, L"dpr") == 0) ||
+			(wcscmp(line, L"pp") == 0))
 		{
 			SendEditor(SCI_SETLEXER, SCLEX_PASCAL);
 			SendEditor(SCI_SETKEYWORDS, 0, (LPARAM)(m_TextView.StringForControl(L"and array as begin case class const constructor \
@@ -1190,9 +1190,9 @@ set shl shr then threadvar to try type unit \
 until uses var while with xor").GetBuffer()));
 			SetupCppLexer();
 		}
-		if ((wcscmp(line, L"as")==0)||
-			(wcscmp(line, L"asc")==0)||
-			(wcscmp(line, L"jsfl")==0))
+		if ((wcscmp(line, L"as") == 0) ||
+			(wcscmp(line, L"asc") == 0) ||
+			(wcscmp(line, L"jsfl") == 0))
 		{
 			SendEditor(SCI_SETLEXER, SCLEX_CPP);
 			SendEditor(SCI_SETKEYWORDS, 0, (LPARAM)(m_TextView.StringForControl(L"add and break case catch class continue default delete do \
@@ -1215,22 +1215,22 @@ scroll set setInterval setProperty startDrag stop stopAllSounds stopDrag substri
 targetPath tellTarget toggleHighQuality trace unescape unloadMovie unLoadMovieNum updateAfterEvent").GetBuffer()));
 			SetupCppLexer();
 		}
-		if ((wcscmp(line, L"html")==0)||
-			(wcscmp(line, L"htm")==0)||
-			(wcscmp(line, L"shtml")==0)||
-			(wcscmp(line, L"htt")==0)||
-			(wcscmp(line, L"xml")==0)||
-			(wcscmp(line, L"asp")==0)||
-			(wcscmp(line, L"xsl")==0)||
-			(wcscmp(line, L"php")==0)||
-			(wcscmp(line, L"xhtml")==0)||
-			(wcscmp(line, L"phtml")==0)||
-			(wcscmp(line, L"cfm")==0)||
-			(wcscmp(line, L"tpl")==0)||
-			(wcscmp(line, L"dtd")==0)||
-			(wcscmp(line, L"hta")==0)||
-			(wcscmp(line, L"htd")==0)||
-			(wcscmp(line, L"wxs")==0))
+		if ((wcscmp(line, L"html") == 0) ||
+			(wcscmp(line, L"htm") == 0) ||
+			(wcscmp(line, L"shtml") == 0) ||
+			(wcscmp(line, L"htt") == 0) ||
+			(wcscmp(line, L"xml") == 0) ||
+			(wcscmp(line, L"asp") == 0) ||
+			(wcscmp(line, L"xsl") == 0) ||
+			(wcscmp(line, L"php") == 0) ||
+			(wcscmp(line, L"xhtml") == 0) ||
+			(wcscmp(line, L"phtml") == 0) ||
+			(wcscmp(line, L"cfm") == 0) ||
+			(wcscmp(line, L"tpl") == 0) ||
+			(wcscmp(line, L"dtd") == 0) ||
+			(wcscmp(line, L"hta") == 0) ||
+			(wcscmp(line, L"htd") == 0) ||
+			(wcscmp(line, L"wxs") == 0))
 		{
 			SendEditor(SCI_SETLEXER, SCLEX_HTML);
 			SendEditor(SCI_SETSTYLEBITS, 7);

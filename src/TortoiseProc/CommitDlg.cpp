@@ -581,7 +581,7 @@ void CCommitDlg::OnOK()
 			// branch already exists
 			CString msg;
 			msg.LoadString(IDS_B_EXISTS);
-			msg += L" " + CString(MAKEINTRESOURCE(IDS_B_DELETEORDIFFERENTNAME));
+			msg += L' ' + CString(MAKEINTRESOURCE(IDS_B_DELETEORDIFFERENTNAME));
 			ShowEditBalloon(IDC_NEWBRANCH, msg, CString(MAKEINTRESOURCE(IDS_WARN_WARNING)));
 			return;
 		}
@@ -2424,7 +2424,7 @@ void CCommitDlg::OnBnClickedSignOff()
 		if (foundByLine == -1 || foundByLine < lastNewline)
 			str = L"\r\n" + str;
 
-		m_cLogMessage.SetText(m_cLogMessage.GetText()+L"\r\n"+str+L"\r\n");
+		m_cLogMessage.SetText(m_cLogMessage.GetText() + L"\r\n" + str + L"\r\n");
 	}
 }
 
@@ -2515,7 +2515,7 @@ void CCommitDlg::OnScnUpdateUI(NMHDR * /*pNMHDR*/, LRESULT *pResult)
 	int column = (int)this->m_cLogMessage.Call(SCI_GETCOLUMN,pos);
 
 	CString str;
-	str.Format(L"%d/%d",line+1,column+1);
+	str.Format(L"%d/%d", line + 1, column + 1);
 	this->GetDlgItem(IDC_TEXT_INFO)->SetWindowText(str);
 
 	if(*pResult)

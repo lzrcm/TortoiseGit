@@ -37,7 +37,7 @@ bool DropCopyCommand::Execute()
 
 	CString sNewName;
 	pathList.RemoveAdminPaths();
-	if ((parser.HasKey(L"rename"))&&(pathList.GetCount()==1))
+	if (parser.HasKey(L"rename") && pathList.GetCount() == 1)
 	{
 		// ask for a new name of the source item
 		do
@@ -114,7 +114,7 @@ bool DropCopyCommand::Execute()
 		}else
 		{
 			CString str;
-			str+=L"Copy file fail:";
+			str += L"Copy file fail:";
 			str+=sourcePath.GetWinPath();
 
 			MessageBox(hwndExplorer, str, L"TortoiseGit", MB_OK | MB_ICONERROR);

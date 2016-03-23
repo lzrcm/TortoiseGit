@@ -43,7 +43,7 @@ bool SVNRebaseCommand::Execute()
 			sysProgressDlg.ShowModeless((HWND)nullptr, true);
 
 			CString cmd,out;
-			cmd=L"git.exe stash";
+			cmd = L"git.exe stash";
 			if (g_Git.Run(cmd, &out, CP_UTF8))
 			{
 				sysProgressDlg.Stop();
@@ -72,7 +72,7 @@ bool SVNRebaseCommand::Execute()
 		if( start >=0 )
 			out=out.Mid(start);
 
-		if(out.Left(5) == L":refs")
+		if (out.Left(5) == L":refs")
 			out=out.Mid(6);
 
 		start = 0;
@@ -98,7 +98,7 @@ bool SVNRebaseCommand::Execute()
 		return false;
 	}
 	CProgressDlg progress;
-	progress.m_GitCmd=L"git.exe svn fetch";
+	progress.m_GitCmd = L"git.exe svn fetch";
 	progress.m_AutoClose = AUTOCLOSE_IF_NO_ERRORS;
 
 	if(progress.DoModal()!=IDOK)

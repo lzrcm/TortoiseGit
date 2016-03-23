@@ -145,7 +145,7 @@ BOOL CFindDlg::OnInitDialog()
 	CRect rect;
 	m_ctrlRefList.GetClientRect(&rect);
 
-	this->m_ctrlRefList.InsertColumn(0,L"Ref",0, rect.Width()-50);
+	this->m_ctrlRefList.InsertColumn(0, L"Ref", 0, rect.Width() - 50);
 	RefreshList();
 	return FALSE;
 }
@@ -175,11 +175,11 @@ void CFindDlg::AddToList()
 	{
 		int nImage = -1;
 		CString ref = m_RefList[i];
-		if(ref.Find(L"refs/tags") == 0)
+		if (ref.Find(L"refs/tags") == 0)
 			nImage = 0;
-		else if(ref.Find(L"refs/remotes")==0)
+		else if (ref.Find(L"refs/remotes") == 0)
 			nImage = 2;
-		else if(ref.Find(L"refs/heads")== 0)
+		else if (ref.Find(L"refs/heads") == 0)
 			nImage = 1;
 
 		if(ref.Find(filter)>=0)

@@ -2155,7 +2155,7 @@ BOOL CGit::CheckMsysGitDir(BOOL bFallback)
 CString CGit::GetHomeDirectory() const
 {
 	const wchar_t * homeDir = wget_windows_home_directory();
-	return CString(homeDir, (int)wcslen(homeDir));
+	return CString(homeDir);
 }
 
 CString CGit::GetGitLocalConfig() const
@@ -2195,7 +2195,7 @@ CString CGit::GetGitProgramDataConfig() const
 CString CGit::GetGitSystemConfig() const
 {
 	const wchar_t * systemConfig = wget_msysgit_etc();
-	return CString(systemConfig, (int)wcslen(systemConfig));
+	return CString(systemConfig);
 }
 
 BOOL CGit::CheckCleanWorkTree(bool stagedOk /* false */)

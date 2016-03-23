@@ -50,8 +50,8 @@ bool SubmoduleAddCommand::Execute()
 		if (dlg.m_bForce)
 			force = L"--force";
 
-		dlg.m_strPath.Replace(L'\\',L'/');
-		dlg.m_strRepos.Replace(L'\\',L'/');
+		dlg.m_strPath.Replace(L'\\', L'/');
+		dlg.m_strRepos.Replace(L'\\', L'/');
 
 		cmd.Format(L"git.exe submodule add %s %s -- \"%s\"  \"%s\"",
 						(LPCWSTR)branch, (LPCWSTR)force,
@@ -163,7 +163,7 @@ bool SubmoduleCommand::Execute(CString cmd,  CString arg)
 	CProgressDlg progress;
 	CString bkpath;
 
-	if(parser.HasKey(L"bkpath"))
+	if (parser.HasKey(L"bkpath"))
 		bkpath=parser.GetVal(L"bkpath");
 	else
 	{

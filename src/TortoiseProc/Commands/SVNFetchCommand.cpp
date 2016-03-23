@@ -36,7 +36,7 @@ bool SVNFetchCommand::Execute()
 		if( start >=0 )
 			out=out.Mid(start);
 
-		if(out.Left(5) == L":refs")
+		if (out.Left(5) == L":refs")
 			out=out.Mid(6);
 
 		start = 0;
@@ -56,7 +56,7 @@ bool SVNFetchCommand::Execute()
 	}
 
 	CProgressDlg progress;
-	progress.m_GitCmd=L"git.exe svn fetch";
+	progress.m_GitCmd = L"git.exe svn fetch";
 
 	CGitHash upstreamNewHash; // declare outside lambda, because it is captured by reference
 	progress.m_PostCmdCallback = [&](DWORD status, PostCmdList& postCmdList)

@@ -70,7 +70,7 @@ BOOL CTortoiseGitBlameDoc::OnOpenDocument(LPCWSTR lpszPathName)
 	CCmdLineParser parser(AfxGetApp()->m_lpCmdLine);
 	if (m_bFirstStartup)
 	{
-		m_Rev=parser.GetVal(L"rev");
+		m_Rev = parser.GetVal(L"rev");
 		m_lLine = (int)parser.GetLongVal(L"line");
 		m_bFirstStartup = false;
 	}
@@ -124,8 +124,7 @@ BOOL CTortoiseGitBlameDoc::OnOpenDocument(LPCWSTR lpszPathName,CString Rev)
 		sOrigCWD = g_Git.m_CurrentDir = topdir;
 
 		CString PathName = m_CurrentFileName;
-		if(topdir[topdir.GetLength()-1] == L'\\' ||
-			topdir[topdir.GetLength()-1] == L'/')
+		if(topdir[topdir.GetLength() - 1] == L'\\' || topdir[topdir.GetLength() - 1] == L'/')
 			PathName=PathName.Right(PathName.GetLength()-g_Git.m_CurrentDir.GetLength());
 		else
 			PathName=PathName.Right(PathName.GetLength()-g_Git.m_CurrentDir.GetLength()-1);

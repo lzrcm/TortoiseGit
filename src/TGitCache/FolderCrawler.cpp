@@ -251,11 +251,11 @@ void CFolderCrawler::WorkerThread()
 						//       that is relevant for overlays?
 						/*CString lowerpath = workingPath.GetWinPathString();
 						lowerpath.MakeLower();
-						if (lowerpath.Find(L"\\tmp\\")>0)
+						if (lowerpath.Find(L"\\tmp\\") > 0)
 							continue;
-						if (lowerpath.Find(L"\\tmp") == (lowerpath.GetLength()-4))
+						if (lowerpath.Find(L"\\tmp") == lowerpath.GetLength() - 4)
 							continue;
-						if (lowerpath.Find(L"\\log")>0)
+						if (lowerpath.Find(L"\\log") > 0)
 							continue;*/
 						// Here's a little problem:
 						// the lock file is also created for fetching the status
@@ -265,7 +265,7 @@ void CFolderCrawler::WorkerThread()
 						// But for now, we have to crawl the parent folder
 						// no matter what.
 
-						//if (lowerpath.Find(L"\\lock")>0)
+						//if (lowerpath.Find(L"\\lock") > 0)
 						//	continue;
 						// only go back to wc root if we are in .git-dir
 						do

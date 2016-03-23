@@ -65,11 +65,11 @@ public:
 
 					TCHAR ch = str[j];
 				if(ch >= L'0' && ch <= L'9')
-					a |= (ch - L'0')&0xF;
+					a |= (ch - L'0') & 0xF;
 				else if(ch >=L'A' && ch <= L'F')
-					a |= ((ch - L'A')&0xF) + 10 ;
+					a |= ((ch - L'A') & 0xF) + 10 ;
 				else if(ch >=L'a' && ch <= L'f')
-					a |= ((ch - L'a')&0xF) + 10;
+					a |= ((ch - L'a') & 0xF) + 10;
 
 			}
 			m_hash[i]=a;
