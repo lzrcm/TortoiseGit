@@ -180,15 +180,15 @@ CString CHooks::GetHookTypeString(hooktype t)
 
 hooktype CHooks::GetHookType(const CString& s)
 {
-	if (s.Compare(L"start_commit_hook")==0)
+	if (s.Compare(L"start_commit_hook") == 0)
 		return start_commit_hook;
-	if (s.Compare(L"pre_commit_hook")==0)
+	if (s.Compare(L"pre_commit_hook") == 0)
 		return pre_commit_hook;
-	if (s.Compare(L"post_commit_hook")==0)
+	if (s.Compare(L"post_commit_hook") == 0)
 		return post_commit_hook;
-	if (s.Compare(L"pre_push_hook")==0)
+	if (s.Compare(L"pre_push_hook") == 0)
 		return pre_push_hook;
-	if (s.Compare(L"post_push_hook")==0)
+	if (s.Compare(L"post_push_hook") == 0)
 		return post_push_hook;
 
 	return unknown_hook;
@@ -198,7 +198,7 @@ void CHooks::AddParam(CString& sCmd, const CString& param)
 {
 	sCmd += L" \"";
 	sCmd += param;
-	sCmd += L'\"';
+	sCmd += L'"';
 }
 
 void CHooks::AddPathParam(CString& sCmd, const CTGitPathList& pathList)

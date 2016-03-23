@@ -293,7 +293,7 @@ LRESULT CRefLogDlg::OnFindDialogMessage(WPARAM /*wParam*/, LPARAM /*lParam*/)
 			m_nSearchLine = i;
 		}
 		else
-			MessageBox(L'\"' + findString + L"\" " + CString(MAKEINTRESOURCE(IDS_NOTFOUND)), L"TortoiseGit", MB_ICONINFORMATION);
+			MessageBox(L'"' + findString + L"\" " + CString(MAKEINTRESOURCE(IDS_NOTFOUND)), L"TortoiseGit", MB_ICONINFORMATION);
 	}
 
 	return 0;

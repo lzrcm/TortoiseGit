@@ -1470,7 +1470,7 @@ void CBrowseRefsDlg::OnLvnEndlabeleditListRefLeafs(NMHDR *pNMHDR, LRESULT *pResu
 	CString newNameTrunced = newName.Mid(11);
 
 	CString errorMsg;
-	if (g_Git.Run(L"git.exe branch -m \"" + origName + L"\" \"" + newNameTrunced + L'\"', &errorMsg, CP_UTF8) != 0)
+	if (g_Git.Run(L"git.exe branch -m \"" + origName + L"\" \"" + newNameTrunced + L'"', &errorMsg, CP_UTF8) != 0)
 	{
 		CMessageBox::Show(m_hWnd, errorMsg, L"TortoiseGit", MB_OK | MB_ICONERROR);
 		return;

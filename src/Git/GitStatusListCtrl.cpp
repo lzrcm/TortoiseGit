@@ -2207,7 +2207,7 @@ void CGitStatusListCtrl::OnContextMenuList(CWnd * pWnd, CPoint point)
 					if (cmd == IDGITLC_LOG && filepath->IsDirectory())
 						sCmd += L" /submodule";
 					if (!m_sDisplayedBranch.IsEmpty())
-						sCmd += L" /range:\"" + m_sDisplayedBranch + L'\"';
+						sCmd += L" /range:\"" + m_sDisplayedBranch + L'"';
 					CAppUtils::RunTortoiseGitProc(sCmd, false, !(cmd == IDGITLC_LOGSUBMODULE));
 				}
 				break;
@@ -2218,7 +2218,7 @@ void CGitStatusListCtrl::OnContextMenuList(CWnd * pWnd, CPoint point)
 					CString sCmd;
 					sCmd.Format(L"/command:log /path:\"%s\"", (LPCWSTR)g_Git.CombinePath(oldName));
 					if (!m_sDisplayedBranch.IsEmpty())
-						sCmd += L" /range:\"" + m_sDisplayedBranch + L'\"';
+						sCmd += L" /range:\"" + m_sDisplayedBranch + L'"';
 					CAppUtils::RunTortoiseGitProc(sCmd);
 				}
 				break;
@@ -2335,7 +2335,7 @@ void CGitStatusListCtrl::OnContextMenuList(CWnd * pWnd, CPoint point)
 					VERIFY(targetList.WriteToFile(tempFile.GetWinPathString()));
 					CString commandline = L"/command:commit /pathfile:\"";
 					commandline += tempFile.GetWinPathString();
-					commandline += L'\"';
+					commandline += L'"';
 					commandline += L" /deletepathfile";
 					CAppUtils::RunTortoiseGitProc(commandline);
 				}
@@ -2486,7 +2486,7 @@ void CGitStatusListCtrl::OnContextMenuList(CWnd * pWnd, CPoint point)
 					CString commandline = CPathUtils::GetAppDirectory();
 					commandline += L"TortoiseGitProc.exe /command:commit /pathfile:\"";
 					commandline += tempFile.GetWinPathString();
-					commandline += L'\"';
+					commandline += L'"';
 					commandline += L" /deletepathfile";
 					CAppUtils::LaunchApplication(commandline, nullptr, false);
 				}
@@ -3788,7 +3788,7 @@ int CGitStatusListCtrl::UpdateFileList(CTGitPathList *list)
 			if (deleteFromIndex == 1)
 			{
 				CString err;
-				if (g_Git.Run(L"git.exe checkout -- \"" + gitpatch->GetWinPathString() + L'\"', &err, CP_UTF8))
+				if (g_Git.Run(L"git.exe checkout -- \"" + gitpatch->GetWinPathString() + L'"', &err, CP_UTF8))
 					MessageBox(L"Restoring from index failed:\n" + err, L"TortoiseGit", MB_ICONERROR);
 				else
 					needsRefresh = true;
@@ -3796,7 +3796,7 @@ int CGitStatusListCtrl::UpdateFileList(CTGitPathList *list)
 			else if (deleteFromIndex == 2)
 			{
 				CString err;
-				if (g_Git.Run(L"git.exe rm -f --cache -- \"" + gitpatch->GetWinPathString() + L'\"', &err, CP_UTF8))
+				if (g_Git.Run(L"git.exe rm -f --cache -- \"" + gitpatch->GetWinPathString() + L'"', &err, CP_UTF8))
 					MessageBox(L"Removing from index failed:\n" + err, L"TortoiseGit", MB_ICONERROR);
 				else
 					needsRefresh = true;

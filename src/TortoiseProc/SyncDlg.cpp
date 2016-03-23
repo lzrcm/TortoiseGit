@@ -1566,7 +1566,7 @@ void CSyncDlg::OnBnClickedButtonCommit()
 	CString cmd = L"/command:commit";
 	cmd += L" /path:\"";
 	cmd += g_Git.m_CurrentDir;
-	cmd += L'\"';
+	cmd += L'"';
 
 	CAppUtils::RunTortoiseGitProc(cmd);
 }
@@ -1745,7 +1745,7 @@ void CSyncDlg::OnBnClickedLog()
 	CString cmd = L"/command:log";
 	cmd += L" /path:\"";
 	cmd += g_Git.m_CurrentDir;
-	cmd += L'\"';
+	cmd += L'"';
 
 	CAppUtils::RunTortoiseGitProc(cmd);
 }

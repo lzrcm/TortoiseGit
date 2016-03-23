@@ -102,7 +102,7 @@ bool DropCopyCommand::Execute()
 				if (!path.IsEmpty() && (path[0] == L'\\' || path[0] == L'/'))
 					path = path.Mid(1);
 				cmd += path;
-				cmd += L'\"';
+				cmd += L'"';
 
 				CString output;
 				if (g_Git.Run(cmd, &output, CP_UTF8))

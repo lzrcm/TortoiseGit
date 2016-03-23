@@ -1556,7 +1556,7 @@ void CMainFrame::PatchSave()
 		{
 			// call TortoiseProc to add the new file to version control
 			CString cmd = L"/command:add /noui /path:\"";
-			cmd += m_Data.m_mergedFile.GetFilename() + L'\"';
+			cmd += m_Data.m_mergedFile.GetFilename() + L'"';
 			CAppUtils::RunTortoiseGitProc(cmd);
 		}
 	}
@@ -1748,7 +1748,7 @@ bool CMainFrame::FileSave(bool bCheckResolved /*=true*/)
 	{
 		// call TortoiseProc to add the new file to version control
 		CString cmd = L"/command:add /noui /path:\"";
-		cmd += m_Data.m_mergedFile.GetFilename() + L'\"';
+		cmd += m_Data.m_mergedFile.GetFilename() + L'"';
 		if(!CAppUtils::RunTortoiseGitProc(cmd))
 			return false;
 	}

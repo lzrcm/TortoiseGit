@@ -503,7 +503,7 @@ BOOL CSettingGitRemote::OnApply()
 		GetDlgItem(IDC_BUTTON_ADD)->EnableWindow(TRUE);
 		GetDlgItem(IDC_BUTTON_RENAME_REMOTE)->EnableWindow(TRUE);
 		if (!m_bNoFetch && CMessageBox::Show(nullptr, IDS_SETTINGS_FETCH_ADDEDREMOTE, IDS_APPNAME, MB_ICONQUESTION | MB_YESNO) == IDYES)
-			CCommonAppUtils::RunTortoiseGitProc(L"/command:fetch /path:\"" + g_Git.m_CurrentDir + L"\" /remote:\"" + m_strRemote + L'\"');
+			CCommonAppUtils::RunTortoiseGitProc(L"/command:fetch /path:\"" + g_Git.m_CurrentDir + L"\" /remote:\"" + m_strRemote + L'"');
 	}
 	if(m_ChangedMask & REMOTE_URL)
 	{

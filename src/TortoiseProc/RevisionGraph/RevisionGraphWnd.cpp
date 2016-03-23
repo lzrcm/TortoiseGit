@@ -1280,12 +1280,12 @@ void CRevisionGraphWnd::DoShowLog()
 
 	if(m_SelectedEntry2)
 		sCmd.Format(L"/command:log %s /startrev:%s /endrev:%s",
-			this->m_sPath.IsEmpty() ? L"" : (LPCWSTR)(L"/path:\"" + this->m_sPath + L'\"'),
+			this->m_sPath.IsEmpty() ? L"" : (LPCWSTR)(L"/path:\"" + this->m_sPath + L'"'),
 			(LPCWSTR)this->m_logEntries[m_SelectedEntry1->index()].ToString(),
 			(LPCWSTR)this->m_logEntries[m_SelectedEntry2->index()].ToString());
 	else
 		sCmd.Format(L"/command:log %s /endrev:%s",
-			(LPCWSTR)this->m_sPath.IsEmpty() ? L"" : (L"/path:\"" + this->m_sPath + L'\"'),
+			(LPCWSTR)this->m_sPath.IsEmpty() ? L"" : (L"/path:\"" + this->m_sPath + L'"'),
 			(LPCWSTR)this->m_logEntries[m_SelectedEntry1->index()].ToString());
 
 	CAppUtils::RunTortoiseGitProc(sCmd);
@@ -1364,7 +1364,7 @@ void CRevisionGraphWnd::DoBrowseRepo()
 
 	CString sCmd;
 	sCmd.Format(L"/command:repobrowser %s /rev:%s",
-		this->m_sPath.IsEmpty() ? L"" : (LPCWSTR)(L"/path:\"" + this->m_sPath + L'\"'),
+		this->m_sPath.IsEmpty() ? L"" : (LPCWSTR)(L"/path:\"" + this->m_sPath + L'"'),
 		(LPCWSTR)GetFriendRefName(m_SelectedEntry1));
 
 	CAppUtils::RunTortoiseGitProc(sCmd);

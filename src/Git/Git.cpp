@@ -2822,7 +2822,7 @@ CString CGit::GetUnifiedDiffCmd(const CTGitPath& path, const git_revnum_t& rev1,
 	{
 		cmd += L" \"";
 		cmd += path.GetGitPathString();
-		cmd += L'\"';
+		cmd += L'"';
 	}
 
 	return cmd;

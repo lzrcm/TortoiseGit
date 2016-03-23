@@ -99,8 +99,8 @@ BOOL CSubmoduleResolveConflictDlg::OnInitDialog()
 	EnableSaveRestore(L"SubmoduleResolveConflictDlg");
 
 	CString fsPath = m_sPath;
-	fsPath.Replace('\\', '/');
-	CString title = L"Submodule \"" + fsPath + L'\"';
+	fsPath.Replace(L'\\', L'/');
+	CString title = L"Submodule \"" + fsPath + L'"';
 	GetDlgItem(IDC_SUBMODULEDIFFTITLE)->SetWindowText(title);
 
 	UpdateData(FALSE);

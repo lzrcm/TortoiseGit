@@ -436,7 +436,7 @@ void CRevisionGraphWnd::CompareRevs(const CString& revTo)
 	CString sCmd;
 
 	sCmd.Format(L"/command:showcompare %s /revision1:%s /revision2:%s",
-			this->m_sPath.IsEmpty() ? L"" : (LPCWSTR)(L"/path:\"" + this->m_sPath + L'\"'),
+			this->m_sPath.IsEmpty() ? L"" : (LPCWSTR)(L"/path:\"" + this->m_sPath + L'"'),
 			(LPCWSTR)GetFriendRefName(m_SelectedEntry1),
 			!revTo.IsEmpty() ? (LPCWSTR)revTo : (LPCWSTR)GetFriendRefName(m_SelectedEntry2));
 

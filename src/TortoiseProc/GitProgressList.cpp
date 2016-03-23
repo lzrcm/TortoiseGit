@@ -1143,7 +1143,7 @@ void CGitProgressList::WC_File_NotificationData::GetContextMenu(CIconMenu& popup
 		{
 			CString cmd = L"/command:log";
 			CString sPath = g_Git.CombinePath(path);
-			cmd += L" /path:\"" + sPath + L'\"';
+			cmd += L" /path:\"" + sPath + L'"';
 			CAppUtils::RunTortoiseGitProc(cmd);
 		});
 		popup.AppendMenuIcon(actions.size(), IDS_MENULOG, IDI_LOG);

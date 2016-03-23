@@ -372,7 +372,7 @@ void CChangedDlg::OnBnClickedCommit()
 		cmd += m_pathList[0].GetWinPathString();
 	else
 		cmd += g_Git.CombinePath(m_pathList.GetCommonRoot().GetDirectory());
-	cmd += L'\"';
+	cmd += L'"';
 	CAppUtils::RunTortoiseGitProc(cmd);
 }
 
