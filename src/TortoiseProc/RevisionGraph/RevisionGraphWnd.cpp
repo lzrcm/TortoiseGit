@@ -133,8 +133,8 @@ CRevisionGraphWnd::CRevisionGraphWnd()
 
 	m_bTweakTrunkColors = CRegDWORD(L"Software\\TortoiseGit\\RevisionGraph\\TweakTrunkColors", TRUE) != FALSE;
 	m_bTweakTagsColors = CRegDWORD(L"Software\\TortoiseGit\\RevisionGraph\\TweakTagsColors", TRUE) != FALSE;
-	m_szTip[0]  = 0;
-	m_wszTip[0] = 0;
+	m_szTip[0]  = '0';
+	m_wszTip[0] = L'0';
 
 	m_GraphAttr.init(this->m_Graph, ogdf::GraphAttributes::nodeGraphics | ogdf::GraphAttributes::edgeGraphics |
 		ogdf:: GraphAttributes::nodeLabel | ogdf::GraphAttributes::nodeColor |

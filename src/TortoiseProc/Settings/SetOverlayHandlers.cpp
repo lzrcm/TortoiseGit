@@ -165,7 +165,7 @@ int CSetOverlayHandlers::GetInstalledOverlays()
 						nullptr,
 						&dwType, value, &dwSize) == ERROR_SUCCESS)
 					{
-						if ((dwSize > 10)&&(value[0] == '{'))
+						if ((dwSize > 10)&&(value[0] == L'{'))
 							nInstalledOverlayhandlers++;
 					}
 				}

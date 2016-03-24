@@ -972,7 +972,7 @@ void CRevisionGraphWnd::DrawConnections (GraphicsDevice& graphics, const CRect& 
 		path.SetFillMode(FillModeAlternate);
 		if(graphics.graphics)
 			graphics.graphics->DrawPath(&pen, &path);
-		else if(graphics.pSVG)
+		else if (graphics.pSVG)
 			graphics.pSVG->DrawPath(arrows, 5, Color(0,0,0), (int)penwidth, Color(0,0,0));
 	}
 }

@@ -3191,9 +3191,7 @@ BOOL CGitLogListBase::IsMatchFilter(bool bRegex, GitRevLoglist* pRev, std::tr1::
 		{
 			sRev = pRev->m_CommitHash.ToString();
 			if (std::regex_search(std::wstring((LPCWSTR)sRev), pat, flags))
-			{
 				return TRUE;
-			}
 		}
 
 		if (m_SelectedFilters & LOGFILTER_NOTES)
