@@ -570,7 +570,7 @@ void CShellExt::InsertGitMenu(BOOL istop, HMENU menu, UINT pos, UINT_PTR id, UIN
 			if (istop)
 				wcscpy_s(menutextbuffer, 255, L"Git ");
 			else
-				menutextbuffer[0] = '\0';
+				menutextbuffer[0] = L'\0';
 			MAKESTRING(IDS_MENUCOMMITSUBMODULE);
 			wcscat_s(menutextbuffer, 255, stringtablebuffer);
 		}

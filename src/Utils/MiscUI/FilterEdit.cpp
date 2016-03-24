@@ -374,7 +374,7 @@ void CFilterEdit::DrawDimText()
 		return;
 	if (GetWindowTextLength())
 		return;
-	if (m_pCueBanner.get()[0] == 0)
+	if (m_pCueBanner.get()[0] == L'\0')
 		return;
 	if (GetFocus() == this)
 		return;

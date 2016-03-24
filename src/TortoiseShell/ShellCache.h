@@ -477,8 +477,8 @@ public:
 		if (! bIsDir)
 		{
 			TCHAR * ptr = wcsrchr(buf.get(), '\\');
-			if (ptr != 0)
-				*ptr = 0;
+			if (ptr != L'\0')
+				*ptr = L'\0';
 		}
 		if ((GetTickCount64() - ADMINDIRTIMEOUT) < admindirticker)
 		{

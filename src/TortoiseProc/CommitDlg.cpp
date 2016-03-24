@@ -1824,7 +1824,7 @@ void CCommitDlg::ScanFile(const CString& sFilePath, const CString& sRegex, const
 	static std::map<CString, std::tr1::wregex> regexmap;
 
 	std::wstring sFileContent;
-	CAutoFile hFile = CreateFile(sFilePath, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, nullptr);
+	CAutoFile hFile = CreateFile(sFilePath, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATT, nullptr);
 	if (hFile)
 	{
 		DWORD size = GetFileSize(hFile, nullptr);

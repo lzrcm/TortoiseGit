@@ -117,7 +117,7 @@ CBrowseFolder::retVal CBrowseFolder::Show(HWND parent, CString& path, const CStr
 	// Set a title
 	TCHAR* nl = wcschr(m_title, '\n');
 	if (nl)
-		*nl = 0;
+		*nl = L'\0';
 	pfd->SetTitle(m_title);
 
 	// set the default folder
@@ -127,7 +127,7 @@ CBrowseFolder::retVal CBrowseFolder::Show(HWND parent, CString& path, const CStr
 	if (FAILED(pfd->SetFolder(psiDefault)))
 		return CANCEL;
 
-	if (m_CheckText[0] != 0)
+	if (m_CheckText[0] != L'\0')
 	{
 		CComPtr<IFileDialogCustomize> pfdCustomize;
 		if (FAILED(pfd.QueryInterface(&pfdCustomize)))
@@ -211,7 +211,7 @@ int CBrowseFolder::BrowseCallBackProc(HWND hwnd, UINT uMsg, LPARAM lParam, LPARA
 	//Initialization callback message
 	if (uMsg == BFFM_INITIALIZED)
 	{
-		if (m_CheckText[0] != 0)
+		if (m_CheckText[0] != L'\0')
 		{
 			bool bSecondCheckbox = (m_CheckText2[0] != 0);
 			//Rectangles for getting the positions
