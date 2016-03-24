@@ -713,7 +713,6 @@ bool CAppUtils::LaunchAlternativeEditor(const CString& filename, bool uac)
 	CString editTool = CRegString(L"Software\\TortoiseGit\\AlternativeEditor");
 	if (editTool.IsEmpty() || (editTool.Left(1).Compare(L"#") == 0)) {
 		editTool = CPathUtils::GetAppDirectory() + L"notepad2.exe";
-	}
 
 	CString sCmd;
 	sCmd.Format(L"\"%s\" \"%s\"", (LPCWSTR)editTool, (LPCWSTR)filename);
