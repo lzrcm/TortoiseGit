@@ -3167,6 +3167,7 @@ BOOL CAppUtils::Merge(const CString* commit, bool showStashPop)
 
 		if (dlg.m_bLog)
 			args.AppendFormat(L" --log=%d", dlg.m_nLog);
+
 		if (!dlg.m_MergeStrategy.IsEmpty())
 		{
 			args += L" --strategy=" + dlg.m_MergeStrategy;

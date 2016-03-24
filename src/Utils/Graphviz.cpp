@@ -30,7 +30,6 @@ void Graphviz::DrawNode(CString id, CString text, CString fontName, int fontSize
 	if (m_defaultFontName != fontName)
 		content.AppendFormat(L", fontname=\"%s\"", (LPCWSTR)fontName);
 
-
 	if (m_defaultFontSize != fontSize)
 		content.AppendFormat(L", fontsize=\"%d\"", fontSize);
 

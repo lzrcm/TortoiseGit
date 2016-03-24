@@ -439,17 +439,17 @@ UINT CCacheDlg::WatchTestThread()
 		for (int i=0; i<10; ++i)
 		{
 			filepath.Format(L"__MyDummyFolder%d", i);
-			CreateDirectory(m_sRootPath+L"\\"+filepath, NULL);
-			HANDLE hFile = CreateFile(m_sRootPath+L"\\"+filepath+L"\\file", GENERIC_READ, FILE_SHARE_READ, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+			CreateDirectory(m_sRootPath + L'\\' + filepath, nullptr);
+			HANDLE hFile = CreateFile(m_sRootPath + L'\\' + filepath + L"\\file", GENERIC_READ, FILE_SHARE_READ, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 			CloseHandle(hFile);
-			SHChangeNotify(SHCNE_UPDATEITEM, SHCNF_PATH | SHCNF_FLUSHNOWAIT, m_sRootPath+L"\\"+filepath+L"\\file", NULL);
+			SHChangeNotify(SHCNE_UPDATEITEM, SHCNF_PATH | SHCNF_FLUSHNOWAIT, m_sRootPath + L'\\' + filepath + L"\\file", NULL);
 		}
 		Sleep(500);
 		for (int i=0; i<10; ++i)
 		{
 			filepath.Format(L"__MyDummyFolder%d", i);
-			DeleteFile(m_sRootPath+L"\\"+filepath+L"\\file");
-			RemoveDirectory(m_sRootPath+L"\\"+filepath);
+			DeleteFile(m_sRootPath + L'\\' + filepath + L"\\file");
+			RemoveDirectory(m_sRootPath + L'\\' + filepath);
 		}
 		sNumber.Format(L"%d", outer);
 		GetDlgItem(IDC_DONE)->SetWindowText(sNumber);
