@@ -708,10 +708,11 @@ bool CAppUtils::LaunchPAgent(const CString* keyfile, const CString* pRemote)
 	::DeleteFile(tempfile);
 	return true;
 }
+
 bool CAppUtils::LaunchAlternativeEditor(const CString& filename, bool uac)
 {
 	CString editTool = CRegString(L"Software\\TortoiseGit\\AlternativeEditor");
-	if (editTool.IsEmpty() || (editTool.Left(1).Compare(L"#") == 0)) {
+	if (editTool.IsEmpty() || (editTool.Left(1).Compare(L"#") == 0))
 		editTool = CPathUtils::GetAppDirectory() + L"notepad2.exe";
 
 	CString sCmd;
@@ -720,6 +721,7 @@ bool CAppUtils::LaunchAlternativeEditor(const CString& filename, bool uac)
 	LaunchApplication(sCmd, 0, false, nullptr, uac);
 	return true;
 }
+
 bool CAppUtils::LaunchRemoteSetting()
 {
 	CTGitPath path(g_Git.m_CurrentDir);
@@ -732,6 +734,7 @@ bool CAppUtils::LaunchRemoteSetting()
 	dlg.HandleRestart();
 	return true;
 }
+
 /**
 * Launch the external blame viewer
 */
