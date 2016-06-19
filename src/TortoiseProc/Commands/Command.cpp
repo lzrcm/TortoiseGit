@@ -77,6 +77,7 @@
 #include "RevisiongraphCommand.h"
 #include "ShowCompareCommand.h"
 #include "DaemonCommand.h"
+#include "SyncSettingsCommand.h"
 
 #if 0
 
@@ -168,6 +169,7 @@ typedef enum
 	cmdRevisionGraph,
 	cmdDaemon,
 	cmdPGPFP,
+	cmdSyncSettings,
 } TGitCommand;
 
 static const struct CommandInfo
@@ -242,6 +244,7 @@ static const struct CommandInfo
 	{	cmdRevisionGraph,	_T("revisiongraph")		},
 	{	cmdDaemon,			_T("daemon")			},
 	{	cmdPGPFP,			_T("pgpfp")				},
+	{	cmdSyncSettings,	_T("syncsettings")		},
 };
 
 
@@ -380,6 +383,8 @@ Command * CommandServer::GetCommand(const CString& sCmd)
 		return new ShowCompareCommand;
 	case cmdDaemon:
 		return new DaemonCommand;
+	case cmdSyncSettings:
+		return new SyncSettingsCommand;
 
 #if 0
 

@@ -120,6 +120,7 @@
     <ClCompile Include="BugtraqRegexTestDlg.cpp" />
     <ClCompile Include="CheckCertificateDlg.cpp" />
     <ClCompile Include="Commands\DaemonCommand.cpp" />
+    <ClCompile Include="Commands\SyncSettingsCommand.cpp" />
     <ClCompile Include="FindBar.cpp" />
     <ClCompile Include="GravatarPictureBox.cpp" />
     <ClCompile Include="MergeAbortDlg.cpp" />
@@ -387,6 +388,7 @@
     <ClInclude Include="CheckCertificateDlg.h" />
     <ClInclude Include="Commands\AutoTextTestCommand.h" />
     <ClInclude Include="Commands\DaemonCommand.h" />
+    <ClInclude Include="Commands\SyncSettingsCommand.h" />
     <ClInclude Include="FindBar.h" />
     <ClInclude Include="GravatarPictureBox.h" />
     <ClInclude Include="MergeAbortDlg.h" />

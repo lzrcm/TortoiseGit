@@ -228,3 +228,17 @@ TEST(CStringUtils, IsPlainReadableASCII)
 	EXPECT_FALSE(CStringUtils::IsPlainReadableASCII(L"\u570B"));
 	EXPECT_FALSE(CStringUtils::IsPlainReadableASCII(L"\u7ACB"));
 }
+
+TEST(CStringUtils, EnDecrypt)
+{
+	CString widecrypt = CStringUtils::Encrypt(L"test");
+	auto wide = CStringUtils::Decrypt(widecrypt);
+	EXPECT_TRUE(wcscmp(wide.get(), L"test") == 0);
+	CStringA charcrypt = CStringUtils::Encrypt("test");
+	auto charnorm = CStringUtils::Decrypt(charcrypt);
+	EXPECT_TRUE(strcmp(charnorm.get(), "test") == 0);
+
+	std::string encrypted = CStringUtils::Encrypt("test", "test");
+	std::string decrypted = CStringUtils::Decrypt(encrypted, "test");
+	EXPECT_TRUE(decrypted.compare("test") == 0);
+}
