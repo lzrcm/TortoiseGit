@@ -162,6 +162,9 @@
     <Filter Include="TortoiseGitMerge">
       <UniqueIdentifier>{69ffded7-2494-4d2b-b7d8-4681289c8b1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Commands\FirstStart">
+      <UniqueIdentifier>{6356a693-c68f-494c-8b38-ea863b7d5b6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AddRemoteDlg.cpp">
@@ -913,6 +916,18 @@
     </ClCompile>
     <ClCompile Include="ColumnManager.cpp">
       <Filter>Utility Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstStartWizard.cpp">
+      <Filter>Commands\FirstStart</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstStartWizardStart.cpp">
+      <Filter>Commands\FirstStart</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstStartWizardBasePage.cpp">
+      <Filter>Commands\FirstStart</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\FirstStartCommand.cpp">
+      <Filter>Commands\FirstStart</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1707,6 +1722,18 @@
     </ClInclude>
     <ClInclude Include="..\Utils\MiscUI\CommonDialogFunctions.h">
       <Filter>Utils\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstStartWizard.h">
+      <Filter>Commands\FirstStart</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstStartWizardStart.h">
+      <Filter>Commands\FirstStart</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstStartWizardBasePage.h">
+      <Filter>Commands\FirstStart</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\FirstStartCommand.h">
+      <Filter>Commands\FirstStart</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
