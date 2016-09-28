@@ -641,6 +641,10 @@ void CGitStatusListCtrl::Show(unsigned int dwShow, unsigned int dwCheck /*=0*/, 
 		std::sort(m_arStatusArray.begin(), m_arStatusArray.end(), predicate);
 	}
 
+	int lastSelectedFilename = -1;
+	if (m_lastSelectedFilename.IsEmpty())
+		lastSelectedFilename = 0;
+
 	int index =0;
 	for (size_t i = 0; i < m_arStatusArray.size(); ++i)
 	{
@@ -662,6 +666,8 @@ void CGitStatusListCtrl::Show(unsigned int dwShow, unsigned int dwCheck /*=0*/, 
 		if(entry->m_Action & dwShow)
 		{
 			AddEntry(entry,langID,index);
+			if (lastSelectedFilename == -1 && CTGitPath::ArePathStringsEqualWithCase(path, m_lastSelectedFilename))
+				lastSelectedFilename = index;
 			index++;
 		}
 	}
@@ -709,6 +715,18 @@ void CGitStatusListCtrl::Show(unsigned int dwShow, unsigned int dwCheck /*=0*/, 
 	m_bBusy = false;
 	m_bEmpty = (GetItemCount() == 0);
 	Invalidate();
+
+	if (!m_bEmpty && lastSelectedFilename >= 0)
+	{
+		CString theSelectedFilename = m_lastSelectedFilename;
+		SetItemState((int)lastSelectedFilename, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
+		m_lastSelectedFilename = theSelectedFilename;
+
+		int countPerPage = GetCountPerPage();
+		EnsureVisible(max(0, (int)lastSelectedFilename - countPerPage / 2), FALSE);
+		EnsureVisible(min(GetItemCount(), (int)lastSelectedFilename + countPerPage / 2), FALSE);
+		EnsureVisible((int)lastSelectedFilename, FALSE);
+	}
 
 	this->BuildStatistics();
 
@@ -1160,10 +1178,15 @@ BOOL CGitStatusListCtrl::OnLvnItemchanged(NMHDR *pNMHDR, LRESULT *pResult)
 	if (pParent && pParent->GetSafeHwnd())
 		pParent->SendMessage(GITSLNM_ITEMCHANGED, pNMLV->iItem);
 
-	if ((pNMLV->uNewState==0)||(pNMLV->uNewState & LVIS_SELECTED)||(pNMLV->uNewState & LVIS_FOCUSED))
+	if (m_bBlock)
 		return FALSE;
 
-	if (m_bBlock)
+	if (pNMLV->iItem >= 0 && pNMLV->uNewState & LVIS_SELECTED)
+		m_lastSelectedFilename = GetListEntry(pNMLV->iItem)->GetGitPathString();
+	else
+		m_lastSelectedFilename.Empty();
+
+	if ((pNMLV->uNewState==0)||(pNMLV->uNewState & LVIS_SELECTED)||(pNMLV->uNewState & LVIS_FOCUSED))
 		return FALSE;
 
 	bool bSelected = !!(ListView_GetItemState(m_hWnd, pNMLV->iItem, LVIS_SELECTED) & LVIS_SELECTED);

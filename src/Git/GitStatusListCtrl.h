@@ -847,6 +847,8 @@ private:
 	CString						m_sBusy;
 	CString						m_sNoPropValueText;
 
+	CString						m_lastSelectedFilename;
+
 	bool						m_bCheckChildrenWithParent;
 	CGitStatusListCtrlDropTarget * m_pDropTarget;
 
